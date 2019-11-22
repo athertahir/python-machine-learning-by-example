@@ -282,6 +282,7 @@ true_pos_rate = [tp / 516.0 for tp in true_pos]
 false_pos_rate = [fp / 1191.0 for fp in false_pos]
 
 
+%matplotlib notebook
 import matplotlib.pyplot as plt
 plt.figure()
 lw = 2

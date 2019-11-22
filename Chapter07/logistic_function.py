@@ -13,6 +13,7 @@ def sigmoid(input):
     return 1.0 / (1 + np.exp(-input))
 
 
+%matplotlib notebook
 import matplotlib.pyplot as plt
 z = np.linspace(-8, 8, 1000)
 y = sigmoid(z)

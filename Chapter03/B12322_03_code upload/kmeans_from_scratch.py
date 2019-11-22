@@ -12,6 +12,7 @@ X = iris.data[:, 2:4]
 y = iris.target
 
 import numpy as np
+%matplotlib notebook
 from matplotlib import pyplot as plt
 y_0 = np.where(y==0)
 plt.scatter(X[y_0, 0], X[y_0, 1])

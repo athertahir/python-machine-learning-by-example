@@ -22,6 +22,7 @@ np.unique(groups.target)
 
 import seaborn as sns
 sns.distplot(groups.target)
+%matplotlib notebook
 import matplotlib.pyplot as plt
 plt.show()
 
