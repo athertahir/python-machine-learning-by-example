@@ -8,3 +8,8 @@
 echo 'Installing Dependencies'
 
 pip install numpy==1.16.0
+pip install nltk spacy
+
+pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
+
+conda install -c conda-forge nltk_data -y
