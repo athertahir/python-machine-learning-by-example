@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 5: Classifying Newsgroup Topic with Support Vector Machine
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC

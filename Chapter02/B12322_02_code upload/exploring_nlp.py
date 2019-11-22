@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 2: Exploring the 20 Newsgroups Dataset with Text Analysis Techniques
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 from nltk.corpus import names
 
 print(names.words()[:10])

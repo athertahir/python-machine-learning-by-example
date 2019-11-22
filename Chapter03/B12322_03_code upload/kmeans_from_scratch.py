@@ -1,10 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 3: Mining the 20 Newsgroups Dataset with Clustering and Topic Modeling Algorithms
 Author: Yuxi (Hayden) Liu
 '''
 
-
+# %%
 from sklearn import datasets
 iris = datasets.load_iris()
 X = iris.data[:, 2:4]

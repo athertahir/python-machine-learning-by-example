@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 8: Scaling Up Learning On Massive Click Logs
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 from pyspark.sql import SparkSession
 
 

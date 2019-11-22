@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 6: Predicting Online Ads Click-through with Tree-Based Algorithms
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 import pandas as pd
 n_rows = 300000
 df = pd.read_csv("train", nrows=n_rows)

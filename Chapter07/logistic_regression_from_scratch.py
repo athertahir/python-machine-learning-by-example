@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 7: Predicting Online Ads Click-through with Logistic Regression
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 import numpy as np
 
 def sigmoid(input):

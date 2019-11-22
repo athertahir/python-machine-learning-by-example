@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 6: Predicting Online Ads Click-through with Tree-Based Algorithms
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 import matplotlib.pyplot as plt
 import numpy as np
 

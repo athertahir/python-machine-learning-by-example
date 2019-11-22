@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 9: Stock Price Prediction with Regression Algorithms
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 from sklearn import datasets
 diabetes = datasets.load_diabetes()
 num_test = 30    # the last 30 samples as testing set

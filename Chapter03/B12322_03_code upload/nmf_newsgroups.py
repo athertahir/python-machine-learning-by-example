@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 3: Mining the 20 Newsgroups Dataset with Clustering and Topic Modeling Algorithms
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 from sklearn.datasets import fetch_20newsgroups
 
 categories = [

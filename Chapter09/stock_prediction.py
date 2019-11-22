@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 9: Stock Price Prediction with Regression Algorithms
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 import pandas as pd
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score

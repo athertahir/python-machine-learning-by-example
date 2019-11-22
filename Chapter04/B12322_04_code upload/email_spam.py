@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 4: Detecting Spam Email with Naive Bayes
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 # -*- coding: utf-8 -*-
 
 import glob

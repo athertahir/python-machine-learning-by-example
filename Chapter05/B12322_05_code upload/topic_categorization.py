@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 5: Classifying Newsgroup Topic with Support Vector Machine
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.datasets import fetch_20newsgroups
 from nltk.corpus import names
