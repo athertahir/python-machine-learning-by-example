@@ -3,7 +3,7 @@ import tensorflow as tf
 
 import pandas as pd
 n_rows = 300000
-df = pd.read_csv("train", nrows=n_rows)
+df = pd.read_csv("train.csv", nrows=n_rows)
 
 X = df.drop(['click', 'id', 'hour', 'device_id', 'device_ip'], axis=1).values
 Y = df['click'].values

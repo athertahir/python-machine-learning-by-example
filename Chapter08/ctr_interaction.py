@@ -49,7 +49,7 @@ schema = StructType([
 
 
 
-df = spark.read.csv("file:///Users/hayden/dev/project/my_python2_book/ch7/train", schema=schema, header=True)
+df = spark.read.csv("train.csv", schema=schema, header=True)
 
 
 df = df.drop('id').drop('hour').drop('device_id').drop('device_ip')

@@ -106,7 +106,7 @@ param_grid = {
 
 
 from sklearn.linear_model import SGDRegressor
-lr = SGDRegressor(penalty='l2', n_iter=1000)
+lr = SGDRegressor(penalty='l2')
 grid_search = GridSearchCV(lr, param_grid, cv=5, scoring='r2')
 grid_search.fit(X_scaled_train, y_train)
 

@@ -8,7 +8,7 @@ Author: Yuxi (Hayden) Liu
 # %%
 import pandas as pd
 n_rows = 300000
-df = pd.read_csv("train", nrows=n_rows)
+df = pd.read_csv("train.csv", nrows=n_rows)
 print(df.head(5))
 
 

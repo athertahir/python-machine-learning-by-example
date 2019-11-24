@@ -12,7 +12,7 @@ from sklearn.metrics import roc_auc_score
 
 import pandas as pd
 n_rows = 300000
-df = pd.read_csv("train", nrows=n_rows)
+df = pd.read_csv("train.csv", nrows=n_rows)
 
 X = df.drop(['click', 'id', 'hour', 'device_id', 'device_ip'], axis=1).values
 Y = df['click'].values
@@ -65,7 +65,7 @@ print('10 most important features are:\n', feature_names[top_10])
 
 
 n_rows = 100000 * 11
-df = pd.read_csv("train", nrows=n_rows)
+df = pd.read_csv("train.csv", nrows=n_rows)
 
 X = df.drop(['click', 'id', 'hour', 'device_id', 'device_ip'], axis=1).values
 Y = df['click'].values
