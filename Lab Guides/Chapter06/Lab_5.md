@@ -282,7 +282,7 @@ The fraction of the positive class varies from 0 to 1:
 ```
 
 Gini Impurity is calculated accordingly, followed by the plot of
-`Gini Impurity`{.literal} versus `Positive fraction`{.literal}:
+`Gini Impurity` versus `Positive fraction`:
 
 ```
 >>> gini = 1 – pos_fraction**2 – (1-pos_fraction)**2
@@ -298,7 +298,7 @@ Refer to the following screenshot for the end result:
 ![](./81bc454e-ef45-43a9-8ace-e3c801452f9a.png)
 
 Given the labels of a dataset, we can implement
-the `Gini Impurity`{.literal} calculation function as follows:
+the `Gini Impurity` calculation function as follows:
 
 ```
 >>> def gini_impurity(labels):
@@ -393,7 +393,7 @@ This will give us the following output:
 
 ![](./27b398f1-f46f-497f-9c1f-f678ed650465.png)
 
-Given the labels of a dataset, the `entropy`{.literal} calculation
+Given the labels of a dataset, the `entropy` calculation
 function can be implemented as follows:
 
 ```
@@ -504,7 +504,7 @@ practice the CART tree algorithm by hand on a toy dataset:
 
 To begin, we decide on the first splitting point, the root, by trying
 out all possible values for each of the two features. We utilize the
-`weighted_impurity`{.literal} function we just defined to calculate the
+`weighted_impurity` function we just defined to calculate the
 weighted Gini Impurity for each possible combination as follows:
 
 Gini(interest, tech) = weighted\_impurity([[1, 1, 0], [0, 0, 0, 1]]) =
@@ -536,8 +536,8 @@ Gini(occupation, professional) = weighted\_impurity([[0, 1, 0], [1, 1]])
 1]]) = 0.467 Gini(occupation, retired) = weighted\_impurity([[1, 0, 1,
 1], [0]]) = 0.300
 
-With the second splitting point specified by (`occupation`{.literal},
-`professional`{.literal}) with the lowest Gini Impurity, our tree
+With the second splitting point specified by (`occupation`,
+`professional`) with the lowest Gini Impurity, our tree
 becomes this:
 
 ![](./a8d2b0d4-c2ed-4dec-bbb2-e492f7e27fbe.png)
@@ -576,7 +576,7 @@ Also, take a look at the following code:
 ...     return - np.sum(fractions * np.log2(fractions))
 ```
 
-Also update the `weighted_impurity`{.literal} function as follows:
+Also update the `weighted_impurity` function as follows:
 
 ```
 >>> def weighted_impurity(groups, criterion='gini'):
@@ -838,7 +838,7 @@ we hand-crafted.
 
 Now that we have a more solid understanding of decision trees by
 implementing one from scratch, we can try the decision tree package from
-`scikit-learn`{.literal}, which is already well developed and optimized:
+`scikit-learn`, which is already well developed and optimized:
 
 ```
 >>> from sklearn.tree import DecisionTreeClassifier
@@ -848,7 +848,7 @@ implementing one from scratch, we can try the decision tree package from
 ```
 
 To visualize the tree we just built, we utilize the built-in
-`export_graphviz`{.literal}function, as follows:
+`export_graphviz`function, as follows:
 
 ```
 >>> export_graphviz(tree_sk, out_file='tree.dot',
@@ -856,7 +856,7 @@ To visualize the tree we just built, we utilize the built-in
        class_names=['0', '1'])
 ```
 
-Running this will generate a file called `tree.dot`{.literal}, which can
+Running this will generate a file called `tree.dot`, which can
 be converted to a PNG image file using **Graphviz** (introduction and
 installation instructions can be found
 at [http://www.graphviz.org)](http://www.graphviz.org/)) by running the
