@@ -187,11 +187,10 @@ We convert the string feature into ordinal values based on the mapping
 we define.
 
 
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter07/encoding.py` to view file.
+##### Run Notebook
+The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-#### Run Code
-Now, run the python code by running: `python encoding.py`{{execute}}
-
+You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/encoding.ipynb`
 
 Classifying data with logistic regression
 -----------------------------------------
@@ -373,12 +372,10 @@ Due to the logarithmic function, the cost function 
 
  is also called **logarithmic loss**, or simply **log loss****.**
 
+##### Run Notebook
+The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter07/logistic_function.py` to view file.
-
-#### Run Code
-Now, run the python code by running: `python logistic_function.py`{{execute}}
-
+You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/logistic_function.ipynb`
 
 Training on large datasets with online learning
 -----------------------------------------------
@@ -606,11 +603,10 @@ It doesn't look much different from the previous example, since
 `SGDClassifier` handles multiclass internally.
 
 
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter07/scikit_logistic_regression.py` to view file.
+##### Run Notebook
+The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-#### Run Code
-Now, run the python code by running: `python scikit_logistic_regression.py`{{execute}}
-
+You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/scikit_logistic_regression.ipynb`
 
 Feature selection using random forest
 -------------------------------------
@@ -685,8 +681,7 @@ And now, take a look at the top 10 feature scores and the corresponding
  'x14_1993' 'x15_2' 'x2_d9750ee7' 'x18_33']
 ```
 
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter07/random_forest_feature_selection.py` to view file.
+##### Run Notebook
+The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-#### Run Code
-Now, run the python code by running: `python random_forest_feature_selection.py`{{execute}}
-
+You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/random_forest_feature_selection.ipynb`
