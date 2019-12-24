@@ -28,15 +28,23 @@ We will run Jupyter Notebook as a Docker container. This setup will take some ti
 
 `docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes fenago/python-machine-learning-by-example start-notebook.sh`
 
-`docker exec -it jupyter bash -c 'cd work && git clone https://github.com/athertahir/python-machine-learning-by-example.git'`
-
 **Note:** Jupyter notebook will be accessible at port 8888 of the host machine.
 
-All Notebooks are present in `work` folder.
-
-#### Login
 When the container is running, execute this statement to see container logs:
 `docker logs jupyter 2>&1 | grep -v "404"`
+
+#### Login
+
+Open Jupyter Lab at port 8888 and use password `1234` to login.
+
+#### Checkout Notebooks
+
+Open terminal and run following command to download notebooks in `work` folder.
+
+`cd work && git clone https://github.com/athertahir/python-machine-learning-by-example.git`
+
+All Notebooks are downloaded in `work` folder.
+
 
 # How computers understand language - NLP
 Machine learning driven programs or computers are good at discovering event patterns by processing and working with data. When the data is well structured or well defined, such as in a Microsoft Excel spreadsheet table and relational database table, it is intuitively obvious why machine learning is better at dealing with it than humans. Computers read such data the same way as humans, for example, revenue: 5,000,000 as the revenue being 5 million and age: 30 as age being 30; then computers crunch assorted data and generate insights. However, when the data is unstructured, such as words with which humans communicate, news articles, or someone's speech in French, it seems computers cannot understand words as well as human do (yet).
