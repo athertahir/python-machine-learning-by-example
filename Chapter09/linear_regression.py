@@ -90,7 +90,7 @@ X_test = np.array([[1.3], [3.5], [5.2], [2.8]])
 
 predictions = predict(X_test, weights)
 
-%matplotlib notebook
+%matplotlib inline
 import matplotlib.pyplot as plt
 plt.scatter(X_train[:, 0], y_train, marker='o', c='b')
 plt.scatter(X_test[:, 0], predictions, marker='*', c='k')

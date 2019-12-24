@@ -28,10 +28,10 @@ We will run Jupyter Notebook as a Docker container. This setup will take some ti
 
 `docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes fenago/python-machine-learning-by-example start-notebook.sh`
 
-**Note:** Jupyter notebook will be accessible at port 8888 of the host machine.
-
 When the container is running, execute this statement to see container logs:
 `docker logs jupyter 2>&1 | grep -v "404"`
+
+**Note:** Jupyter notebook will be accessible at port 8888 of the host machine.
 
 #### Login
 

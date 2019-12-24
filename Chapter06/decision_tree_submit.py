@@ -6,7 +6,7 @@ Author: Yuxi (Hayden) Liu
 '''
 
 # %%
-%matplotlib notebook
+%matplotlib inline
 import matplotlib.pyplot as plt
 import numpy as np
 

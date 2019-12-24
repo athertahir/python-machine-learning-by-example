@@ -9,7 +9,7 @@ Author: Yuxi (Hayden) Liu
 from sklearn import datasets
 from sklearn.cluster import KMeans
 import numpy as np
-%matplotlib notebook
+%matplotlib inline
 from matplotlib import pyplot as plt
 
 iris = datasets.load_iris()
