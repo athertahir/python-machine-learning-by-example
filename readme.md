@@ -8,6 +8,16 @@ We will run Jupyter Notebook as a Docker container. This setup will take some ti
 
 `docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes fenago/python-machine-learning-by-example start-notebook.sh`
 
-`docker exec -it jupyter bash -c 'cd work && git clone https://github.com/athertahir/python-machine-learning-by-example.git'`
+#### Login
 
-**Note:** Jupyter notebook will be accessible at port 8888 of the host machine.
+Open Jupyter Lab at port 8888 and use password `1234` to login.
+
+#### Checkout Notebooks
+
+Open terminal and run following command to download notebooks in `work` folder.
+
+`cd work && git clone https://github.com/athertahir/python-machine-learning-by-example.git`
+
+All Notebooks are downloaded in `work` folder.
+
+![](./terminal.png)
