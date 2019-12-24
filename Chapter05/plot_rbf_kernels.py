@@ -7,7 +7,7 @@ Author: Yuxi (Hayden) Liu
 
 # %%
 import numpy as np
-%matplotlib notebook
+%matplotlib inline
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
 
