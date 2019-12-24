@@ -26,36 +26,17 @@ We will go into detail for each of the following topics:
 #### Lab Environment
 We will run Jupyter Notebook as a Docker container. This setup will take some time because of the size of the image. Run the following commands one by one:
 
-`docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes jupyter/tensorflow-notebook:2ce7c06a61a1 start-notebook.sh`
+`docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes fenago/python-machine-learning-by-example start-notebook.sh`
 
-`docker exec -it jupyter bash -c 'cd /home/jovyan/work && git clone https://github.com/athertahir/python-machine-learning-by-example.git && sudo && chmod +x ~/work/prepareContainer.sh && ~/prepareContainer.sh'`
+`docker exec -it jupyter bash -c 'cd work && git clone https://github.com/athertahir/python-machine-learning-by-example.git'`
 
-`docker restart jupyter`
-
-**Note:** After completing these steps, jupyter notebook will be accessible at port 8888 of the host machine.
+**Note:** Jupyter notebook will be accessible at port 8888 of the host machine.
 
 All Notebooks are present in `work` folder.
 
-</br>
-
 #### Login
-When the container is running, execute this statement:
-`docker logs jupyter 2>&1 | grep -v "HEAD" `
-
-
-This will show something like:
-
-```
-Copy/paste this URL into your browser when you connect for the first time, to login with a token:
-    http://localhost:8888/?token=f89b02dd78479d52470b3c3a797408b20cc5a11e067e94b8
-    THIS IS NOT YOUR TOKEN.  YOU HAVE TO SEARCH THE LOGS TO GET YOUR TOKEN
-```
-
-The token is the value behind `/?token=`. You need that for logging in.
-
-**Note:** You can also run following command to get token directly: 
-`docker exec -it jupyter bash -c 'jupyter notebook list' | cut -d'=' -f 2 | cut -d' ' -f 1`
-
+When the container is running, execute this statement to see container logs:
+`docker logs jupyter 2>&1 | grep -v "404"`
 
 # How computers understand language - NLP
 Machine learning driven programs or computers are good at discovering event patterns by processing and working with data. When the data is well structured or well defined, such as in a Microsoft Excel spreadsheet table and relational database table, it is intuitively obvious why machine learning is better at dealing with it than humans. Computers read such data the same way as humans, for example, revenue: 5,000,000 as the revenue being 5 million and age: 30 as age being 30; then computers crunch assorted data and generate insights. However, when the data is unstructured, such as words with which humans communicate, news articles, or someone's speech in French, it seems computers cannot understand words as well as human do (yet).
@@ -99,9 +80,11 @@ After a short list of real-world applications of NLP, we'll be touring the essen
 
 The most famous NLP libraries in Python include the Natural Language Toolkit (NLTK), spaCy, Gensim, and TextBlob. The scikit-learn library also has impressive NLP-related features. Let's take a look at the following popular NLP libraries in Python:
 
+**Note:** These libraries have been installed already.
+
 **nltk:** This library (http://www.nltk.org/) was originally developed for educational purposes and is now being widely used in industries as well. It is said that you can't talk about NLP without mentioning NLTK. It is one of the most famous and leading platforms for building Python-based NLP applications. You can install it simply by running the following command line in terminal:
 
-`sudo pip install -U nltk`
+`pip install -U nltk`
 
 **SpaCy:** This library (https://spacy.io/) is a more powerful toolkit in the industry than NLTK. This is mainly for two reasons: one, spaCy is written in Cython, which is much more memory-optimized (now you see where the Cy in spaCy comes from) and excels in NLP tasks; second, spaCy keeps using state-of-the-art algorithms for core NLP problems, such as, convolutional neural network (CNN) models for tagging and name entity recognition. But it could seem advanced for beginners. In case you're interested, here's the installation instructions.
 
