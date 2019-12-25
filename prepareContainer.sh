@@ -18,39 +18,15 @@ python -m nltk.downloader all
 
 # conda install -c conda-forge nltk_data -y
 
-pip install pyspark
+sudo pip install pyspark
 
 
-pip install --upgrade \
-    jupyterlab==1.2.4 \
-    ipywidgets \
-    jupyterlab_latex \
-    plotly \
-    bokeh \
-    numpy \
-    scipy \
-    numexpr \
-    patsy \
-    scikit-learn \
-    scikit-image \
-    matplotlib \
-    ipython \
-    pandas \
-    sympy \
-    seaborn \
-    nose \
-    jupyterlab-git && \
-  jupyter labextension install \
-    @jupyter-widgets/jupyterlab-manager \
-    @jupyterlab/latex \
-    @mflevine/jupyterlab_html \
-    jupyterlab-drawio \
-    @jupyterlab/plotly-extension \
-    jupyterlab_bokeh \
-    jupyterlab-spreadsheet \
-    @jupyterlab/git
+sudo pip install --upgrade jupyterlab-git
 
-jupyter serverextension enable --py jupyterlab_git
+sudo jupyter labextension install @jupyterlab/git
+
+
+sudo jupyter serverextension enable --py jupyterlab_git
 
 apt-get update
 
