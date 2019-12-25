@@ -50,6 +50,7 @@ pip install --upgrade \
     jupyterlab-spreadsheet \
     @jupyterlab/git
 
+jupyter serverextension enable --py jupyterlab_git
 
 apt-get update
 
