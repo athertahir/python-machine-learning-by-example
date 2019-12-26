@@ -1,3 +1,4 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 10: Machine Learning Best Practices
@@ -5,7 +6,7 @@ Author: Yuxi (Hayden) Liu
 '''
 
 
-
+# %%
 from sklearn.datasets import load_digits
 dataset = load_digits()
 X, y = dataset.data, dataset.target

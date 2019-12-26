@@ -1,10 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 10: Machine Learning Best Practices
 Author: Yuxi (Hayden) Liu
 '''
 
-
+# %%
 import numpy as np
 from sklearn.datasets import load_digits
 dataset = load_digits()

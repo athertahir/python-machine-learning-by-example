@@ -1,9 +1,11 @@
+# %%
 '''
 Source codes for Python Machine Learning By Example 2nd Edition (Packt Publishing)
 Chapter 10: Machine Learning Best Practices
 Author: Yuxi (Hayden) Liu
 '''
 
+# %%
 from sklearn import datasets
 dataset = datasets.load_diabetes()
 X, y = dataset.data, dataset.target
