@@ -24,7 +24,9 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 **Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-All Notebooks are present in `work` folder.
+All Notebooks are present in `work/python-machine-learning-by-example` folder.
+
+You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab2_Clustering_Topic_Modeling`
 
 # Learning without guidance – unsupervised learning
 In the previous chapter, we apply t-SNE to visualize the newsgroup text data in reduced 2 dimensions. T-SNE, or dimensionality reduction in general, is a type of unsupervised learning. Instead of having a teacher educating what particular output to produce, be it a class or membership (classification), be it a continuous value (regression), unsupervised learning identifies inherent structures or commonalities in the input data. Since there is no guidance in unsupervised learning, there is no clear answer on what is a right or wrong result. Unsupervised learning has the freedom to discover hidden information underneath input data.
@@ -76,17 +78,13 @@ It is very easy to understand the k-means clustering algorithm and its implement
 We use the iris dataset from scikit-learn as an example. Let's first load the data and visualize it.
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/kmeans_from_scratch.ipynb`
+Open and run Jupyter Notebook `kmeans_from_scratch.ipynb`
 
 #### Implementing k-means with scikit-learn
 Having developed our own k-means clustering model, we can now learn how to use scikit-learn for a quicker solution by performing the following steps:
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/kmeans_sklearn.ipynb`
+Open and run Jupyter Notebook `kmeans_sklearn.ipynb`
 
 #### Choosing the value of k
 Let's return to our earlier discussion on what is the right value for k. In the preceding example, it is more intuitive to set it to 3 since we know there are three classes in total. However, in most cases, we don't know how many groups are sufficient or efficient, while the algorithm needs a specific value of k to start with. So, how can we choose the value for k? There is a famous approach called the Elbow method.
@@ -96,13 +94,13 @@ In the Elbow method, different values of k are chosen and corresponding models a
 Let's apply the Elbow method to the example we covered in the previous section (that's what this book is all about). We perform k-means clustering under different values of k on the iris data:
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `kmeans_elbow.ipynb` in the `work` folder.
+Open and run Jupyter Notebook `kmeans_elbow.ipynb`.
 
 #### Clustering newsgroups data using k-means
 Up to this point, you should be very familiar with k-means clustering. Let's see what we are able to mine from the newsgroups dataset using this algorithm. We, herein, use all data from four categories as an example.
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `kmeans_newsgroups.ipynb` in the `work` folder.
+Open and run Jupyter Notebook `kmeans_newsgroups.ipynb`.
 
 # Discovering underlying topics in newsgroups
 A **topic model** is a type of statistical model for discovering the probability distributions of words linked to the topic. The topic in topic modeling does not exactly match the dictionary definition, but corresponds to a nebulous statistical concept, an abstraction occurs in a collection of documents.
@@ -129,9 +127,7 @@ Let's now apply NMF to our newsgroups data. Scikit-learn has a nice module for d
 ![](./3.png)
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/nmf_newsgroups.ipynb`
+Open and run Jupyter Notebook `nmf_newsgroups.ipynb`
 
 # Topic modeling using LDA
 Let's explore another popular topic modeling algorithm, latent Dirichlet allocation (LDA). LDA is a generative probabilistic graphical model that explains each input document by means of a mixture of topics with certain probabilities. Again, topic in topic modeling means a collection of words with a certain connection. In other words, LDA basically deals with two probability values, P(term | topic) and P(topic | document). This can be difficult to understand at the beginning. So, let's start from the bottom, the end result of an LDA model.
@@ -187,9 +183,7 @@ Again, we specify 20 topics (n_components). The key parameters of the model are 
 ![](./4.png)
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/lda_newsgroups.ipynb`
+Open and run Jupyter Notebook `lda_newsgroups.ipynb`
 
 # Summary
 The project in this chapter was about finding hidden similarity underneath newsgroups data, be it semantic groups, be it themes, or word clouds. We started with what unsupervised learning does and the typical types of unsupervised learning algorithms. We then introduced unsupervised learning clustering and studied a popular clustering algorithm, k-means, in detail. We also talked about tf-idf as a more efficient feature extraction tool for text data. After that, we performed k-means clustering on the newsgroups data and obtained four meaningful clusters. After examining the key terms in each resulting cluster, we went straight to extracting representative terms among original documents using topic modeling techniques. Two powerful topic modeling approaches, NMF and LDA, were discussed and implemented. Finally, we had some fun interpreting the topics we obtained from both methods.

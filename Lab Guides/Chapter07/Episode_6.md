@@ -23,7 +23,9 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 **Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-All Notebooks are present in `work` folder.
+All Notebooks are present in `work/python-machine-learning-by-example` folder.
+
+You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab6_Logistic_Regression`
 
 Converting categorical features to numerical – one-hot encoding and ordinal encoding
 ------------------------------------------------------------------------------------
@@ -163,9 +165,7 @@ we define.
 
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/encoding.ipynb`
+Open and run Jupyter Notebook `<host-ip>:<port>/notebooks/work/Chapter07/encoding.ipynb`
 
 Classifying data with logistic regression
 -----------------------------------------
@@ -348,9 +348,7 @@ Due to the logarithmic function, the cost function 
  is also called **logarithmic loss**, or simply **log loss****.**
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/logistic_function.ipynb`
+Open and run Jupyter Notebook `logistic_function.ipynb`
 
 Training on large datasets with online learning
 -----------------------------------------------
@@ -579,9 +577,7 @@ It doesn't look much different from the previous example, since
 
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/scikit_logistic_regression.ipynb`
+Open and run Jupyter Notebook `scikit_logistic_regression.ipynb`
 
 Feature selection using random forest
 -------------------------------------
@@ -657,6 +653,4 @@ And now, take a look at the top 10 feature scores and the corresponding
 ```
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/random_forest_feature_selection.ipynb`
+Open and run Jupyter Notebook `random_forest_feature_selection.ipynb`

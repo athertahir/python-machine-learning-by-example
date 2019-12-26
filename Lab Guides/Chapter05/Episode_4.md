@@ -24,7 +24,9 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 **Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-All Notebooks are present in `work` folder.
+All Notebooks are present in `work/python-machine-learning-by-example` folder.
+
+You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab4_Support_Vector`
 
 Finding separating boundary with support vector machines
 --------------------------------------------------------
@@ -766,9 +768,7 @@ visualize the trained decision boundary:
 ```
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/plot_rbf_kernels.ipynb`
+Open and run Jupyter Notebook `plot_rbf_kernels.ipynb`
 
 Refer to the following screenshot for the end results:
 
@@ -1036,9 +1036,7 @@ The accuracy of 20-class classification is: 81.0%
 The set of hyperparameters, {max_df: 0.5, smooth_idf: False, max_features: 40000, sublinear_tf: True, C: 1}, facilitates the best classification accuracy, 81.0%, on the entire 20 groups of text data.
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/topic_categorization.ipynb`
+Open and run Jupyter Notebook `topic_categorization.ipynb`
 
 # More example – fetal state classification on cardiotocography
 After a successful application of SVM with linear kernel, we will look at one more example of an SVM with RBF kernel to start with.
@@ -1125,10 +1123,7 @@ weighted avg  0.96    0.96     0.96     426
 
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/ctg.ipynb`
-
+Open and run Jupyter Notebook `ctg.ipynb`
 
 # A further example – breast cancer classification using SVM with TensorFlow
 So far, we have been using scikit-learn to implement SVMs. Let's now look at how to do so with TensorFlow. Note that, up until now (the end of 2018), the only SVM API provided in TensorFlow is with linear kernel for binary classification.
@@ -1218,10 +1213,7 @@ The testing accuracy is: 90.6%
 ```
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/svm_tf.ipynb`
-
+Open and run Jupyter Notebook `svm_tf.ipynb`
 
 Note, you will get different results every time you run the codes. This is because, for the underlying optimization of the tf.contrib.learn.SVM module, the Stochastic Dual Coordinate Ascent (SDCA) method is used, which incorporates inevitable randomness.
 

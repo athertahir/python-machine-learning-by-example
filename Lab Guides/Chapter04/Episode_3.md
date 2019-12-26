@@ -22,7 +22,9 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 **Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-All Notebooks are present in `work` folder.
+All Notebooks are present in `work/python-machine-learning-by-example` folder.
+
+You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab3_Naive_Bayes`
 
 # Getting started with classification
 Spam email detection is basically a machine learning classification problem. Let's get started by learning important concepts of machine learning classification. Classification is one of the main instances of supervised learning. Given a training set of data containing observations and their associated categorical outputs, the goal of classification is to learn a general rule that correctly maps the observations (also called features or predictivevariables) to the target categories (also called labels or classes). Put another way, a trained classification model will be generated after learning from features and targets of training samples, as shown in the first half of the following diagram. When new or unseen data comes in, the trained model will be able to determine their desired memberships. Class information will be predicted based on the known input features using the trained classification model, as displayed in the second half of the following diagram:

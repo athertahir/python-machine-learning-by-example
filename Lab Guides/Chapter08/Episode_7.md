@@ -24,8 +24,9 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 **Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-All Notebooks are present in `work` folder.
+All Notebooks are present in `work/python-machine-learning-by-example` folder.
 
+You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab7_Prediction`
 
 # Learning the essentials of Apache Spark
 Apache Spark is a distributed cluster-computing framework designed for fast and general-purpose computation. It is an open-source technology originally developed by Berkeley's AMPLab at the University of California. It provides an easy-to-use interface for programming interactive queries and stream processing of data. What makes it a popular big data analytics tool is its implicit data parallelism, where it automates operation on data in parallel across processors in the computing cluster. Users only need to focus on how they like to manipulate the data without worrying about how data is distributed among all computing nodes, or which part of the data a node is responsible for.
@@ -612,10 +613,8 @@ link: [https://spark.apache.org/docs/latest/ml-classification-regression.html\#
 
 We train and test a logistic regression model by the following steps:
 
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter08/ctr.py` to view file.
-
-#### Run Code
-Now, run the python code by running: `python ctr.py`
+##### Run Notebook
+Open and run Jupyter Notebook `ctr.ipynb`
 
 1.  We first import the logistic regression module and initialize a
     model:
@@ -778,11 +777,8 @@ unique values across all columns. It just maps each individual row of
 string values to a sparse vector through internal hash functions as
 follows:
 
-
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter08/ctr_hashing.py` to view file.
-
-#### Run Code
-Now, run the python code by running: `python ctr_hashing.py`
+##### Run Notebook
+Open and run Jupyter Notebook `ctr_hashing.ipynb`
 
 1.  We begin by importing the feature hashing module from PySpark and
     initialize a feature hasher with an output size
@@ -908,10 +904,8 @@ Let's now adopt feature interaction to our click prediction project. We
 take two features, `C14` and `C15`, as an example of
 AND interaction:
 
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter08/ctr_interaction.py` to view file.
-
-#### Run Code
-Now, run the python code by running: `python ctr_interaction.py`
+##### Run Notebook
+Open and run Jupyter Notebook `ctr_interaction.ipynb`
 
 1.  First, we will import the feature interaction
     module, `RFormula`, from PySpark:

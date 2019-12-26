@@ -28,9 +28,9 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 **Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-All Notebooks are present in `work` folder.
+All Notebooks are present in `work/python-machine-learning-by-example` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/exploring_nlp.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab1_TextAnalysisTechniques`
 
 # How computers understand language - NLP
 Machine learning driven programs or computers are good at discovering event patterns by processing and working with data. When the data is well structured or well defined, such as in a Microsoft Excel spreadsheet table and relational database table, it is intuitively obvious why machine learning is better at dealing with it than humans. Computers read such data the same way as humans, for example, revenue: 5,000,000 as the revenue being 5 million and age: 30 as age being 30; then computers crunch assorted data and generate insights. However, when the data is unstructured, such as words with which humans communicate, news articles, or someone's speech in French, it seems computers cannot understand words as well as human do (yet).
@@ -106,26 +106,18 @@ As of 2018, NLTK comes with over 100 collections of large and well-structured te
 
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `exploring_nlp.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/exploring_nlp.ipynb`
-
+Open and run Jupyter Notebook `exploring_nlp.ipynb`. 
 
 # Getting and Exploring the newsgroups data
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `getting_exploring_newsgroups.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/getting_exploring_newsgroups.ipynb`
+Open and run Jupyter Notebook `getting_exploring_newsgroups.ipynb`
 
 ## Thinking about features for text data
 From the preceding analysis, we can safely conclude that, if we want to figure out whether a document was from the rec.autos newsgroup, the presence or absence of words such as car, doors, and bumper can be very useful features. The presence or not of a word is a boolean variable, and we can also propose looking at the count of certain words. For instance, car occurs multiple times in the document. Maybe the more times such a word is found in a text, the more likely it is that the document has something to do with cars.
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `thinking_about_features.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/thinking_about_features.ipynb`
-
+Open and run Jupyter Notebook `thinking_about_features.ipynb`
 
 # Visualizing the newsgroups data with t-SNE
 We have just converted text from each raw newsgroup document into a sparse vector of a size of 500. For a vector from a document, each element represents the number of times a word token occurring in this document. Also, these 500 word tokens are selected based on their overall occurrences after text preprocessing, removal of stop words, and lemmatization. Now you may ask questions such as, is such occurrence vector representative enough, or does such an occurrence vector convey enough information that can be used to differentiate the document itself from documents on other topics? We can answer these questions easily by visualizing those representation vectors—we did a good job if document vectors from the same topic are nearby. But how? They are of 500 dimensions, while we can visualize data of at most three dimensions. We can resort to t-SNE for dimensionality reduction.
@@ -140,9 +132,7 @@ Dimensionality reduction is not simply taking out a pair of two features from th
 At the end of the day, most dimensionality reduction algorithms are in the family of unsupervised learning as the target or label information (if available) is not used in data transformation.
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `tSNE.ipynb` in the `work` folder.
-
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/tSNE.ipynb`
+Open and run Jupyter Notebook `tSNE.ipynb`
 
 #### Summary
 In this chapter, we acquired the fundamental concepts of NLP as an important subfield in machine learning, including tokenization, stemming and lemmatization, and PoS tagging. We also explored three powerful NLP packages and realized some common tasks using NLTK and spaCy. Then, we continued with the main project exploring newsgroups data. We started with extracting features with tokenization techniques and went through text preprocessing, stop words removal, and stemming and lemmatization. We then performed dimensionality reduction and visualization with t-SNE and proved that count vectorization is a good representation for text data.

@@ -26,7 +26,9 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 **Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-All Notebooks are present in `work` folder.
+All Notebooks are present in `work/python-machine-learning-by-example` folder.
+
+You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab5_Tree_Algorithms`
 
 # Brief overview of advertising click-through prediction
 Display online advertising is a multibillion-dollar industry. It comes in different formats, including banner ads composed of text, images, flash, and rich media such as audio and video. Advertisers or their agencies place advertisements on a variety of websites, even mobile apps, across the internet to reach potential customers and deliver an advertising message.
@@ -238,11 +240,9 @@ is ~~
 ![](./6cf86d5a-067b-49b6-a256-a6c195f655c4.png)
 
 ##### Run Notebook
-The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter06` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
+Open and run Jupyter Notebook `decision_tree_submit.ipynb`
 
-You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter06/decision_tree_submit.ipynb`
-
-. In binary cases, Gini Impurity under different values of the positive
+In binary cases, Gini Impurity under different values of the positive
 class' fraction can be visualized by the following code blocks:
 
 ```
