@@ -956,11 +956,8 @@ max features  smoothing   fit prior   auc
 
 The (None, 20, False) set enables the best AUC, at 0.99362!
 
-
-We can run the code now. Run `cat python-machine-learning-by-example/Chapter04/email_spam.py` to view file.
-
-#### Run Code
-Now, run the python code by running: `python email_spam.py`{{execute}}
+##### Run Notebook
+Open and run Jupyter Notebook `email_spam.ipynb`
 
 # Summary
 In this chapter, we acquired the fundamental and important concepts of machine learning classification, including types of classification, classification performance evaluation, cross-validation, and model tuning,as well as learning about the simple yet powerful classifier, Naïve Bayes. We went in depth through the mechanics and implementations of Naïve Bayes with couple of examples and the most important one, the spam email detection project. In the end, we developed a high-performing spam detector with AUC score close to 1.
