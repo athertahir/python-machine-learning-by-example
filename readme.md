@@ -23,22 +23,23 @@ Grasp machine learning concepts, techniques, and algorithms with the help of rea
 
 ### Labs
 
-Labs for this course are available at path shared below:
+Labs for this course are available at path shared below. Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. 
+
 1. ##### Exploring the 20 Newsgroups Dataset with Text Analysis Techniques 
-		* <host-ip>:8888/lab/workspaces/lab1_TextAnalysisTechniques 
+		* <host-ip>:<port>/lab/workspaces/lab1_TextAnalysisTechniques 
 2. ##### Mining the 20 Newsgroups Dataset with Clustering and Topic Modeling Algorithms
-		* <host-ip>:8888/lab/workspaces/lab2_Clustering_Topic_Modeling
+		* <host-ip>:<port>/lab/workspaces/lab2_Clustering_Topic_Modeling
 3. ##### Detecting Spam Email with Naive Bayes
-		* <host-ip>:8888/lab/workspaces/lab3_Naive_Bayes
+		* <host-ip>:<port>/lab/workspaces/lab3_Naive_Bayes
 4. ##### Classifying Newsgroup Topics with Support Vector Machines
-		* <host-ip>:8888/lab/workspaces/lab4_Support_Vector 
+		* <host-ip>:<port>/lab/workspaces/lab4_Support_Vector 
 5. ##### Predicting Online Ad Click-Through with Tree-Based Algorithms
-		* <host-ip>:8888/lab/workspaces/lab5_Tree_Algorithms
+		* <host-ip>:<port>/lab/workspaces/lab5_Tree_Algorithms
 6. ##### Predicting Online Ad Click-Through with Logistic Regression
-		* <host-ip>:8888/lab/workspaces/lab6_Logistic_Regression
+		* <host-ip>:<port>/lab/workspaces/lab6_Logistic_Regression
 7. ##### Scaling Up Prediction to Terabyte Click Logs
-		* <host-ip>:8888/lab/workspaces/lab7_Prediction
+		* <host-ip>:<port>/lab/workspaces/lab7_Prediction
 8. ##### Stock Price Prediction with Regression Algorithms
-		* <host-ip>:8888/lab/workspaces/lab8_Regression_Algorithms
+		* <host-ip>:<port>/lab/workspaces/lab8_Regression_Algorithms
 9. ##### Machine Learning Best Practices
-		* <host-ip>:8888/lab/workspaces/lab9_Machine_Learning
+		* <host-ip>:<port>/lab/workspaces/lab9_Machine_Learning

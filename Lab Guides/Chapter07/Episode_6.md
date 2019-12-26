@@ -16,39 +16,14 @@ In this chapter, we will cover the following topics:
 - Another way to select features—random forest
 
 #### Pre-reqs:
-- Docker
+- Google Chrome (Recommended)
 
 #### Lab Environment
-We will run Jupyter Notebook as a Docker container. This setup will take some time because of the size of the image. Run the following commands one by one:
+Notebooks are ready to run. All packages have been installed. There is no requirement for any setup.
 
-`docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes jupyter/tensorflow-notebook:2ce7c06a61a1 start-notebook.sh`
-
-`docker exec -it jupyter bash -c 'cd /home/jovyan/work && git clone https://github.com/athertahir/python-machine-learning-by-example.git && sudo && chmod +x ~/work/prepareContainer.sh && ~/prepareContainer.sh'`
-
-`docker restart jupyter`
-
-**Note:** After completing these steps, jupyter notebook will be accessible at port 8888 of the host machine.
+**Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
 All Notebooks are present in `work` folder.
-
-#### Login
-When the container is running, execute this statement:
-`docker logs jupyter 2>&1 | grep -v "HEAD" `
-
-
-This will show something like:
-
-```
-Copy/paste this URL into your browser when you connect for the first time, to login with a token:
-    http://localhost:8888/?token=f89b02dd78479d52470b3c3a797408b20cc5a11e067e94b8
-    THIS IS NOT YOUR TOKEN.  YOU HAVE TO SEARCH THE LOGS TO GET YOUR TOKEN
-```
-
-The token is the value behind `/?token=`. You need that for logging in.
-
-**Note:** You can also run following command to get token directly:
-`docker exec -it jupyter bash -c 'jupyter notebook list' | cut -d'=' -f 2 | cut -d' ' -f 1`
-
 
 Converting categorical features to numerical – one-hot encoding and ordinal encoding
 ------------------------------------------------------------------------------------
@@ -190,7 +165,7 @@ we define.
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/encoding.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/encoding.ipynb`
 
 Classifying data with logistic regression
 -----------------------------------------
@@ -375,7 +350,7 @@ Due to the logarithmic function, the cost function 
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/logistic_function.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/logistic_function.ipynb`
 
 Training on large datasets with online learning
 -----------------------------------------------
@@ -606,7 +581,7 @@ It doesn't look much different from the previous example, since
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/scikit_logistic_regression.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/scikit_logistic_regression.ipynb`
 
 Feature selection using random forest
 -------------------------------------
@@ -684,4 +659,4 @@ And now, take a look at the top 10 feature scores and the corresponding
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter07` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter07/random_forest_feature_selection.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter07/random_forest_feature_selection.ipynb`

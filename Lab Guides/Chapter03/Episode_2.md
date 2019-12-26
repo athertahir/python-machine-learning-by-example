@@ -17,39 +17,14 @@ We will cover the following topics:
 - Topic modeling on newsgroups data
 
 #### Pre-reqs:
-- Docker
+- Google Chrome (Recommended)
 
 #### Lab Environment
-We will run Jupyter Notebook as a Docker container. This setup will take some time because of the size of the image. Run the following commands one by one:
+Notebooks are ready to run. All packages have been installed. There is no requirement for any setup.
 
-`docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes jupyter/tensorflow-notebook:2ce7c06a61a1 start-notebook.sh`
-
-`docker exec -it jupyter bash -c 'cd /home/jovyan/work && git clone https://github.com/athertahir/python-machine-learning-by-example.git && sudo && chmod +x ~/work/prepareContainer.sh && ~/prepareContainer.sh'`
-
-`docker restart jupyter`
-
-**Note:** After completing these steps, jupyter notebook will be accessible at port 8888 of the host machine.
+**Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
 All Notebooks are present in `work` folder.
-
-#### Login
-When the container is running, execute this statement:
-`docker logs jupyter 2>&1 | grep -v "HEAD" `
-
-
-This will show something like:
-
-```
-Copy/paste this URL into your browser when you connect for the first time, to login with a token:
-    http://localhost:8888/?token=f89b02dd78479d52470b3c3a797408b20cc5a11e067e94b8
-    THIS IS NOT YOUR TOKEN.  YOU HAVE TO SEARCH THE LOGS TO GET YOUR TOKEN
-```
-
-The token is the value behind `/?token=`. You need that for logging in.
-
-**Note:** You can also run following command to get token directly:
-`docker exec -it jupyter bash -c 'jupyter notebook list' | cut -d'=' -f 2 | cut -d' ' -f 1`
-
 
 # Learning without guidance – unsupervised learning
 In the previous chapter, we apply t-SNE to visualize the newsgroup text data in reduced 2 dimensions. T-SNE, or dimensionality reduction in general, is a type of unsupervised learning. Instead of having a teacher educating what particular output to produce, be it a class or membership (classification), be it a continuous value (regression), unsupervised learning identifies inherent structures or commonalities in the input data. Since there is no guidance in unsupervised learning, there is no clear answer on what is a right or wrong result. Unsupervised learning has the freedom to discover hidden information underneath input data.
@@ -103,7 +78,7 @@ We use the iris dataset from scikit-learn as an example. Let's first load the da
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter03/kmeans_from_scratch.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/kmeans_from_scratch.ipynb`
 
 #### Implementing k-means with scikit-learn
 Having developed our own k-means clustering model, we can now learn how to use scikit-learn for a quicker solution by performing the following steps:
@@ -111,7 +86,7 @@ Having developed our own k-means clustering model, we can now learn how to use s
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter03/kmeans_sklearn.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/kmeans_sklearn.ipynb`
 
 #### Choosing the value of k
 Let's return to our earlier discussion on what is the right value for k. In the preceding example, it is more intuitive to set it to 3 since we know there are three classes in total. However, in most cases, we don't know how many groups are sufficient or efficient, while the algorithm needs a specific value of k to start with. So, how can we choose the value for k? There is a famous approach called the Elbow method.
@@ -156,7 +131,7 @@ Let's now apply NMF to our newsgroups data. Scikit-learn has a nice module for d
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter03/nmf_newsgroups.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/nmf_newsgroups.ipynb`
 
 # Topic modeling using LDA
 Let's explore another popular topic modeling algorithm, latent Dirichlet allocation (LDA). LDA is a generative probabilistic graphical model that explains each input document by means of a mixture of topics with certain probabilities. Again, topic in topic modeling means a collection of words with a certain connection. In other words, LDA basically deals with two probability values, P(term | topic) and P(topic | document). This can be difficult to understand at the beginning. So, let's start from the bottom, the end result of an LDA model.
@@ -214,7 +189,7 @@ Again, we specify 20 topics (n_components). The key parameters of the model are 
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter03` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter03/lda_newsgroups.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter03/lda_newsgroups.ipynb`
 
 # Summary
 The project in this chapter was about finding hidden similarity underneath newsgroups data, be it semantic groups, be it themes, or word clouds. We started with what unsupervised learning does and the typical types of unsupervised learning algorithms. We then introduced unsupervised learning clustering and studied a popular clustering algorithm, k-means, in detail. We also talked about tf-idf as a more efficient feature extraction tool for text data. After that, we performed k-means clustering on the newsgroups data and obtained four meaningful clusters. After examining the key terms in each resulting cluster, we went straight to extracting representative terms among original documents using topic modeling techniques. Two powerful topic modeling approaches, NMF and LDA, were discussed and implemented. Finally, we had some fun interpreting the topics we obtained from both methods.

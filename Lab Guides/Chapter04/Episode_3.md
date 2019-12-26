@@ -15,39 +15,14 @@ We will get into detail on the following topics:
 - Tuning a classification model
 
 #### Pre-reqs:
-- Docker
+- Google Chrome (Recommended)
 
 #### Lab Environment
-We will run Jupyter Notebook as a Docker container. This setup will take some time because of the size of the image. Run the following commands one by one:
+Notebooks are ready to run. All packages have been installed. There is no requirement for any setup.
 
-`docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes jupyter/tensorflow-notebook:2ce7c06a61a1 start-notebook.sh`
-
-`docker exec -it jupyter bash -c 'cd /home/jovyan/work && git clone https://github.com/athertahir/python-machine-learning-by-example.git && sudo && chmod +x ~/work/prepareContainer.sh && ~/prepareContainer.sh'`
-
-`docker restart jupyter`
-
-**Note:** After completing these steps, jupyter notebook will be accessible at port 8888 of the host machine.
+**Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
 All Notebooks are present in `work` folder.
-
-#### Login
-When the container is running, execute this statement:
-`docker logs jupyter 2>&1 | grep -v "HEAD" `
-
-
-This will show something like:
-
-```
-Copy/paste this URL into your browser when you connect for the first time, to login with a token:
-    http://localhost:8888/?token=f89b02dd78479d52470b3c3a797408b20cc5a11e067e94b8
-    THIS IS NOT YOUR TOKEN.  YOU HAVE TO SEARCH THE LOGS TO GET YOUR TOKEN
-```
-
-The token is the value behind `/?token=`. You need that for logging in.
-
-**Note:** You can also run following command to get token directly:
-`docker exec -it jupyter bash -c 'jupyter notebook list' | cut -d'=' -f 2 | cut -d' ' -f 1`
-
 
 # Getting started with classification
 Spam email detection is basically a machine learning classification problem. Let's get started by learning important concepts of machine learning classification. Classification is one of the main instances of supervised learning. Given a training set of data containing observations and their associated categorical outputs, the goal of classification is to learn a general rule that correctly maps the observations (also called features or predictivevariables) to the target categories (also called labels or classes). Put another way, a trained classification model will be generated after learning from features and targets of training samples, as shown in the first half of the following diagram. When new or unseen data comes in, the trained model will be able to determine their desired memberships. Class information will be predicted based on the known input features using the trained classification model, as displayed in the second half of the following diagram:

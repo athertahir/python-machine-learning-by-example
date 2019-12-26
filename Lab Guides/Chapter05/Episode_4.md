@@ -17,38 +17,14 @@ We will go into detail as regards the topics mentioned:
 - Breast cancer prediction with TensorFlow
 
 #### Pre-reqs:
-- Docker
+- Google Chrome (Recommended)
 
 #### Lab Environment
-We will run Jupyter Notebook as a Docker container. This setup will take some time because of the size of the image. Run the following commands one by one:
+Notebooks are ready to run. All packages have been installed. There is no requirement for any setup.
 
-`docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes jupyter/tensorflow-notebook:2ce7c06a61a1 start-notebook.sh`
-
-`docker exec -it jupyter bash -c 'cd /home/jovyan/work && git clone https://github.com/athertahir/python-machine-learning-by-example.git && sudo && chmod +x ~/work/prepareContainer.sh && ~/prepareContainer.sh'`
-
-`docker restart jupyter`
-
-**Note:** After completing these steps, jupyter notebook will be accessible at port 8888 of the host machine.
+**Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
 All Notebooks are present in `work` folder.
-
-#### Login
-When the container is running, execute this statement:
-`docker logs jupyter 2>&1 | grep -v "HEAD" `
-
-
-This will show something like:
-
-```
-Copy/paste this URL into your browser when you connect for the first time, to login with a token:
-    http://localhost:8888/?token=f89b02dd78479d52470b3c3a797408b20cc5a11e067e94b8
-    THIS IS NOT YOUR TOKEN.  YOU HAVE TO SEARCH THE LOGS TO GET YOUR TOKEN
-```
-
-The token is the value behind `/?token=`. You need that for logging in.
-
-**Note:** You can also run following command to get token directly:
-`docker exec -it jupyter bash -c 'jupyter notebook list' | cut -d'=' -f 2 | cut -d' ' -f 1`
 
 Finding separating boundary with support vector machines
 --------------------------------------------------------
@@ -792,7 +768,7 @@ visualize the trained decision boundary:
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter05/plot_rbf_kernels.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/plot_rbf_kernels.ipynb`
 
 Refer to the following screenshot for the end results:
 
@@ -956,7 +932,7 @@ And the best five-fold averaged performance under the optimal set of parameters 
 
 ```
 >>> grid_search.best_score_
-0.8888987095633728
+0.<port>987095633728
 ```
 
 We then retrieve the SVM model with the optimal hyperparameter and apply it to the testing set:
@@ -1062,7 +1038,7 @@ The set of hyperparameters, {max_df: 0.5, smooth_idf: False, max_features: 40000
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter05/topic_categorization.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/topic_categorization.ipynb`
 
 # More example – fetal state classification on cardiotocography
 After a successful application of SVM with linear kernel, we will look at one more example of an SVM with RBF kernel to start with.
@@ -1151,7 +1127,7 @@ weighted avg  0.96    0.96     0.96     426
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter05/ctg.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/ctg.ipynb`
 
 
 # A further example – breast cancer classification using SVM with TensorFlow
@@ -1244,7 +1220,7 @@ The testing accuracy is: 90.6%
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter05` for several sample notebooks. Open and run `.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter05/svm_tf.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter05/svm_tf.ipynb`
 
 
 Note, you will get different results every time you run the codes. This is because, for the underlying optimization of the tf.contrib.learn.SVM module, the Stochastic Dual Coordinate Ascent (SDCA) method is used, which incorporates inevitable randomness.

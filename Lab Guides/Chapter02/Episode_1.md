@@ -21,30 +21,16 @@ We will go into detail for each of the following topics:
 - T-SNE for text visualization
 
 #### Pre-reqs:
-- Docker
+- Google Chrome (Recommended)
 
 #### Lab Environment
-We will run Jupyter Notebook as a Docker container. This setup will take some time because of the size of the image. Run the following commands one by one:
+Notebooks are ready to run. All packages have been installed. There is no requirement for any setup.
 
-`docker run -d --user root -p 8888:8888 --name jupyter -e GRANT_SUDO=yes fenago/python-machine-learning-by-example start-notebook.sh`
+**Note:** Elev8ed Notebooks (powered by Jupyter) will be accessible at the port given to you by your instructor. Password for jupyterLab : `1234`
 
-When the container is running, execute this statement to see container logs:
-`docker logs jupyter 2>&1 | grep -v "404"`
+All Notebooks are present in `work` folder.
 
-**Note:** Jupyter notebook will be accessible at port 8888 of the host machine.
-
-#### Login
-
-Open Jupyter Lab at port 8888 and use password `1234` to login.
-
-#### Checkout Notebooks
-
-Open terminal and run following command to download notebooks in `work` folder.
-
-`cd work && git clone https://github.com/athertahir/python-machine-learning-by-example.git`
-
-All Notebooks are downloaded in `work` folder.
-
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/exploring_nlp.ipynb`
 
 # How computers understand language - NLP
 Machine learning driven programs or computers are good at discovering event patterns by processing and working with data. When the data is well structured or well defined, such as in a Microsoft Excel spreadsheet table and relational database table, it is intuitively obvious why machine learning is better at dealing with it than humans. Computers read such data the same way as humans, for example, revenue: 5,000,000 as the revenue being 5 million and age: 30 as age being 30; then computers crunch assorted data and generate insights. However, when the data is unstructured, such as words with which humans communicate, news articles, or someone's speech in French, it seems computers cannot understand words as well as human do (yet).
@@ -122,7 +108,7 @@ As of 2018, NLTK comes with over 100 collections of large and well-structured te
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `exploring_nlp.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter02/exploring_nlp.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/exploring_nlp.ipynb`
 
 
 # Getting and Exploring the newsgroups data
@@ -130,7 +116,7 @@ You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter02/ex
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `getting_exploring_newsgroups.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter02/getting_exploring_newsgroups.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/getting_exploring_newsgroups.ipynb`
 
 ## Thinking about features for text data
 From the preceding analysis, we can safely conclude that, if we want to figure out whether a document was from the rec.autos newsgroup, the presence or absence of words such as car, doors, and bumper can be very useful features. The presence or not of a word is a boolean variable, and we can also propose looking at the count of certain words. For instance, car occurs multiple times in the document. Maybe the more times such a word is found in a text, the more likely it is that the document has something to do with cars.
@@ -138,7 +124,7 @@ From the preceding analysis, we can safely conclude that, if we want to figure o
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `thinking_about_features.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter02/thinking_about_features.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/thinking_about_features.ipynb`
 
 
 # Visualizing the newsgroups data with t-SNE
@@ -156,7 +142,7 @@ At the end of the day, most dimensionality reduction algorithms are in the famil
 ##### Run Notebook
 The Notebook opens in a new browser window. You can create a new notebook or open a local one. Check out the local folder `work/Chapter02` for several sample notebooks. Open and run `tSNE.ipynb` in the `work` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:8888/notebooks/work/Chapter02/tSNE.ipynb`
+You can open the Jupyter Notebook at `<host-ip>:<port>/notebooks/work/Chapter02/tSNE.ipynb`
 
 #### Summary
 In this chapter, we acquired the fundamental concepts of NLP as an important subfield in machine learning, including tokenization, stemming and lemmatization, and PoS tagging. We also explored three powerful NLP packages and realized some common tasks using NLTK and spaCy. Then, we continued with the main project exploring newsgroups data. We started with extracting features with tokenization techniques and went through text preprocessing, stop words removal, and stemming and lemmatization. We then performed dimensionality reduction and visualization with t-SNE and proved that count vectorization is a good representation for text data.
