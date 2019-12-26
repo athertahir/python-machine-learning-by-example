@@ -93,7 +93,7 @@ features) and the targets, and to output a **continuous** value based on
 the input features of an unknown sample, which is depicted in the
 following diagram:
 
-![](./92_files/c26a636e-7b5b-4bd7-bd75-5a2639da6e60.png)
+![](./images/c26a636e-7b5b-4bd7-bd75-5a2639da6e60.png)
 
 The major difference between regression and classification is that the
 output values in regression are continuous while they are discrete in
@@ -106,7 +106,7 @@ estimating an outcome or forecasting a response. An example of
 estimating continuous targets with linear regression is depicted as
 follows:
 
-![](./92_files/35786c3b-ef29-4126-a31e-cb6e74e6e6b8.png)
+![](./images/35786c3b-ef29-4126-a31e-cb6e74e6e6b8.png)
 
 Typical machine learning regression problems include the following:
 
@@ -148,7 +148,7 @@ around a quarter of the value of the entire U.S. market. We can view its
 daily prices and performance in Yahoo Finance
 at [https://finance.yahoo.com/quote/%5EDJI/history?p=%5EDJI](https://finance.yahoo.com/quote/%5EDJI/history?p=%5EDJI):
 
-![](./92-1_files/2e84de24-a45f-4b81-a19a-b520d79fab8b.png)
+![](./images/2e84de24-a45f-4b81-a19a-b520d79fab8b.png)
 
  
 
@@ -185,7 +185,7 @@ be exploring how to develop price prediction models, specifically
 regression models, and what can be used as indicators or predictive
 features.
 
-### Getting started with feature engineering {.title}
+### Getting started with feature engineering
 
 When it comes to a machine learning algorithm, the first question to ask
 is usually what features are available or what the predictive variables
@@ -247,7 +247,7 @@ close price for a stock/index in a particular period. For example, daily
 return and annual return are financial terms we frequently hear. They
 are calculated as follows:
 
-![](./92-1_files/105095cf-f1ac-4391-a3cc-f0405c9c2edb.png)
+![](./images/105095cf-f1ac-4391-a3cc-f0405c9c2edb.png)
 
  
 
@@ -259,14 +259,14 @@ daily returns of the past week, *return~i:i-1~*, *return~i-1:i-2~*,
 *return~i-2:i-3~*, *return~i-3:i-4~*, *return~i-4:i-5~*, we can
 calculate the moving average over that week as follows:
 
-![](./92-1_files/e5e8ffb6-5cfb-467c-8f9b-d43369cf566e.png)
+![](./images/e5e8ffb6-5cfb-467c-8f9b-d43369cf566e.png)
 
 In summary, we can generate the following predictive variables by
 applying feature engineering techniques:
 
-![](./92-1_files/056bfe9d-2e67-410f-bfdd-0e851f6ab586.png)
+![](./images/056bfe9d-2e67-410f-bfdd-0e851f6ab586.png)
 
-![](./92-1_files/b03c7a5a-da69-40bc-aa3f-02189add54e1.png)
+![](./images/b03c7a5a-da69-40bc-aa3f-02189add54e1.png)
 
 Eventually, we are able to generate in total 31 sets of features, along
 with the following six original features:
@@ -284,7 +284,7 @@ with the following six original features:
 
  
 
-### Acquiring data and generating features {.title}
+### Acquiring data and generating features
 
 For easier reference, we will implement the code for generating features
 here rather than in later sections. We will start with obtaining the
@@ -304,9 +304,7 @@ button to download the data and name the file
 
 We can load the data we just downloaded as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> mydata = pd.read_csv('20051201_20051210.csv', index_col='Date')
 >>> mydata
                Open         High         Low          Close 
@@ -337,9 +335,7 @@ the corresponding financial variables. If you have not installed
 analysis on **relational** (or table-like) data, you can do so via the
 following command line:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
  pip install pandas
 ```
 
@@ -349,9 +345,7 @@ Next, we implement feature generation by starting with a sub-function
 that directly creates features from the original six features, as
 follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def add_original_feature(df, df_new):
 ...     df_new['open'] = df['Open']
 ...     df_new['open_1'] = df['Open'].shift(1)
@@ -364,9 +358,7 @@ Copy
 Then we develop a sub-function that generates six features related to
 average close prices:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def add_avg_price(df, df_new):
 ...     df_new['avg_price_5'] = df['Close'].rolling(5).mean().shift(1)
 ...     df_new['avg_price_30'] = df['Close'].rolling(21).mean().shift(1)
@@ -382,9 +374,7 @@ Copy
 Similarly, a sub-function that generates six features related to average
 volumes is as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def add_avg_volume(df, df_new):
 ...     df_new['avg_volume_5'] = df['Volume'].rolling(5).mean().shift(1)
 ...     df_new['avg_volume_30'] = df['Volume'].rolling(21).mean().shift(1)
@@ -401,9 +391,7 @@ Copy
 As for the standard deviation, we develop the following sub-function for
 the price-related features:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def add_std_price(df, df_new):
 ...     df_new['std_price_5'] = df['Close'].rolling(5).std().shift(1)
 ...     df_new['std_price_30'] = df['Close'].rolling(21).std().shift(1)
@@ -419,9 +407,7 @@ Copy
 Similarly, a sub-function that generates six volume-based standard
 deviation features is as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def add_std_volume(df, df_new):
 ...     df_new['std_volume_5'] = df['Volume'].rolling(5).std().shift(1)
 ...     df_new['std_volume_30'] = df['Volume'].rolling(21).std().shift(1)
@@ -437,9 +423,7 @@ Copy
 And seven return-based features are generated using the following
 sub-function:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def add_return_feature(df, df_new):
 ...     df_new['return_1'] = ((df['Close'] - df['Close'].shift(1)) /         
                                     df['Close'].shift(1)).shift(1)
@@ -460,9 +444,7 @@ Copy
 Finally, we put together the main feature generation function that calls
 all preceding sub-functions: 
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def generate_features(df):
 ...     """
 ...     Generate features for a stock/index based on historical price 
@@ -494,24 +476,20 @@ in a month, and 5 in a week.
 We can apply this feature engineering strategy on the DJIA data queried
 from 1988 to 2016 as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> data_raw = pd.read_csv('19880101_20161231.csv', index_col='Date')
 >>> data = generate_features(data_raw)
 ```
 
 Take a look at what the data with the new features looks like:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print(data.round(decimals=3).head(5))
 ```
 
 The preceding command line generates the following output:
 
-![](./92-1_files/95cb8f51-efad-4a01-983f-7c8e757e30e2.png)
+![](./images/95cb8f51-efad-4a01-983f-7c8e757e30e2.png)
 
 Since all features and driving factors are ready, we should now focus on
 regression algorithms that estimate the continuous target variables
@@ -526,7 +504,7 @@ The first regression model that comes to our mind is **linear
 regression**. Does it mean fitting data points using a linear function,
 as its name implies? Let's explore it.
 
-### How does linear regression work? {.title}
+### How does linear regression work?
 
 In simple terms, linear regression tries to fit as many of the data
 points as possible with a line in two-dimensional space or a plane in
@@ -539,13 +517,13 @@ called **coefficients**) of the linear regression model ***w*** (***w***
 represents a vector (*w~1~, w~2~, …, w~n~*)), the target *y* is
 expressed as follows:
 
-![](./93_files/fd5b9de2-cf37-479d-9aa8-2b43fac88ae7.png)
+![](./images/fd5b9de2-cf37-479d-9aa8-2b43fac88ae7.png)
 
 Also, sometimes, the linear regression model comes with an **intercept**
 (also called **bias**) *w*~0~, so the preceding linear relationship
 becomes as follows:
 
-![](./93_files/b8f23824-c757-461b-bd50-58686f2e1d51.png)
+![](./images/b8f23824-c757-461b-bd50-58686f2e1d51.png)
 
 Doesn't it look familiar? The **logistic****regression** algorithm we
 learned in [Chapter
@@ -562,11 +540,11 @@ between the truth and prediction. Give *m* training samples,
 (*x^(m)^,y^(m)^*), the cost function *J(**w**)* regarding the weights to
 be optimized is expressed as follows:
 
-![](./93_files/56cff31d-e513-4623-8629-4cc33a8e8b4f.png)
+![](./images/56cff31d-e513-4623-8629-4cc33a8e8b4f.png)
 
 Here, ~~
 
-![](./93_files/d75af186-f810-45e0-996b-8ef140940741.png)
+![](./images/d75af186-f810-45e0-996b-8ef140940741.png)
 
  is the prediction.
 
@@ -574,32 +552,30 @@ Again, we can obtain the optimal *w* so that *J(w)* is minimized using
 gradient descent. The first-order derivative, the gradient *∆w*, is
 derived as follows:
 
-![](./93_files/6607856a-0493-4f30-b78c-fe59cc2cdf7b.png)
+![](./images/6607856a-0493-4f30-b78c-fe59cc2cdf7b.png)
 
 Combined with the gradient and learning rate η, the weight vector
 ***w*** can be updated in each step as follows:
 
-![](./93_files/b39a63a4-217c-4a03-92f5-60e394332e1a.png)
+![](./images/b39a63a4-217c-4a03-92f5-60e394332e1a.png)
 
 After a substantial number of iterations, the learned ***w*** is then
 used to predict a new sample *x'* as follows:
 
-![](./93_files/0b3c3506-ee18-4188-bb69-17b2919eadc0.png)
+![](./images/0b3c3506-ee18-4188-bb69-17b2919eadc0.png)
 
-### Implementing linear regression {.title}
+### Implementing linear regression
 
 With a thorough understanding of the gradient descent based linear
 regression, we'll now implement it from scratch.
 
 We start with defining the function computing the prediction ~~
 
-![](./93_files/6809c880-1231-4c97-b3bc-31aef33413ca.png)
+![](./images/6809c880-1231-4c97-b3bc-31aef33413ca.png)
 
 with the current weights:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def compute_prediction(X, weights):
 ...     """ Compute the prediction y_hat based on current weights
 ...     Args:
@@ -619,9 +595,7 @@ Copy
 Then, we can continue with the function updating the weight ***w*** by
 one step in a gradient descent manner, as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def update_weights_gd(X_train, y_train, weights, learning_rate):
 ...     """ Update weights by one step
 ...     Args:
@@ -640,9 +614,7 @@ Copy
 
 Then we add the function that calculates the cost *J(**w**)* as well:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def compute_cost(X, y, weights):
 ...     """ Compute the cost J(w)
 ...     Args:
@@ -669,9 +641,7 @@ performing the following tasks:
 
 Let's see how it's done by executing the following commands:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def train_linear_regression(X_train, y_train, max_iter, 
                              learning_rate, fit_intercept=False):
 ...     """ Train a linear regression model with gradient descent
@@ -699,9 +669,7 @@ Copy
 Finally, predict the results of new input values using the trained model
 as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def predict(X, weights):
 ...     if X.shape[1] == weights.shape[0] - 1:
 ...         intercept = np.ones((X.shape[0], 1))
@@ -712,9 +680,7 @@ Copy
 Implementing linear regression is very similar to logistic regression as
 we just saw. Let's examine it with a small example:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> X_train = np.array([[6], [2], [3], [4], [1], 
                         [5], [2], [6], [4], [7]])
 >>> y_train = np.array([5.5, 1.6, 2.2, 3.7, 0.8, 
@@ -724,18 +690,14 @@ Copy
 Train a linear regression model by `100` iterations, at a
 learning rate of `0.01` based on intercept-included weights:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> weights = train_linear_regression(X_train, y_train,
             max_iter=100, learning_rate=0.01, fit_intercept=True)
 ```
 
 Check the model's performance on new samples as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> X_test = np.array([[1.3], [3.5], [5.2], [2.8]])
 >>> predictions = predict(X_test, weights)
 >>> import matplotlib.pyplot as plt
@@ -748,16 +710,14 @@ Copy
 
 Refer to the following screenshot for the end result:
 
-![](./93_files/2f93a6fa-6a6d-4cb0-b002-0418d539a158.png)
+![](./images/2f93a6fa-6a6d-4cb0-b002-0418d539a158.png)
 
 The model we trained correctly predicts new samples (depicted by the
 stars).
 
 Let's try it on another dataset, the diabetes dataset from scikit-learn:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from sklearn import datasets
 >>> diabetes = datasets.load_diabetes()
 >>> print(diabetes.data.shape)
@@ -771,9 +731,7 @@ Train a linear regression model by `5000` iterations, at a
 learning rate of `1` based on intercept-included weights (the
 cost is displayed every 500 iterations):
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> weights = train_linear_regression(X_train, y_train, 
               max_iter=5000, learning_rate=1, fit_intercept=True)
 2960.1229915
@@ -817,9 +775,7 @@ Online Ads Click-through with Logistic Regression*.
 We can also directly use the SGD-based regression
 algorithm, `SGDRegressor`, from scikit-learn:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from sklearn.linear_model import SGDRegressor
 >>> regressor = SGDRegressor(loss='squared_loss', penalty='l2',
   alpha=0.0001, learning_rate='constant', eta0=0.01, n_iter=1000)
@@ -841,9 +797,7 @@ remaining two parameters mean the learning rate is `0.01` and
 unchanged during the course of training. Train the model and output
 prediction on the testing set as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> regressor.fit(X_train, y_train)
 >>> predictions = regressor.predict(X_test)
 >>> print(predictions)
@@ -862,9 +816,7 @@ import TensorFlow and specify the parameters of the model, including
 `1000` iterations during the training process and
 a `0.5` learning rate:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> import tensorflow as tf
 >>> n_features = int(X_train.shape[1])
 >>> learning_rate = 0.5
@@ -874,9 +826,7 @@ Copy
 Then, we define `placeholder` and `Variable`,
 including the weights and bias of the model as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> x = tf.placeholder(tf.float32, shape=[None, n_features])
 >>> y = tf.placeholder(tf.float32, shape=[None])
 >>> W = tf.Variable(tf.ones([n_features, 1]))
@@ -885,9 +835,7 @@ Copy
 
 Construct the model by computing the prediction as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> pred = tf.add(tf.matmul(x, W), b)[:, 0]
 ```
 
@@ -895,9 +843,7 @@ After assembling the graph for the model, we define the loss function,
 the MSE, and a gradient descent optimizer that searches for the best
 coefficients by minimizing the loss:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> cost = tf.losses.mean_squared_error(labels=y, predictions=pred)
 >>> optimizer =
     tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
@@ -905,9 +851,7 @@ Copy
 
 Now we can initialize the variables and start a TensorFlow session:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> init_vars = tf.initialize_all_variables()
 >>> sess = tf.Session()
 >>> sess.run(init_vars)
@@ -916,9 +860,7 @@ Copy
 Finally, we start the training process and print out loss after every
 100 iterations as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> for i in range(1, n_iter+1):
 ...     _, c = sess.run([optimizer, cost], 
                        feed_dict={x: X_train, y: y_train})
@@ -958,7 +900,7 @@ its sibling, the classification  trees, which you are familiar with. 
 
  
 
-### Transitioning from classification trees to regression trees {.title}
+### Transitioning from classification trees to regression trees
 
 In classification, a decision tree is constructed by recursive binary
 splitting and growing each node into left and right children. In each
@@ -980,14 +922,12 @@ that the target becomes continuous:
 To make sure we understand regression tree, let's work on a small
 example of house price estimation:
 
-![](./94_files/670c6ac9-0c2d-4a29-8f5f-49903e511b4a.png)
+![](./images/670c6ac9-0c2d-4a29-8f5f-49903e511b4a.png)
 
 We first define the MSE and weighted MSE computation functions as
 they'll be used in our calculation:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def mse(targets):
 ...     # When the set is empty
 ...     if targets.size == 0:
@@ -1010,9 +950,7 @@ Copy
 
 Test things out by executing the following commands:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print('{0:.4f}'.format(mse(np.array([1, 2, 3]))))
 0.6667
 >>> print('{0:.4f}'.format(weighted_mse([np.array([1, 2, 3]), 
@@ -1033,7 +971,7 @@ MSE(bedroom, *4*) = `weighted_mse`([[700], [600, 700, 800,
 The lowest MSE is achieved with the `type, semi` pair, and the
 root node is then formed by such a splitting point:
 
-![](./94_files/5edad68e-c19e-4172-8b45-e4227d44040e.png)
+![](./images/5edad68e-c19e-4172-8b45-e4227d44040e.png)
 
 If we are satisfied with a one level deep regression tree, we can stop
 here by assigning both branches as leaf nodes with value as the average
@@ -1049,12 +987,12 @@ With the second splitting point specified by the `bedroom, 3`
 pair with the least MSE, our tree becomes as shown in the following
 diagram:
 
-![](./94_files/9a37a38b-75b8-4766-80e8-3e47ee764c07.png)
+![](./images/9a37a38b-75b8-4766-80e8-3e47ee764c07.png)
 
 We can finish up the tree by assigning average values to both leaf
 nodes.
 
-### Implementing decision tree regression {.title}
+### Implementing decision tree regression
 
 It's now time for coding after we're clear about the regression tree
 construction process.
@@ -1066,9 +1004,7 @@ what we had in [Chapter
 separates samples in a node into left and right branches based on a pair
 of feature and value:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def split_node(X, y, index, value):
 ...     """ Split data set X, y based on a feature and a value
 ...     Args:
@@ -1095,9 +1031,7 @@ Copy
 Next, we define the greedy search function trying out all possible
 splits and returning the one with the least weighted MSE:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def get_best_split(X, y):
 ...     """ Obtain the best splitting point and resulting children 
             for the data set X, y
@@ -1131,9 +1065,7 @@ manner on each of subsequent children. When a stopping criterion is met,
 the process at a node stops, and the mean value of the
 sample `targets` will be assigned to this terminal node:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def get_leaf(targets):
 ...     # Obtain the leaf as the mean of the targets
 ...     return np.mean(targets)
@@ -1144,9 +1076,7 @@ preceding together by checking whether any of stopping criteria is met
 and assigning the leaf node if so or proceeding with further separation
 otherwise:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def split(node, max_depth, min_size, depth):
 ...     """ Split children of a node to construct new nodes or 
             assign them terminals
@@ -1205,9 +1135,7 @@ Copy
 Finally, the entry point of the regression tree construction is as
 follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def train_tree(X_train, y_train, max_depth, min_size):
 ...     """ Construction of a tree starts here
 ...     Args:
@@ -1223,9 +1151,7 @@ Copy
 
 Now, let's test it with the preceding hand-calculated example:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> X_train = np.array([['semi', 3],
 ...                     ['detached', 2],
 ...                     ['detached', 3],
@@ -1238,9 +1164,7 @@ Copy
 To verify the trained tree is identical to what we constructed by hand,
 we write a function displaying the tree:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> CONDITION = {'numerical': {'yes': '>=', 'no': '<'},
 ...              'categorical': {'yes': 'is', 'no': 'is not'}}
 >>> def visualize_tree(node, depth=0):
@@ -1275,9 +1199,7 @@ it from scratch, we can directly use the
 `DecisionTreeRegressor`package from `scikit-learn`.
 Apply it on an example of predicting Boston house prices as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> boston = datasets.load_boston()
 >>> num_test = 10 # the last 10 samples as testing set
 >>> X_train = boston.data[:-num_test, :]
@@ -1304,14 +1226,12 @@ Copy
 
 Compare predictions with the ground truth as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print(y_test)
 [ 19.7  18.3 21.2  17.5 16.8 22.4  20.6 23.9 22. 11.9]
 ```
 
-### Implementing regression forest {.title}
+### Implementing regression forest
 
 As seen in [Chapter
 6,](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/6)*Predicting
@@ -1328,9 +1248,7 @@ Here, we'll use the regression forest
 package, `RandomForestRegressor`, from scikit-learn and deploy
 it to our Boston house price prediction example:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from sklearn.ensemble import RandomForestRegressor
 >>> regressor = RandomForestRegressor(n_estimators=100, 
                            max_depth=10, min_samples_split=3)
@@ -1348,9 +1266,7 @@ is actually quite similar to the implementation of random forest in
 Online Ads Click-through with Tree-Based Algorithms*. First, we import
 the necessary modules as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> import tensorflow as tf
 >>> from tensorflow.contrib.tensor_forest.python import tensor_forest
 >>> from tensorflow.python.ops import resources
@@ -1360,9 +1276,7 @@ And we specify the parameters of the model, including `20`
 iterations during training process, `10` trees in total, and
 `30000` maximal splitting nodes:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> n_iter = 20
 >>> n_features = int(X_train.shape[1])
 >>> n_trees = 10
@@ -1375,9 +1289,7 @@ Copy
 
 Next, we create placeholders and build the TensorFlow graph:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> x = tf.placeholder(tf.float32, shape=[None, n_features])
 >>> y = tf.placeholder(tf.float32, shape=[None])
 >>> hparams = tensor_forest.ForestHParams(num_classes=1,
@@ -1394,9 +1306,7 @@ regression.
 After defining the graph for the regression forest model, we specify the
 training graph and loss and the MSE:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> train_op = forest_graph.training_graph(x, y)
 >>> loss_op = forest_graph.training_loss(x, y)
 >>> infer_op, _, _ = forest_graph.inference_graph(x)
@@ -1405,9 +1315,7 @@ Copy
 
 We then initialize the variables and start a TensorFlow session:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> init_vars = tf.group(tf.global_variables_initializer(), 
            tf.local_variables_initializer(), 
         resources.initialize_resources(resources.shared_resources())) 
@@ -1418,9 +1326,7 @@ Copy
 Finally, we start the training process and conduct a performance
 check-up for each iteration:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> for i in range(1, n_iter + 1):
 ...     _, c = sess.run([train_op, cost], feed_dict={x: X_train, y: y_train})
 ...     print('Iteration %i, training loss: %f' % (i, c))
@@ -1449,9 +1355,7 @@ Iteration 20, training loss: 5.467315
 After 20 iterations, we apply the trained model on the testing set as
 follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> pred = sess.run(infer_op, feed_dict={x: X_test})[:, 0]
 >>> print(pred)
 [15.446515 20.10433 21.38516 19.37373 19.593092 21.932205 22.259298 24.194878 24.095112 22.541391]
@@ -1475,7 +1379,7 @@ observations from different classes. Suppose a hyperplane is determined
 by a slope vector *w* and intercept *b*, the optimal hyperplane is
 picked so that the distance (which can be expressed as
 
-![](./95_files/3a641286-460c-40b4-a2d3-7c81a06a437e.png)
+![](./images/3a641286-460c-40b4-a2d3-7c81a06a437e.png)
 
 ) from its nearest points in each of segregated spaces to the hyperplane
 itself is maximized. Such optimal *w* and *b* can be learned and solved
@@ -1494,7 +1398,7 @@ hyperplane. And at the same time, the optimal hyperplane is as flat as
 possible, which means ‖*w*‖ is as small as possible, as shown in the
 following diagram:
 
-![](./95_files/6914c559-acee-4844-91aa-3d675edcdd97.png)
+![](./images/6914c559-acee-4844-91aa-3d675edcdd97.png)
 
 This translates into deriving the optimal *w* and *b* by solving the
 following optimization problem:
@@ -1504,7 +1408,7 @@ following optimization problem:
     (*x^(1)^,y^(1)^*), (*x^(2)^,y^(2)^*),… (*x^(i)^,y^(i)^*)…,
     (*x^(m)^,y^(m)^*)
 
-### Implementing SVR {.title}
+### Implementing SVR
 
 Again to solve the preceding optimization problem, we need to resort to
 quadratic programming techniques, which are beyond the scope of our
@@ -1522,9 +1426,7 @@ also supports these techniques.
 Let's solve the previous house price prediction problem with
 `SVR` this time:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from sklearn.svm import SVR
 >>> regressor = SVR(C=0.1, epsilon=0.02, kernel='linear')
 >>> regressor.fit(X_train, y_train)
@@ -1548,13 +1450,13 @@ important machine learning models and has been rapidly evolving along
 with the revolution of **deep learning** (**DL**). Let's first
 understand how neural networks works.
 
-### Demystifying neural networks {.title}
+### Demystifying neural networks
 
 A simple neural network is composed of three layers, the
 ****`Input layer`****, ****`Hidden layer`****, and
 ****`Output layer`**** as shown in the following diagram:
 
-![](./96_files/f6e54836-54c4-4a34-8182-c03a48e53f64.png)
+![](./images/f6e54836-54c4-4a34-8182-c03a48e53f64.png)
 
 A layer is a conceptual collection of **nodes** (also called **units**),
 which simulate neurons in a biological brain. The input layer represents
@@ -1591,13 +1493,13 @@ Suppose input ***x*** is of *n* dimension and the hidden layer is
 composed of *H* hidden units, the weight matrix *W^(1)^* connecting the
 input and hidden layer is of size *n* by *H* where each column ~~
 
-![](./96_files/2b5c13c8-6963-4c2b-a670-8eb917b7eaae.png)
+![](./images/2b5c13c8-6963-4c2b-a670-8eb917b7eaae.png)
 
  represents the coefficients associating the input with the *h*-th
 hidden unit. The output (also called **activation**) of the hidden layer
 can be expressed mathematically as follows:
 
-![](./96_files/1286930a-b53f-4894-bd6b-6b71646cbdd6.png)
+![](./images/1286930a-b53f-4894-bd6b-6b71646cbdd6.png)
 
 Here *f(z)* is an **activation function**. As its name implies, the
 activation function checks how activated each neuron is simulating the
@@ -1607,21 +1509,21 @@ and the **tanh** function, which is considered a re-scaled version of
 logistic function, as well as **ReLU** (short for **Rectified Linear
 Unit**), which is often used in DL:
 
-![](./96_files/9a0b7b62-725b-458f-814c-0c03dd46b5f3.png)
+![](./images/9a0b7b62-725b-458f-814c-0c03dd46b5f3.png)
 
 We plot the following three activation functions as follows:
 
 -   The **logistic** (**sigmoid**) function plot is as follows: 
 
-![](./96_files/0a0ae86a-3e1b-44d5-b6c3-b204bdf5768e.png)
+![](./images/0a0ae86a-3e1b-44d5-b6c3-b204bdf5768e.png)
 
 -   The **tanh **function plot is as follows:
 
-![](./96_files/43438a59-240e-4504-b4fd-257ce9844d61.png)
+![](./images/43438a59-240e-4504-b4fd-257ce9844d61.png)
 
 -   The **relu **function plot is as follows:
 
-![](./96_files/2ac52e65-798e-47ea-82da-acef04b0bf05.png)
+![](./images/2ac52e65-798e-47ea-82da-acef04b0bf05.png)
 
 As for the output layer, let's assume there's one output unit
 (regression or binary classification) and the weight matrix *W^(2)^*
@@ -1629,7 +1531,7 @@ connecting the hidden layer to the output layer is of the size *H* by
 *1*. In regression, the output can be expressed mathematically as
 follows (for consistency, we here denote it as *a^(3)^* instead of *y*):
 
-![](./96_files/a87f20c1-aff2-412f-a121-45a16c2936a9.png)
+![](./images/a87f20c1-aff2-412f-a121-45a16c2936a9.png)
 
 So, how can we obtain the optimal weights *W =* {*W^(1)^, W^(2)^*} of
 the model? Similar to logistic regression, we learn all weights using
@@ -1644,21 +1546,21 @@ backpropagation are as follows:
 2.  For the last layer, we calculate the derivative of the cost function
     with regards to the input to the output layer:
 
-![](./96_files/88372f2e-8c87-4500-b32a-4690e71bc5fa.png)
+![](./images/88372f2e-8c87-4500-b32a-4690e71bc5fa.png)
 
 3.  For the hidden layer, we compute the derivative of the cost function
     with regards to the input to the hidden layer:
 
-![](./96_files/c3ae82ed-e1b8-4797-ab49-f81535df08b2.png)
+![](./images/c3ae82ed-e1b8-4797-ab49-f81535df08b2.png)
 
 4.  We compute the gradients by applying the **chain rule**:
 
-![](./96_files/6fad892b-10f1-49ab-aa39-06435b29f124.png)
+![](./images/6fad892b-10f1-49ab-aa39-06435b29f124.png)
 
 5.  We update the weights with the computed gradients and learning rate
     ***a***:
 
-![](./96_files/06edf549-4e40-437f-8d5d-7d7a5ae331bf.png)
+![](./images/06edf549-4e40-437f-8d5d-7d7a5ae331bf.png)
 
 6.  We repeatedly update all weights by taking these steps with the
     latest weights until the cost function converges or it goes through
@@ -1667,15 +1569,13 @@ backpropagation are as follows:
 This might not be easy to digest at first glance, so let's implement it
 from scratch, which will help you to understand neural networks better.
 
-### Implementing neural networks {.title}
+### Implementing neural networks
 
 We herein use sigmoid as the activation function as an example. We first
 need to define the `sigmoid` function and its derivative
 function:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def sigmoid(z):
 ...     return 1.0 / (1 + np.exp(-z))
 >>> def sigmoid_derivative(z):
@@ -1688,9 +1588,7 @@ We then define the training function, which takes in the training
 dataset, the number of units in the hidden layer (we only use one hidden
 layer as an example), and the number of iterations:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def train(X, y, n_hidden, learning_rate, n_iter):
 ...     m, n_input = X.shape
 ...     W1 = np.random.randn(n_input, n_hidden)
@@ -1732,9 +1630,7 @@ data normalization is usually recommended whenever gradient descent is
 used. Hence, we standardize the input data by removing the mean and
 scaling to unit variance:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> boston = datasets.load_boston()
 >>> num_test = 10 # the last 10 samples as testing set
 >>> from sklearn import preprocessing
@@ -1751,9 +1647,7 @@ With the scaled dataset, we can now train a one-layer neural network
 with `20` hidden units, a `0.1` learning rate, and
 `2000` iterations:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> n_hidden = 20
 >>> learning_rate = 0.1
 >>> n_iter = 2000
@@ -1783,9 +1677,7 @@ Iteration 2000, training loss: 3.255750
 Then, we define a `prediction` function, which takes in a
 model and produces regression results:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> def predict(x, model):
 ...     W1 = model['W1']
 ...     b1 = model['b1']
@@ -1798,9 +1690,7 @@ Copy
 
 Finally, we apply the trained model on the testing set:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> predictions = predict(X_test, model)
 >>> print(predictions)
 [[16.28103034]
@@ -1834,9 +1724,7 @@ on with the implementation with `scikit-learn`. We utilize
 the `MLPRegressor` class (**MLP** stands for **multi-layer
 perceptron**, a nickname of neural networks):
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from sklearn.neural_network import MLPRegressor
 >>> nn_scikit = MLPRegressor(hidden_layer_sizes=(20, 8), 
 ...                         activation='logistic', solver='lbfgs',
@@ -1852,9 +1740,7 @@ respectively.
 We fit the neural network model on the training set and predict on the
 testing data:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> nn_scikit.fit(X_train, y_train)
 >>> predictions = nn_scikit.predict(X_test)
 >>> print(predictions)
@@ -1868,9 +1754,7 @@ First, we specify parameters of the model, including two hidden layers
 with `20` and `8` nodes respectively,
 `2000` iterations, and a `0.1` learning rate:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> n_features = int(X_train.shape[1])
 >>> n_hidden_1 = 20
 >>> n_hidden_2 = 8
@@ -1881,9 +1765,7 @@ Copy
 Then, we define placeholders and construct the network from input to
 hidden layers to output:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> x = tf.placeholder(tf.float32, shape=[None, n_features])
 >>> y = tf.placeholder(tf.float32, shape=[None, 1])
 >>> layer_1 = tf.nn.sigmoid(tf.layers.dense(x, n_hidden_1))
@@ -1907,9 +1789,7 @@ After assembling the components for the model, we define the loss
 function, the MSE, and a gradient descent optimizer that searches for
 the best coefficients by minimizing the loss:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> cost = tf.losses.mean_squared_error(labels=y, predictions=pred)
 >>> optimizer = 
  tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
@@ -1917,9 +1797,7 @@ Copy
 
 Now we can initialize the variables and start a TensorFlow session:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> init_vars = tf.initialize_all_variables()
 >>> sess = tf.Session()
 >>> sess.run(init_vars)
@@ -1928,9 +1806,7 @@ Copy
 Finally, we start the training process and print out the loss after
 every 100 iterations:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> for i in range(1, n_iter+1):
 ...     _, c = sess.run([optimizer, cost], 
                        feed_dict={x: X_train, y: y_train})
@@ -1960,9 +1836,7 @@ Iteration 2000, training loss: 1.971042
 
 We apply the trained model on the testing set:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> predictions = sess.run(pred, feed_dict={x: X_test})
 >>> print(predictions)
 [[16.431433]
@@ -1984,35 +1858,27 @@ and two other deep learning frameworks. It was developed for fast
 prototyping and experimenting neural network models. We can install
 Keras using PyPI:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 pip install keras
 ```
 
 We import the necessary modules after installation as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from keras import models
 >>> from keras import layers
 ```
 
 Then, we initialize a `Sequential` model of Keras:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> model = models.Sequential()
 ```
 
 We add layer by layer, from the first hidden layer (20 units), to the
 second hidden layer (8 units), then the output layer:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> model.add(layers.Dense(n_hidden_1, activation="sigmoid", 
                           input_shape=(n_features, )))
 >>> model.add(layers.Dense(n_hidden_2, activation="sigmoid"))
@@ -2022,9 +1888,7 @@ Copy
 It's quite similar to building **LEGO**. We also need an optimizer,
 which we define as follows with a `0.01` learning rate:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from keras import optimizers
 >>> sgd = optimizers.SGD(lr=0.01)
 ```
@@ -2032,18 +1896,14 @@ Copy
 Now we can compile the model by specifying the loss function and
 optimizer:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> model.compile(loss='mean_squared_error', optimizer=sgd)
 ```
 
 Finally, we fit the model on the training set, with `100`
 iterations, and validate the performance on the testing set:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> model.fit(
 ...     X_train, y_train,
 ...     epochs=100,
@@ -2079,9 +1939,7 @@ In each iteration, the training loss and validation loss are displayed.
 As usually, we obtain the prediction of the testing set using the
 trained model:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> predictions = model.predict(X_test)
 >>> print(predictions)
 [[16.521835]
@@ -2116,7 +1974,7 @@ metrics which give us better insight:
     absolute loss. It uses the same scale as the target variable and
     gives an idea of how close predictions are to the actual values.
 
-### Note {.title}
+### Note
 
 For both the MSE and MAE, the smaller value, the better regression
 model.
@@ -2131,9 +1989,7 @@ using corresponding functions from scikit-learn:
 1.  We re-work on the diabetes dataset and fine-tune the parameters of
     linear regression model using the grid search technique:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> diabetes = datasets.load_diabetes()
 >>> num_test = 30 # the last 30 samples as testing set
 >>> X_train = diabetes.data[:-num_test, :]
@@ -2154,9 +2010,7 @@ Copy
 
 2.  We obtain the optimal set of parameters:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> grid_search.fit(X_train, y_train)
 >>> print(grid_search.best_params_)
 {'penalty': None, 'alpha': 1e-05, 'eta0': 0.01, 'n_iter': 300}
@@ -2165,18 +2019,14 @@ Copy
 
 3.  We predict the testing set with the optimal model:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> predictions = regressor_best.predict(X_test)
 ```
 
 4.  We evaluate the performance on testing sets based on the MSE, MAE,
     and R^2^metrics:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from sklearn.metrics import mean_squared_error, 
     mean_absolute_error, r2_score
 >>> mean_squared_error(y_test, predictions)
@@ -2200,9 +2050,7 @@ We generated features based on data from 1988 to 2016 earlier, and we'll
 now continue with constructing the training set with data from 1988 to
 2015 and the testing set with data from 2016:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> data_raw = pd.read_csv('19880101_20161231.csv', index_col='Date')
 >>> data = generate_features(data_raw)
 >>> start_train = '1988-01-01'
@@ -2223,9 +2071,7 @@ are feature columns, and `'close'` is the target column. We
 have 6,553 training samples and each sample is 37-dimensional. And we
 have `252` testing samples:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print(X_test.shape)
 (252, 37)
 ```
@@ -2238,18 +2084,14 @@ while that of the `moving_avg_365` feature is 0.00037 or so.
 Hence, we need to normalize features into the same or a comparable
 scale. We do so by removing the mean and rescaling to unit variance:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> from sklearn.preprocessing import StandardScaler
 >>> scaler = StandardScaler()
 ```
 
 We rescale both sets with `scaler` taught by the training set:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> X_scaled_train = scaler.fit_transform(X_train)
 >>> X_scaled_test = scaler.transform(X_test)
 ```
@@ -2260,9 +2102,7 @@ iterations and tune the regularization term
 multiplier, `alpha`, and initial learning
 rate, `eta0`:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> param_grid = {
 ...     "alpha": [1e-5, 3e-5, 1e-4],
 ...     "eta0": [0.01, 0.03, 0.1],
@@ -2279,9 +2119,7 @@ Copy
 Select the best linear regression model and make predictions of the
 testing samples:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print(grid_search.best_params_)
 {'alpha': 3e-05, 'eta0': 0.03}
 >>> lr_best = grid_search.best_estimator_
@@ -2290,9 +2128,7 @@ Copy
 
 Measure the prediction performance via the MSE, MAE, and R^2^:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print('MSE: {0:.3f}'.format(
              mean_squared_error(y_test, predictions_lr)))
 MSE: 18934.971
@@ -2312,9 +2148,7 @@ tree, `max_depth`; the minimum number of samples required to
 further split a node, `min_samples_split`; and the number of
 features used for each tree, as well as the following:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> param_grid = {
 ...     'max_depth': [50, 70, 80],
 ...     'min_samples_split': [5, 10],
@@ -2333,9 +2167,7 @@ training.
 Select the best regression forest model and make predictions of the
 testing samples:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print(grid_search.best_params_)
 {'max_depth': 70, 'max_features': 'auto', 'min_samples_leaf': 3, 'min_samples_split': 5}
 >>> rf_best = grid_search.best_estimator_
@@ -2364,9 +2196,7 @@ Copy
 
 Measure the prediction performance as follows:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print('MSE: {0:.3f}'.format(mean_squared_error(y_test, 
           predictions_rf)))
 MSE: 260349.365
@@ -2385,9 +2215,7 @@ parameter `C` and ε as well as the kernel coefficient of RBF
 for fine tuning. Similar to SGD-based algorithms, SVR doesn't work well
 on data with feature scale disparity:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> param_grid = [
 ...     {'kernel': ['linear'], 'C': [100, 300, 500], 
             'epsilon': [0.00003, 0.0001]},
@@ -2399,9 +2227,7 @@ Copy
 Again, to work around this, we use the rescaled data to train the
 `SVR` model:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> svr = SVR()
 >>> grid_search = GridSearchCV(svr, param_grid, cv=5, scoring='r2')
 >>> grid_search.fit(X_scaled_train, y_train)
@@ -2410,9 +2236,7 @@ Copy
 Select the best `SVR` model and make predictions of the
 testing samples:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print(grid_search.best_params_)
 {'C': 500, 'epsilon': 3e-05, 'kernel': 'linear'}
 >>> svr_best = grid_search.best_estimator_ 
@@ -2437,9 +2261,7 @@ the following options for hyperparameters including a list of hidden
 layer sizes, activation function, optimizer, learning rate, penalty
 factor, and mini-batch size:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> param_grid = {
 ...     'hidden_layer_sizes': [(50, 10), (30, 30)],
 ...     'activation': ['logistic', 'tanh', 'relu'],
@@ -2457,9 +2279,7 @@ Copy
 Select the best neural network model and make predictions of the testing
 samples:
 
-Copy
-
-``` {.programlisting .language-markup}
+```
 >>> print(grid_search.best_params_)
 {'activation': 'relu', 'alpha': 0.0003, 'hidden_layer_sizes': (50, 10), 'learning_rate_init': 0.001, 'solver': 'adam'}
 >>> nn_best = grid_search.best_estimator_
@@ -2480,7 +2300,7 @@ network model.
 We'll also plot the prediction generated by each of the three
 algorithms, along with the ground truth:
 
-![](./98_files/29236701-e3c0-4443-922f-e93d42cb3b9e.png)
+![](./images/29236701-e3c0-4443-922f-e93d42cb3b9e.png)
 
 
 # Summary
