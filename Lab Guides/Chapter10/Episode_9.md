@@ -1,4 +1,4 @@
-Lab : Machine Learning Best Practices {.title}
+Lab : Machine Learning Best Practices
 -------------------------------------------
 
 After working on multiple projects covering important machine learning
@@ -52,7 +52,7 @@ problem can be summarized into four areas, as follows:
 Starting from data sources to the final machine learning system, a
 machine learning solution basically follows the following paradigm:
 
-![](./2_files/10302b0d-a3b4-46ac-97cb-00884f355997.png)
+![](./images/10302b0d-a3b4-46ac-97cb-00884f355997.png)
  
 
 In the following sections, we will be learning about the typical tasks,
@@ -67,7 +67,7 @@ Best practices in the data preparation stage
 No machine learning system can be built without data. Therefore, **data
 collection** should be our first focus.
 
-### Best practice 1 – completely understanding the project goal {.title}
+### Best practice 1 – completely understanding the project goal
 
 Before starting to collect data, we should make sure that the goal of
 the project and the business problem, is completely understood, as this
@@ -89,7 +89,7 @@ measured in click-through rate, so we collected the clickstream data of
 who clicked or did not click on what ad on what page, instead of merely
 how many ads were displayed in a web domain.
 
-### Best practice 2 – collecting all fields that are relevant {.title}
+### Best practice 2 – collecting all fields that are relevant
 
 With a set goal in mind, we can narrow down potential data sources to
 investigate. Now the question becomes: is it necessary to collect the
@@ -124,7 +124,7 @@ changing over time. Completeness means how much data is present across
 fields and samples. They are explained in detail in the following two
 practices.
 
-### Best practice 3 – maintaining the consistency of field values {.title}
+### Best practice 3 – maintaining the consistency of field values
 
 In a dataset that already exists, or in one we collect from scratch,
 oftentimes we see different values representing the same meaning. For
@@ -145,7 +145,7 @@ found, such as 1, 2, and 3, and *one*, *two*, and *three*.
 Transformation and reformatting should be conducted in order to ensure
 data consistency.
 
-### Best practice 4 – dealing with missing data {.title}
+### Best practice 4 – dealing with missing data
 
 Due to various reasons, datasets in the real world are rarely completely
 clean and often contain missing or corrupted values. They are usually
@@ -188,21 +188,19 @@ dataset (age, income) consisting of six samples (30, 100), (20, 50),
     mean of the rest values in the second field, or (35, 70), with the
     median value in the second field
 
-In `scikit-learn`{.literal}, the `Imputer`{.literal} class provides a
+In `scikit-learn`, the `Imputer` class provides a
 nicely written imputation transformer. We herein use it for the
 following small example:
 
-Copy
 
 ```
 >>> import numpy as np
 >>> from sklearn.preprocessing import Imputer
 ```
 
-Represent the unknown value by `np.nan`{.literal} in `numpy`{.literal},
+Represent the unknown value by `np.nan` in `numpy`,
 as detailed in the following:
 
-Copy
 
 ```
 >>> data_origin = [[30, 100],
@@ -220,7 +218,6 @@ Copy
 Initialize the imputation transformer with the mean value and obtain
 such information from the original data:
 
-Copy
 
 ```
 >>> imp_mean = Imputer(missing_values='NaN', strategy='mean')
@@ -229,7 +226,6 @@ Copy
 
 Complete the missing value as follows:
 
-Copy
 
 ```
 >>> data_mean_imp = imp_mean.transform(data_origin)
@@ -245,7 +241,6 @@ Copy
 Similarly, initialize the imputation transformer with the median value,
 as detailed in the following:
 
-Copy
 
 ```
 >>> imp_median = Imputer(missing_values='NaN', strategy='median')
@@ -264,7 +259,6 @@ When new samples come in, the missing values (in any attribute) can be
 imputed using the trained transformer, for example, with the mean value,
 as shown here:
 
-Copy
 
 ```
 >>> new = [[20, np.nan],
@@ -279,7 +273,7 @@ Copy
  [ 30. 72.]]
 ```
 
-Note that `30`{.literal} in the age field is the mean of those six age
+Note that `30` in the age field is the mean of those six age
 values in the original dataset.
 
  
@@ -294,7 +288,6 @@ through the following example:
 1.  First we load the diabetes dataset and simulate a corrupted dataset
     with missing values, as shown here:
 
-Copy
 
 ```
 >>> from sklearn import datasets
@@ -304,7 +297,6 @@ Copy
 
 2.  Simulate a corrupted dataset by adding 25% missing values:
 
-Copy
 
 ```
 >>> m, n = X_full.shape
@@ -313,9 +305,8 @@ Copy
 442 110
 ```
 
-3.  Randomly select the `m_missing`{.literal} samples, as follows:
+3.  Randomly select the `m_missing` samples, as follows:
 
-Copy
 
 ```
 >>> np.random.seed(42)
@@ -324,19 +315,17 @@ Copy
 >>> np.random.shuffle(missing_samples)
 ```
 
-4.  For each missing sample, randomly select 1 out of `n`{.literal}
+4.  For each missing sample, randomly select 1 out of `n`
     features:
 
-Copy
 
 ```
 >>> missing_features = np.random.randint(low=0, high=n, 
                                          size=m_missing)
 ```
 
-5.  Represent missing values by `nan`{.literal}, as shown here:
+5.  Represent missing values by `nan`, as shown here:
 
-Copy
 
 ```
 >>> X_missing = X_full.copy()
@@ -347,7 +336,6 @@ Copy
 6.  Then we deal with this corrupted dataset by discarding the samples
     containing a missing value:
 
-Copy
 
 ```
 >>> X_rm_missing = X_missing[~missing_samples, :]
@@ -363,7 +351,6 @@ Copy
     a cross-validation manner. Estimate *R^2^*on the dataset with the
     missing samples removed, as follows:
 
-Copy
 
 ```
 >>> from sklearn.ensemble import RandomForestRegressor
@@ -380,7 +367,6 @@ Score with the data set with missing samples removed: 0.39
 8.  Now we approach the corrupted dataset differently by imputing
     missing values with the mean, shown here:
 
-Copy
 
 ```
 >>> imp_mean = Imputer(missing_values='NaN', strategy='mean')
@@ -390,7 +376,6 @@ Copy
 9.  Similarly, measure the effects of using this strategy by estimating
     the averaged *R^2^*, as follows:
 
-Copy
 
 ```
 >>> regressor = RandomForestRegressor(random_state=42, 
@@ -407,7 +392,6 @@ Score with the data set with missing values replaced by mean: 0.42
     can check it again by estimating the averaged regression score on
     the original dataset, as follows:
 
-Copy
 
 ```
 >>> regressor = RandomForestRegressor(random_state=42, 
@@ -426,7 +410,7 @@ better, and sometimes dropping samples with missing values can be more
 effective. Hence, it is a great practice to compare the performances of
 different strategies via cross-validation as we have done previously.
 
-### Best practice 5 – storing large-scale data {.title}
+### Best practice 5 – storing large-scale data
 
 With the ever-growing size of data, oftentimes we can't simply fit the
 data in our single local machine and need to store it on the cloud or
@@ -463,7 +447,7 @@ To begin, data preprocessing usually involves categorical feature
 encoding, feature scaling, feature selection, and dimensionality
 reduction.
 
-### Best practice 6 – identifying categorical features with numerical values {.title}
+### Best practice 6 – identifying categorical features with numerical values
 
 In general, categorical features are easy to spot, as they convey
 qualitative information, such as risk level, occupation, and interests.
@@ -475,7 +459,7 @@ whether it provides a mathematical or ranking implication: if so, it is
 a numerical feature, such as a product rating from 1 to 5; otherwise, it
 is categorical, such as the month, or day of the week.
 
-### Best practice 7 – deciding on whether or not to encode categorical features {.title}
+### Best practice 7 – deciding on whether or not to encode categorical features
 
 If a feature is considered categorical, we need to decide whether we
 should encode it. This depends on what prediction algorithm(s) we will
@@ -490,7 +474,7 @@ two stages of feature generation and predictive model training as a
 whole, instead of two isolated components. The following practical tips
 also emphasize this point.
 
-### Best practice 8 – deciding on whether or not to select features, and if so, how to do so {.title}
+### Best practice 8 – deciding on whether or not to select features, and if so, how to do so
 
 We have seen in [Chapter
 7](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/7),
@@ -515,12 +499,11 @@ therefore good practice to compare the performances of conducting
 feature selection and not doing so via cross-validation. For example, by
 executing the following steps, we can measure the effects of feature
 selection by estimating the averaged classification accuracy with an
-`SVC`{.literal} model in a cross-validation manner:
+`SVC` model in a cross-validation manner:
 
 1.  First, we load the handwritten digits dataset from
-    `scikit-learn`{.literal}, as follows:
+    `scikit-learn`, as follows:
 
-Copy
 
 ```
 >>> from sklearn.datasets import load_digits
@@ -533,7 +516,6 @@ Copy
 2.  Next, estimate the accuracy of the original dataset, which is 64
     dimensional, as detailed here:
 
-Copy
 
 ```
 >>> from sklearn.svm import SVC
@@ -548,7 +530,6 @@ Score with the original data set: 0.88
 3.  Then conduct feature selection based on random forest and sort the
     features based on their importance scores:
 
-Copy
 
 ```
 >>> from sklearn.ensemble import RandomForestClassifier
@@ -562,7 +543,6 @@ Copy
 4.  Now select a different number of top features to construct a new
     dataset, and estimate the accuracy on each dataset, as follows:
 
-Copy
 
 ```
 >>> K = [10, 15, 25, 35, 45]
@@ -584,7 +564,7 @@ Score with the data set of top 35 features: 0.92
 Score with the data set of top 45 features: 0.88
 ```
 
-### Best practice 9 – deciding on whether or not to reduce dimensionality, and if so, how to do so {.title}
+### Best practice 9 – deciding on whether or not to reduce dimensionality, and if so, how to do so
 
 Feature selection and dimensionality are different in the sense that the
 former chooses features from the original data space, while the latter
@@ -607,7 +587,6 @@ dimensionality reduction, where we keep a different number of top
 components to construct a new dataset, and estimate the accuracy on each
 dataset:
 
-Copy
 
 ```
 >>> from sklearn.decomposition import PCA
@@ -629,7 +608,7 @@ Score with the data set of top 35 components: 0.89
 Score with the data set of top 45 components: 0.88
 ```
 
-### Best practice 10 – deciding on whether or not to rescale features {.title}
+### Best practice 10 – deciding on whether or not to rescale features
 
 As seen in [Chapter
 9](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/9),
@@ -653,7 +632,7 @@ We have so far covered tips regarding data preprocessing and will next
 discuss best practices of feature engineering as another major aspect of
 training sets generation. We will do so from two perspectives.
 
-### Best practice 11 – performing feature engineering with domain expertise {.title}
+### Best practice 11 – performing feature engineering with domain expertise
 
 If we are lucky enough to possess sufficient domain knowledge, we can
 apply it in creating domain-specific features; we utilize our business
@@ -681,7 +660,7 @@ visits a store for the past three months, or the average number of
 products purchased weekly for the previous year, for instance, can be
 good predictive indicators for customer behavior prediction.
 
-### Best practice 12 – performing feature engineering without domain expertise {.title}
+### Best practice 12 – performing feature engineering without domain expertise
 
 If we unfortunately have very little domain knowledge, how can we
 generate features? Don't panic. There are several generic approaches
@@ -695,9 +674,8 @@ that you can follow:
     *number of visits per week* can be used to produce a new feature *is
     frequent visitor* by judging whether the value is greater than or
     equal to 3. We implement such binarization using
-    `scikit-learn`{.literal}, as follows:
+    `scikit-learn`, as follows:
 
-Copy
 
 ```
 >>> from sklearn.preprocessing import Binarizer
@@ -728,11 +706,10 @@ Copy
 -   **Polynomial transformation**: This is a process of generating
     polynomial and interaction features. For two features, *a* and *b*,
     the two degree of polynomial features generated are *a^2^*, *ab*,
-    and *b^2^*. In `scikit-learn`{.literal}, we can use the
-    `PolynomialFeatures`{.literal} class to perform polynomial
+    and *b^2^*. In `scikit-learn`, we can use the
+    `PolynomialFeatures` class to perform polynomial
     transformation, as follows:
 
-Copy
 
 ```
 >>> from sklearn.preprocessing import PolynomialFeatures
@@ -752,7 +729,7 @@ Copy
 Note the resulting new features consist of 1 (bias, intercept), *a*,
 *b*, *a^2^*, *ab*, and *b^2^*.
 
-### Best practice 13 – documenting how each feature is generated {.title}
+### Best practice 13 – documenting how each feature is generated
 
 We have covered the rules of feature engineering with domain knowledge
 and in general, there is one more thing worth noting: documenting how
@@ -766,7 +743,7 @@ that have more potential.
 
  
 
-### Best practice 14 – extracting features from text data {.title}
+### Best practice 14 – extracting features from text data
 
 We have worked intensively with text data in [Chapter
 2](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/2), *Exploring
@@ -803,7 +780,7 @@ word is represented by a vector of float numbers. Its dimensionality is
 a lot lower than the size of vocabulary and is usually several hundreds
 only. For example, the word **machine** can be represented as [1.4, 2.1,
 10.3, 0.2, 6.81]. So, how can we embed a word into a vector? One
-solution is `word2vec`{.literal}, which trains a shallow neural network
+solution is `word2vec`, which trains a shallow neural network
 to predict a word given other words around it (called **CBOW**) or to
 predict words around a word (called **skip-gram**). The coefficients of
 the trained neural network are the embedding vectors for corresponding
@@ -814,7 +791,7 @@ love reading Python machine learning by example* in a corpus, and 5 as
 the size of word window, we can have the following training sets for the
 CBOW neural network:
 
-![](./4_files/ad7ad83d-783b-43ec-a736-9aa0bbc2070d.png)
+![](./images/ad7ad83d-783b-43ec-a736-9aa0bbc2070d.png)
 
 Of course, the inputs and outputs of the neural network are one-hot
 encoding vectors, where values are either 1 for present words, or 0 for
@@ -827,7 +804,7 @@ same sentence *I love reading Python machine learning by example* and 5
 as the size of word window, we can have the following training sets for
 the skip-gram neural network:
 
-![](./4_files/ccdb41eb-2954-4cf6-9176-80e21b7f8164.png)
+![](./images/ccdb41eb-2954-4cf6-9176-80e21b7f8164.png)
 
 The embedding vectors are of real values where each dimension encodes an
 aspect of meaning for words in the vocabulary. This helps reserve the
@@ -850,7 +827,7 @@ corpora and open sourced them. We can simply use these **pre-trained**
 models to map words to vectors. Some popular pretrained word embedding
 models are as follows:
 
-![](./4_files/ac3ddff4-a1c8-43b2-9c3c-b9639ffdedec.png)
+![](./images/ac3ddff4-a1c8-43b2-9c3c-b9639ffdedec.png)
 
  
 
@@ -862,17 +839,16 @@ document. The resulting vectors of document samples are then consumed by
 downstream predictive tasks, such as classification, similarity ranking
 in search engine, and clustering. 
 
-Now let's play around with `gensim`{.literal}, a popular NLP package
+Now let's play around with `gensim`, a popular NLP package
 with powerful word embedding modules. If you have not installed the
 package in [Chapter
 2](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/2),
 *Exploring the 20 Newsgroups Dataset with Text Analysis Techniques,* you
-can do so using `pip`{.literal}. 
+can do so using `pip`. 
 
 First, we import the package and load a pretrained
-model, `glove-twitter-25`{.literal}, as follows:
+model, `glove-twitter-25`, as follows:
 
-Copy
 
 ```
 >>> import gensim.downloader as api
@@ -882,13 +858,12 @@ Copy
 ```
 
 You will see the process bar if you first run this line of code. The
-`glove-twitter-25`{.literal} model is one of the smallest ones so the
+`glove-twitter-25` model is one of the smallest ones so the
 download will not take very long.
 
-We can obtain the embedding vector for a word (`computer`{.literal}, for
+We can obtain the embedding vector for a word (`computer`, for
 example), as follows:
 
-Copy
 
 ```
 >>> vector = model.wv['computer']
@@ -903,9 +878,8 @@ Word computer is embedded into:
 The result is a 25-dimension float vector as expected.
 
 We can also get the top 10 words that are most contextually relevant to
-`computer`{.literal} using the *most\_similar* method, as follows:
+`computer` using the *most\_similar* method, as follows:
 
-Copy
 
 ```
 >>> similar_words = model.most_similar("computer")
@@ -920,7 +894,6 @@ The result looks promising.
 Finally, we demonstrate how to generate representing vectors for a
 document with a simple example, as follows:
 
-Copy
 
 ```
 >>> doc_sample = ['i', 'love', 'reading', 'python', 'machine', 
@@ -960,7 +933,7 @@ the best before trying multiple ones and fine-tuning the optimal one. We
 will be looking into best practices around this in the following
 sections.
 
-### Best practice 15 – choosing the right algorithm(s) to start with {.title}
+### Best practice 15 – choosing the right algorithm(s) to start with
 
 Due to the fact that there are several parameters to tune for an
 algorithm, exhausting all algorithms and fine-tuning each one can be
@@ -980,7 +953,7 @@ potential algorithms, as described in the following:
 -   Tolerance and trade-off of bias and variance
 -   Whether online learning is required
 
-#### Naïve Bayes {.title}
+#### Naïve Bayes
 
 This is a very simple algorithm. For a relatively small training
 dataset, if features are independent, Naïve Bayes will usually perform
@@ -990,7 +963,7 @@ training of Naïve Bayes is usually faster than any other algorithms due
 to its computational simplicity. However, this may lead to a high bias
 (but a low variance).
 
-#### Logistic regression {.title}
+#### Logistic regression
 
 This is probably the most widely used classification algorithm, and the
 first algorithm that a machine learning practitioner usually tries when
@@ -1004,7 +977,7 @@ In the following instance, data in the original space is not linearly
 separable, but they become separable in a transformed space created from
 the interaction of two features:
 
-![](./5_files/98608385-991e-4a5d-af13-2aa647ef0384.png)
+![](./images/98608385-991e-4a5d-af13-2aa647ef0384.png)
 
 Also, logistic regression is extremely scalable to large datasets with
 SGD optimization, which makes it efficient in solving big data problems.
@@ -1012,7 +985,7 @@ Plus, it makes online learning feasible. Although logistic regression is
 a low-bias, high-variance algorithm, we overcome the potential
 overfitting by adding L1, L2, or a mix of two regularizations.
 
-#### SVM {.title}
+#### SVM
 
 This is versatile enough to adapt to the linear separability of data.
 For a separable dataset, SVM, with linear kernel, performs comparably to
@@ -1025,7 +998,7 @@ in the tens of thousands. In general, very high accuracy can be achieved
 by SVM with the right kernel and parameters. However, this might be at
 the expense of intense computation and high memory consumption.
 
-#### Random forest (or decision tree) {.title}
+#### Random forest (or decision tree)
 
 Linear separability of data does not matter to the algorithm. And it
 works directly with categorical features without encoding, which
@@ -1037,7 +1010,7 @@ ensembling a collection of separate trees. Its performance is comparable
 to SVM, while fine-tuning a random forest model is less difficult
 compared to SVM and neural networks.
 
-#### Neural networks {.title}
+#### Neural networks
 
 These are extremely powerful, especially with the development of deep
 learning. However, finding the right topology (layers, nodes, activation
@@ -1045,7 +1018,7 @@ functions, and so on) is not easy, not to mention the time-consuming
 model of training and tuning. Hence, they are not recommended as an
 algorithm to start with.
 
-### Best practice 16 – reducing overfitting {.title}
+### Best practice 16 – reducing overfitting
 
 We've touched on ways to avoid overfitting when discussing the pros and
 cons of algorithms in the last practice. We herein formally summarize
@@ -1062,7 +1035,7 @@ them, as follows:
 -   Ensemble learning, combining a collection of weak models to form a
     stronger one.
 
-### Best practice 17 – diagnosing overfitting and underfitting {.title}
+### Best practice 17 – diagnosing overfitting and underfitting
 
 So, how can we tell whether a model suffers from overfitting, or the
 other extreme, underfitting? A **learning curve** is usually used to
@@ -1086,24 +1059,24 @@ testing samples are below desire in the learning curve.
 
 Here is an example of the learning curve in an ideal case:
 
-![](./5_files/2f47acda-caa1-47f5-a0e6-f81dd1247431.png)
+![](./images/2f47acda-caa1-47f5-a0e6-f81dd1247431.png)
 
 An example of the learning curve for an overfitted model is shown in the
 following diagram:
 
-![](./5_files/b213a442-9929-4df3-bf12-7809109f324a.png)
+![](./images/b213a442-9929-4df3-bf12-7809109f324a.png)
 
 The learning curve for an underfitted model may look like the following
 diagram:
 
-![](./5_files/41dcd2ef-76b9-4008-8443-8fc95a436612.png)
+![](./images/41dcd2ef-76b9-4008-8443-8fc95a436612.png)
 
 To generate the learning curve, we can utilize the
-`learning_curve`{.literal} package from `scikit-learn`{.literal}, and
-the `plot_learning_curve`{.literal} function defined in
+`learning_curve` package from `scikit-learn`, and
+the `plot_learning_curve` function defined in
 [http://scikit-learn.org/stable/auto\_examples/model\_selection/plot\_learning\_curve.html](http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html).
 
-### Best practice 18 – modeling on large-scale datasets {.title}
+### Best practice 18 – modeling on large-scale datasets
 
 We have gained experience working with large datasets in [Chapter
 8](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/8),
@@ -1141,7 +1114,7 @@ involves saving those resulting models from previous stages and
 deploying them on new data, as well as monitoring the performance, and
 updating the prediction models regularly.
 
-### Best practice 19 – saving, loading, and reusing models {.title}
+### Best practice 19 – saving, loading, and reusing models
 
 When machine learning is deployed, new data should go through the same
 data preprocessing procedures (scaling, feature engineering, feature
@@ -1154,9 +1127,8 @@ completed. In deployment mode, these models are loaded in advance, and
 are used to produce the prediction results of the new data.
 
 We illustrate it via the diabetes example where we standardize the data
-and employ an `SVR`{.literal} model, as follows:
+and employ an `SVR` model, as follows:
 
-Copy
 
 ```
 >>> dataset = datasets.load_diabetes()
@@ -1175,7 +1147,6 @@ Copy
 Preprocess the training data with scaling, as shown in the following
 commands:
 
-Copy
 
 ```
 >>> from sklearn.preprocessing import StandardScaler
@@ -1183,22 +1154,20 @@ Copy
 >>> scaler.fit(X_train)
 ```
 
-Now save the established standardizer, the `scaler`{.literal} object
-with `pickle`{.literal}, as follows:
+Now save the established standardizer, the `scaler` object
+with `pickle`, as follows:
 
-Copy
 
 ```
 >>> import pickle
 >>> pickle.dump(scaler, open("scaler.p", "wb" ))
 ```
 
-This generates the `scaler.p`{.literal} file.
+This generates the `scaler.p` file.
 
-Move on with training a `SVR`{.literal} model on the scaled data, as
+Move on with training a `SVR` model on the scaled data, as
 follows:
 
-Copy
 
 ```
 >>> X_scaled_train = scaler.transform(X_train)
@@ -1207,21 +1176,19 @@ Copy
 >>> regressor.fit(X_scaled_train, y_train)
 ```
 
-Save the trained `regressor`{.literal} object with `pickle`{.literal},
+Save the trained `regressor` object with `pickle`,
 as follows:
 
-Copy
 
 ```
 >>> pickle.dump(regressor, open("regressor.p", "wb"))
 ```
 
-This generates the `regressor.p`{.literal} file.
+This generates the `regressor.p` file.
 
 In the deployment stage, we first load the saved standardizer and
-`regressor`{.literal} object from the preceding two files, as follows:
+`regressor` object from the preceding two files, as follows:
 
-Copy
 
 ```
 >>> my_scaler = pickle.load(open("scaler.p", "rb" ))
@@ -1229,9 +1196,8 @@ Copy
 ```
 
 Then preprocess the new data using the standardizer and make prediction
-with the `regressor`{.literal} object just loaded, as follows:
+with the `regressor` object just loaded, as follows:
 
-Copy
 
 ```
 >>> X_scaled_new = my_scaler.transform(X_new)
@@ -1242,7 +1208,6 @@ We also demonstrate how to save and restore models in TensorFlow as a
 bonus session. As an example, we train a simple logistic regression
 model on the cancer dataset, as follows:
 
-Copy
 
 ```
 >>> import tensorflow as tf
@@ -1285,10 +1250,9 @@ our TensorFlow implementation of logistic regression in [Chapter
 comes the model saving part. Let's see how it is done by performing the
 following steps:
 
-1.  First we create a `saver`{.literal} object in TensorFlow, as
+1.  First we create a `saver` object in TensorFlow, as
     follows:
 
-Copy
 
 ```
 >>> saver = tf.train.Saver()
@@ -1297,7 +1261,6 @@ Copy
 2.  Save the model (or more specifically, the weight and bias variables)
     in a local file, as follows:
 
-Copy
 
 ```
 >>> file_path = './model_tf'
@@ -1310,7 +1273,6 @@ model saved in path: ./model_tf
     current graph so it is more clear that we are actually loading a
     model from a file, as follows:
 
-Copy
 
 ```
 >>> tf.reset_default_graph()
@@ -1319,7 +1281,6 @@ Copy
 4.  Now we import the graph and see all tensors in the graph, as
     follows:
 
-Copy
 
 ```
 >>> imported_graph = tf.train.import_meta_graph(file_path+'.meta')
@@ -1327,7 +1288,6 @@ Copy
 
 5.  Finally, run a session and restore the model, as follows:
 
-Copy
 
 ```
 >>> with tf.Session() as sess:
@@ -1350,7 +1310,7 @@ Saved b = [0.13216525]
 
 We print out the weight and bias of the trained and saved model.
 
-### Best practice 20 – monitoring model performance {.title}
+### Best practice 20 – monitoring model performance
 
 The machine learning system is now up and running. To make sure
 everything is on the right track, we need to conduct a performance check
@@ -1360,7 +1320,6 @@ we should record the ground truth at the same time.
 Continue the previous diabetes example with a performance check as
 follows:
 
-Copy
 
 ```
 >>> from sklearn.metrics import r2_score
@@ -1373,7 +1332,7 @@ We should log the performance and set an alert for a decayed
 performance.
 
  
-### Best practice 21 – updating models regularly {.title}
+### Best practice 21 – updating models regularly
 
 If the performance is getting worse, chances are that the pattern of
 data has changed. We can work around this by updating the model.
