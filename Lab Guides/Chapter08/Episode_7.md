@@ -1,5 +1,5 @@
 # Lab : Scaling Up Prediction to Terabyte Click Logs
-In the previous chapter, we accomplished developing an ad click-through predictor using a logistic regression classifier. We proved that the algorithm is highly scalable by training efficiently on up to 1 million click log samples. Moving on to this chapter, we will be further boosting the scalability of the ad click-through predictor by utilizing a powerful parallel computing (or, more specifically, distributed computing) tool called Apache Spark. We will be demystifying how Apache Spark is used to scale up learning on massive data, as opposed to limiting model learning to one single machine. We will be using PySpark, which is the Python API, to explore the click log data, to develop classification solutions based on the entire click log dataset, and to evaluate performance, all in a distributed manner. Aside from this, we will be introducing two approaches to play around with the categorical features; one is related to hashing in computer science, while the other fuses multiple features. They will be implemented in Spark as well.
+In the previous chapter, we accomplished developing an ad click-through predictor using a logistic regression classifier. We proved that the algorithm is highly scalable by training efficiently on up to 1 million click log samples. Moving on to this chapter, we will be further boosting the scalability of the ad click-through predictor by utilizing a powerful parallel computing (or, more specifically, distributed computing) tool called Apache Spark. We will be demystifying how Apache Spark is used to scale up learning on massive data, as opposed to limiting model learning to one single machine. We will be using PySpark, which is the Python API, to explore the click log data, to develop classification solutions based on the entire click log dataset, and to evaluate performance, all in a distributed manner. Aside from this, we will be introducing two approaches to play around with the categorical features;one is related to hashing in computer science, while the other fuses multiple features. They will be implemented in Spark as well.
 
 In this chapter, we will cover the following topics:
 
@@ -90,12 +90,12 @@ We can access the Spark web interface to monitor the execution of Spark applicat
 
 The Spark shell should show you that the web interface is available `locally` at the following URL as shown below.
 
-![](https://github.com/athertahir/apache-spark/raw/master/Screenshots/Chapter 4/Selection_024.png)
+![](Selection_024.png)
 
 
 **Step 2:** Once you navigate to the web interface URL. You should see the Spark web interface as shown in the screenshot below.
 
-![](https://github.com/athertahir/apache-spark/raw/master/Screenshots/Chapter 4/Selection_025.png)
+![](Selection_025.png)
 
 Since there is no job running, you won't be able to see any metrics.
 
@@ -137,11 +137,11 @@ Once this is done, we can see an accomplished job in localhost:4040/jobs/:
 
 **Step 2:** You can click on the collect link below the Description column and you will be taken to stages. Click on the collect link again to check more information as shown in the screenshot below.
 
-![](https://github.com/athertahir/apache-spark/raw/master/Screenshots/Chapter 4/Selection_027.png)
+![](Selection_027.png)
 
 **Step 3:** Click on the DAG Visualization link to view the DAG.
 
-![](https://github.com/athertahir/apache-spark/raw/master/Screenshots/Chapter 4/Selection_028.png)
+![](Selection_028.png)
 
 
 We can display the content of the DataFrame object by using the following command:
