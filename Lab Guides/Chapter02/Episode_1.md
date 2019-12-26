@@ -30,7 +30,7 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 All Notebooks are present in `work/python-machine-learning-by-example` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab1_TextAnalysisTechniques`
+You can access jupyter lab at `<host-ip>:<port>/lab/workspaces/lab1_TextAnalysisTechniques`
 
 # How computers understand language - NLP
 Machine learning driven programs or computers are good at discovering event patterns by processing and working with data. When the data is well structured or well defined, such as in a Microsoft Excel spreadsheet table and relational database table, it is intuitively obvious why machine learning is better at dealing with it than humans. Computers read such data the same way as humans, for example, revenue: 5,000,000 as the revenue being 5 million and age: 30 as age being 30; then computers crunch assorted data and generate insights. However, when the data is unstructured, such as words with which humans communicate, news articles, or someone's speech in French, it seems computers cannot understand words as well as human do (yet).

@@ -26,7 +26,7 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 All Notebooks are present in `work/python-machine-learning-by-example` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab7_Prediction`
+You can access jupyter lab at `<host-ip>:<port>/lab/workspaces/lab7_Prediction`
 
 # Learning the essentials of Apache Spark
 Apache Spark is a distributed cluster-computing framework designed for fast and general-purpose computation. It is an open-source technology originally developed by Berkeley's AMPLab at the University of California. It provides an easy-to-use interface for programming interactive queries and stream processing of data. What makes it a popular big data analytics tool is its implicit data parallelism, where it automates operation on data in parallel across processors in the computing cluster. Users only need to focus on how they like to manipulate the data without worrying about how data is distributed among all computing nodes, or which part of the data a node is responsible for.

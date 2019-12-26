@@ -25,7 +25,7 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 All Notebooks are present in `work/python-machine-learning-by-example` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab6_Logistic_Regression`
+You can access jupyter lab at `<host-ip>:<port>/lab/workspaces/lab6_Logistic_Regression`
 
 Converting categorical features to numerical – one-hot encoding and ordinal encoding
 ------------------------------------------------------------------------------------

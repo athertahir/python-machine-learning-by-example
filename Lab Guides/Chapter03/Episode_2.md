@@ -26,7 +26,7 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 All Notebooks are present in `work/python-machine-learning-by-example` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab2_Clustering_Topic_Modeling`
+You can access jupyter lab at `<host-ip>:<port>/lab/workspaces/lab2_Clustering_Topic_Modeling`
 
 # Learning without guidance – unsupervised learning
 In the previous chapter, we apply t-SNE to visualize the newsgroup text data in reduced 2 dimensions. T-SNE, or dimensionality reduction in general, is a type of unsupervised learning. Instead of having a teacher educating what particular output to produce, be it a class or membership (classification), be it a continuous value (regression), unsupervised learning identifies inherent structures or commonalities in the input data. Since there is no guidance in unsupervised learning, there is no clear answer on what is a right or wrong result. Unsupervised learning has the freedom to discover hidden information underneath input data.

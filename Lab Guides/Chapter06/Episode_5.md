@@ -28,7 +28,7 @@ Notebooks are ready to run. All packages have been installed. There is no requir
 
 All Notebooks are present in `work/python-machine-learning-by-example` folder.
 
-You can open the Jupyter Notebook at `<host-ip>:<port>/lab/workspaces/lab5_Tree_Algorithms`
+You can access jupyter lab at `<host-ip>:<port>/lab/workspaces/lab5_Tree_Algorithms`
 
 # Brief overview of advertising click-through prediction
 Display online advertising is a multibillion-dollar industry. It comes in different formats, including banner ads composed of text, images, flash, and rich media such as audio and video. Advertisers or their agencies place advertisements on a variety of websites, even mobile apps, across the internet to reach potential customers and deliver an advertising message.
