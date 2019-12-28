@@ -177,15 +177,18 @@ One or more columns can be selected as follows:
 +-----+---------+
 
 ```
+
 We can filter rows by condition, for instance, by the value of one column using the following command:
 
 `df.filter(df['age'] > 31).show()`
 
+```
 +----+---+---------+
 |name|age|      job|
 +----+---+---------+
 | Bob| 32|Developer|
 +----+---+---------+
+```
 
 **Important:** Type `quit()` to quit python shell.
 
@@ -577,11 +580,6 @@ DataFrame[label: int, features: vector]
 >>> df_test.unpersist()
 DataFrame[label: int, C1: string, banner_pos: string, site_id: string, site_domain: string, site_category: string, app_id: string, app_domain: string, app_category: string, device_model: string, device_type: string, device_conn_type: string, C14: string, C15: string, C16: string, C17: string, C18: string, C19: string, C20: string, C21: string]
 ```
-
-12. If you check the Spark UI `localhost:4040/jobs/` in your
-    browser, you will see several completed jobs, such as the following:
-
-![](./cc49a427-9364-4a42-8685-353b760d8cc5.png)
 
 ### Training and testing a logistic regression model
 
