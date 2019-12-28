@@ -526,9 +526,7 @@ becomes as follows:
 ![](./images/b8f23824-c757-461b-bd50-58686f2e1d51.png)
 
 Doesn't it look familiar? The **logistic****regression** algorithm we
-learned in [Chapter
-7](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/7),
-*Predicting Online Ads Click-through with Logistic Regression*, is just
+learned in *Predicting Online Ads Click-through with Logistic Regression*, is just
 an addition of logistic transformation on top of the linear regression,
 which maps the continuous weighted sum to *0* (negative) or *1*
 (positive) class. Similarly, a linear regression model, or specifically,
@@ -767,10 +765,7 @@ The estimate is pretty close to the ground truth.
 So far, we have been using gradient descent in weight optimization but,
 the same as logistic regression, linear regression is also open to
 **stochastic gradient descent** (**SGD**). To realize it, we can simply
-replace the `update_weights_gd` function with
-`update_weights_sgd` we created in [Chapter
-7](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/7), *Predicting
-Online Ads Click-through with Logistic Regression*.
+replace the `update_weights_gd` function with `update_weights_sgd`.
 
 We can also directly use the SGD-based regression
 algorithm, `SGDRegressor`, from scikit-learn:
@@ -788,10 +783,7 @@ algorithm, `SGDRegressor`, from scikit-learn:
 Here `'squared_loss'` for the `loss` parameter
 indicates the cost function is MSE; `penalty` is the
 regularization term and it can be `None`, `l1`,
-or`l2`, which is similar to `SGDClassifier` in
-[Chapter
-7](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/7), *Predicting
-Online Ads Click-through with Logistic Regression*, in order to reduce
+or`l2`, which is similar to `SGDClassifier` in order to reduce
 overfitting; `n_iter` is the number of iterations; and the
 remaining two parameters mean the learning rate is `0.01` and
 unchanged during the course of training. Train the model and output
@@ -998,9 +990,7 @@ It's now time for coding after we're clear about the regression tree
 construction process.
 
 The node splitting utility function we define as follow is identical to
-what we had in [Chapter
-6](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/6),
-*Predicting Online Ads Click-through with Tree-Based Algorithms*, which
+what we had in *Predicting Online Ads Click-through with Tree-Based Algorithms*, which
 separates samples in a node into left and right branches based on a pair
 of feature and value:
 
@@ -1233,9 +1223,7 @@ Compare predictions with the ground truth as follows:
 
 ### Implementing regression forest
 
-As seen in [Chapter
-6,](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/6)*Predicting
-Online Ads Click-through with Tree-Based Algorithms*, we introduced
+As seen in Online Ads Click-through with Tree-Based Algorithms*, we introduced
 **random forest** as an ensemble learning method by combining multiple
 decision trees that are separately trained and randomly subsampling
 training features in each node of a tree. In classification, a random
@@ -1260,9 +1248,7 @@ it to our Boston house price prediction example:
 ```
 
 As a bonus section, we implement regression forest with TensorFlow. It
-is actually quite similar to the implementation of random forest in
-[Chapter
-6,](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/6) *Predicting
+is actually quite similar to the implementation of random forest in *Predicting
 Online Ads Click-through with Tree-Based Algorithms*. First, we import
 the necessary modules as follows:
 
@@ -1370,9 +1356,7 @@ The third regression algorithm that we want to explore is **support
 vector regression** (**SVR**). As the name implies, SVR is part of the
 support vector family and sibling of the **support vector machine**
 (**SVM**)** **for classification (or we can just call it **SVC**) we
-learned in [Chapter
-5](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/5),
-*Classifying Newsgroup Topic with Support Vector Machine*.
+learned in *Classifying Newsgroup Topic with Support Vector Machine*.
 
 To recap, SVC seeks an optimal hyperplane that best segregates
 observations from different classes. Suppose a hyperplane is determined

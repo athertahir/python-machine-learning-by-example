@@ -9,7 +9,8 @@ Author: Yuxi (Hayden) Liu
 %matplotlib inline
 import matplotlib.pyplot as plt
 import numpy as np
-
+import warnings
+warnings.simplefilter("ignore")
 
 # Plot Gini Impurity in binary case
 pos_fraction = np.linspace(0.00, 1.00, 1000)

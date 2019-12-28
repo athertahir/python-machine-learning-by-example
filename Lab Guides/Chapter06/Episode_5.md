@@ -11,11 +11,6 @@ We will cover the following topics in this chapter:
 - The implementation of decision tree from scratch
 - The implementation of decision tree using scikit-learn
 - Click-through predictions with decision tree
-- What is random forest?
-- The mechanics of random forest
-- Click-through predictions with random forest
-- Tuning a tree model using grid search and cross-validation
-- The implementation of random forest using TensorFlow
 
 
 #### Pre-reqs:

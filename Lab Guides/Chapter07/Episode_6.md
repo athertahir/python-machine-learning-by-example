@@ -165,7 +165,7 @@ we define.
 
 
 ##### Run Notebook
-Open and run Jupyter Notebook `<host-ip>:<port>/notebooks/work/Chapter07/encoding.ipynb`
+Open and run Jupyter Notebook `encoding.ipynb`
 
 Classifying data with logistic regression
 -----------------------------------------
@@ -481,7 +481,7 @@ being *1* or the positive class is written as follows:
 ![](./770d20f0-e655-4749-a08d-605b050a54f4.png)
 
 In the *K *class case, the model is represented by *K* weight
-vectors, *w~1~, w~2~, …, w~K~*, and the probability of the target being
+vectors, and the probability of the target being
 class *k* is written as follows:
 
 ![](./125f57b4-a070-40cc-b6cd-321fb51b2ce3.png)
@@ -515,69 +515,10 @@ case:
 
 In a similar manner, all *K* weight vectors are updated in each
 iteration. After sufficient iterations, the learned weight vectors
-*w~1~, w~2~, …, w~K~* are then used to classify a new sample *x'* by
+are then used to classify a new sample *x'* by
 means of the following equation:
 
 ![](./bd109aa9-b369-46db-b2c9-0f253caeda82.png)
-
-To have a better sense, we experiment on it with a classic dataset, the
-handwritten digits for classification:
-
-```
->>> from sklearn import datasets
->>> digits = datasets.load_digits()
->>> n_samples = len(digits.images)
-```
-
-As the image data is stored in 8\*8 matrices, we need to flatten them,
-as follows:
-
-```
->>> X = digits.images.reshape((n_samples, -1))
->>> Y = digits.target
-```
-
-We then split the data as follows:
-
-```
->>> from sklearn.model_selection import train_test_split
->>> X_train, X_test, Y_train, Y_test = train_test_split(X, Y, 
-                                    test_size=0.2, random_state=42)
-```
-
-We then combine grid search and cross-validation to find the optimal
-multiclass logistic regression model as follows:
-
-```
->>> from sklearn.model_selection import GridSearchCV
->>> parameters = {'penalty': ['l2', None],
-...               'alpha': [1e-07, 1e-06, 1e-05, 1e-04],
-...               'eta0': [0.01, 0.1, 1, 10]}
->>> sgd_lr = SGDClassifier(loss='log', learning_rate='constant', 
-                          eta0=0.01, fit_intercept=True, n_iter=10)
->>> grid_search = GridSearchCV(sgd_lr, parameters, 
-                               n_jobs=-1, cv=3)
->>> grid_search.fit(term_docs_train, label_train)
->>> print(grid_search.best_params_)
-{'alpha': 1e-07, 'eta0': 0.1, 'penalty': None}
-```
-
-To predict using the optimal model, we apply the following:
-
-```
->>> sgd_lr_best = grid_search.best_estimator_
->>> accuracy = sgd_lr_best.score(term_docs_test, label_test)
->>> print('The accuracy on testing set is: 
-                              {0:.1f}%'.format(accuracy*100))
-The accuracy on testing set is: 94.2%
-```
-
-It doesn't look much different from the previous example, since
-`SGDClassifier` handles multiclass internally.
-
-
-##### Run Notebook
-Open and run Jupyter Notebook `scikit_logistic_regression.ipynb`
 
 Feature selection using random forest
 -------------------------------------

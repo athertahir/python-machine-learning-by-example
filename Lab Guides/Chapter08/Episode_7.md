@@ -50,6 +50,9 @@ Now, let's explore all the main components of Spark:
 
 The main goal of this section is to understand Spark as distributed cluster computing designed for fast computation, and which facilitates both data analytics and iterative learning. If you are looking for more detailed information on Spark, there is a lot of useful documentation along with tutorials available online, such as https://spark.apache.org/docs/latest/quick-start.html.
 
+
+**Note:** To copy and paste: use **Control-C** and to paste inside of a terminal, use **Control-V**
+
 #### Installing Spark
 
 We need following packages to perform the lab exercise: 
@@ -59,11 +62,11 @@ We need following packages to perform the lab exercise:
 
 #### JAVA
 
-Run the following commands to download and install JDK.
+You can following commands to download and install JDK. It is already installed in the lab environment.
 
-`apt-get update` 
+`sudo apt-get update` 
 
-`apt-get --assume-yes install default-jdk` 
+`sudo apt install --assume-yes openjdk-8-jdk` 
 
 Verify the installation with: `java -version`
 
@@ -79,26 +82,14 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode)
 #### Install pyspark
 PySpark is available in pypi. To install just run `pip install pyspark`
 
-##### Web UI
-We can access the Spark web interface to monitor the execution of Spark applications through a web browser. The wen interface can by accessed by navigating to the following URL at port `4040`. 
+##### Spark Shell
+We can access the Spark web interface to monitor the execution of Spark applications through a web browser. 
 
-`host-ip:4040`
-
-**Step 1:** Open a terminal and start the spark-shell by entering the following command.
+Open a terminal and start the spark-shell by entering the following command.
 
 `spark-shell`
 
-The Spark shell should show you that the web interface is available `locally` at the following URL as shown below.
-
-![](Selection_024.png)
-
-
-**Step 2:** Once you navigate to the web interface URL. You should see the Spark web interface as shown in the screenshot below.
-
-![](Selection_025.png)
-
-Since there is no job running, you won't be able to see any metrics.
-
+**Important:** Type `Ctrl-C` to quit spark shell.
 
 #### Programming in PySpark
 This section provides a quick introduction to programming with Python in Spark. We will start with the basic data structures in Spark.
@@ -110,9 +101,15 @@ Resilient Distributed Datasets (RDD) is the primary data structure in Spark. It 
 - **Dataset:** This contains a collection of partitioned data with their values or metadata
 RDD was the main data structure in Spark before version 2.0. After that, it is replaced by the DataFrame , which is also a distributed collection of data but organized into named columns. DataFrame utilizes the optimized execution engine of Spark SQL. Therefore, it is conceptually similar to a table in a relational database or a DataFrame object in the Python pandas library.
 
-Note
+**Note:**
+
 Although the current version of Spark still supports RDD, programming with DataFrames is highly recommended. Hence, we won't spent too much time here on programming with RDD. Refer to https://spark.apache.org/docs/latest/rdd-programming-guide.html if you are interested. We will go through the basics of programming with a dataframe.
 
+**Important:** Start python cli by typing `python` in the terminal. To copy and paste: use **Control-C** and to paste inside of a terminal, use **Control-V**
+
+Makr sure current directory is `~/work/python-machine-learning-by-example/Chapter08` in the terminal window.
+
+![](./1.png)
 The entry point to a Spark program is creating a Spark session, which can be done by using the following lines:
 
 ```
@@ -120,41 +117,26 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("test").getOrCreate()
 ```
 
-Note that this is not needed if you run it in PySpark shell. Right after we spin up a PySpark shell, a Spark session is automatically created. We can check the running Spark application at the following link: localhost:4040/jobs/. Refer to the following screenshot for the resulting page:
-
+Note that this is not needed if you run it in PySpark shell. Right after we spin up a PySpark shell, a Spark session is automatically created.
 
 With a Spark session spark, a DataFrame object can be created by reading a file (which is usually the case) or manual input. In the following example, we create a DataFrame object from a CSV file:
 
-`df = spark.read.csv("people.csv", header=True, sep=';')`
+`val  df = spark.read.csv("people.csv", header=True, sep=';')`
 												
 Columns in the CSV file people.csv are separated by ;.
-
-Once this is done, we can see an accomplished job in localhost:4040/jobs/:
-
-**Step 1:** After you see the output in the console, navigate back to the browser and refresh the Spark web interface. You should see a completed job as shown in the screenshot below.
-
-![](3.png)
-
-**Step 2:** You can click on the collect link below the Description column and you will be taken to stages. Click on the collect link again to check more information as shown in the screenshot below.
-
-![](Selection_027.png)
-
-**Step 3:** Click on the DAG Visualization link to view the DAG.
-
-![](Selection_028.png)
-
 
 We can display the content of the DataFrame object by using the following command:
 
 `df.show()`
 
-
+```
 +-----+---+---------+
 | name|age|      job|
 +-----+---+---------+
 |Jorge| 30|Developer|
 |  Bob| 32|Developer|
 +-----+---+---------+
+```
 
 We can count the number of rows by using the following command:
 
@@ -164,25 +146,29 @@ The schema of the DataFrame object can be displayed using the following command:
 
 `df.printSchema()`
 
+```
 root
  |-- name: string (nullable = true)
  |-- age: string (nullable = true)
  |-- job: string (nullable = true)
- 
+```
  
 One or more columns can be selected as follows:
 
 `df.select("name").show()`
 
+```
 +-----+
 | name|
 +-----+
 |Jorge|
 |  Bob|
 +-----+
+```
 
 `df.select(["name", "job"]).show()`
 
+```
 +-----+---------+
 | name|      job|
 +-----+---------+
@@ -190,6 +176,7 @@ One or more columns can be selected as follows:
 |  Bob|Developer|
 +-----+---------+
 
+```
 We can filter rows by condition, for instance, by the value of one column using the following command:
 
 `df.filter(df['age'] > 31).show()`
@@ -200,8 +187,7 @@ We can filter rows by condition, for instance, by the value of one column using 
 | Bob| 32|Developer|
 +----+---+---------+
 
-
-**Important:** Type `exit` to quit spark shell.
+**Important:** Type `quit()` to quit python shell.
 
 We will continue programming in PySpark in the next section, where we use Spark to solve the ad click-through problem.
 
@@ -223,11 +209,9 @@ no different from running it on a distributed computing cluster.
 To train a model on massive click logs, we first need to load the data
 in Spark. We do so by taking the following steps: 
 
-1.  First, we spin up the PySpark shell by using the following command:
+1.  We can install PySpark using the following command. It is already installed in the lab environment.
 
-```
-./bin/pyspark --master local[*]  --driver-memory 20G
-```
+`sudo pip install pyspark`
 
 Here, we specify a large driver memory as we are dealing with a dataset
 of more than 6 GB.
@@ -604,9 +588,7 @@ DataFrame[label: int, C1: string, banner_pos: string, site_id: string, site_doma
 With the encoded training and testing set ready, we can now train our
 classification model. We use logistic regression as an example, but
 there are many other classification models supported in PySpark, such as
-decision tree classifiers, random forests, neural networks (which we
-will be studying in [Chapter
-9](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/9), *Stock
+decision tree classifiers, random forests, neural networks, *Stock
 Price Prediction with Regression Algorithms*), linear SVM, and Naïve
 Bayes. For further details, please refer to the following
 link: [https://spark.apache.org/docs/latest/ml-classification-regression.html\#classification](https://spark.apache.org/docs/latest/ml-classification-regression.html#classification).

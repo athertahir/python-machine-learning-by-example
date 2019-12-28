@@ -73,16 +73,10 @@ Before starting to collect data, we should make sure that the goal of
 the project and the business problem, is completely understood, as this
 will guide us on what data sources to look into, and where sufficient
 domain knowledge and expertise is also required. For example, in the
-previous chapter, [Chapter
-9](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/9),
-*Stock Price Prediction with Regression Algorithms*, our goal was to
+previous chapter, *Stock Price Prediction with Regression Algorithms*, our goal was to
 predict the future prices of the DJIA index, so we first collected data
 of its past performance, instead of past performance of an irrelevant
-European stock. In [Chapter
-6](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/6),
-*Predicting Online Ads Click-through with Tree-Based Algorithms,* and
-[Chapter
-7](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/7),
+European stock. In *Predicting Online Ads Click-through with Tree-Based Algorithms,* and
 *Predicting Online Ads Click-through with Logistic Regression,* the
 business problem was to optimize advertising targeting efficiency
 measured in click-through rate, so we collected the clickstream data of
@@ -476,9 +470,7 @@ also emphasize this point.
 
 ### Best practice 8 – deciding on whether or not to select features, and if so, how to do so
 
-We have seen in [Chapter
-7](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/7),
-*Predicting Online Ads Click-through with Logistic Regression,* where
+We have seen in *Predicting Online Ads Click-through with Logistic Regression,* where
 feature selection was performed using L1-based regularized logistic
 regression and random forest. The benefits of feature selection include
 the following:
@@ -610,9 +602,7 @@ Score with the data set of top 45 components: 0.88
 
 ### Best practice 10 – deciding on whether or not to rescale features
 
-As seen in [Chapter
-9](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/9),
-*Stock Price Prediction with Regression Algorithms,*SGD-based linear
+As seen in *Stock Price Prediction with Regression Algorithms,*SGD-based linear
 regression, SVR, and the neural network model require features to be
 standardized by removing the mean and scaling to unit variance. So, when
 is feature scaling needed and when is it not?
@@ -638,8 +628,6 @@ If we are lucky enough to possess sufficient domain knowledge, we can
 apply it in creating domain-specific features; we utilize our business
 experience and insights to identify what is in the data and to formulate
 what from the data correlates to the prediction target. For example, in
-[Chapter
-9](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/9),
 *Stock Price Prediction with Regression Algorithms,* we designed and
 constructed feature sets for the prediction of stock prices based on
 factors that investors usually look at when making investment decisions.
@@ -745,15 +733,9 @@ that have more potential.
 
 ### Best practice 14 – extracting features from text data
 
-We have worked intensively with text data in [Chapter
-2](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/2), *Exploring
-the 20 Newsgroups Dataset with Text Analysis Techniques,*[Chapter
-3](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/3),
-*Mining the 20 Newsgroups Dataset with Clustering, and Topic Modeling
-Algorithms,*[Chapter
-4](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/4),
-*Detecting Spam Email with Naive Bayes,* and [Chapter
-5](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/5), *Classifying
+We have worked intensively with text data in *Exploring
+the 20 Newsgroups Dataset with Text Analysis Techniques, *Mining the 20 Newsgroups Dataset with Clustering,* and Topic Modeling
+Algorithms*, *Detecting Spam Email with Naive Bayes,* and *Classifying
 News Topics with a Support Vector Machine,* where we extracted features
 from text based on **term frequency** (**tf**) and **term
 frequency-inverse document frequency** (**tf-idf**). Both methods
@@ -841,9 +823,7 @@ in search engine, and clustering. 
 
 Now let's play around with `gensim`, a popular NLP package
 with powerful word embedding modules. If you have not installed the
-package in [Chapter
-2](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/2),
-*Exploring the 20 Newsgroups Dataset with Text Analysis Techniques,* you
+package in *Exploring the 20 Newsgroups Dataset with Text Analysis Techniques,* you
 can do so using `pip`. 
 
 First, we import the package and load a pretrained
@@ -1078,8 +1058,7 @@ the `plot_learning_curve` function defined in
 
 ### Best practice 18 – modeling on large-scale datasets
 
-We have gained experience working with large datasets in [Chapter
-8](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/8),
+We have gained experience working with large datasets in
 *Scaling Up Prediction to Terabyte Click Logs*. There are a few tips
 that can help you model on large-scale data more efficiently.
 
@@ -1244,8 +1223,7 @@ Iteration 200, training loss: 0.184381
 ```
 
 Hopefully, these all look familiar to you. If not, feel free to review
-our TensorFlow implementation of logistic regression in [Chapter
-7](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789616729/7),
+our TensorFlow implementation of logistic regression in
 *Predicting Online Ads Click-through with Logistic Regression.* Now here
 comes the model saving part. Let's see how it is done by performing the
 following steps:

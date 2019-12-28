@@ -7,7 +7,8 @@ Author: Yuxi (Hayden) Liu
 
 # %%
 import numpy as np
-
+import warnings
+warnings.simplefilter("ignore")
 
 def sigmoid(input):
     return 1.0 / (1 + np.exp(-input))
