@@ -15,6 +15,9 @@ print(X.shape)
 # Estimate accuracy on the original data set
 from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_score
+import warnings
+warnings.simplefilter("ignore")
+
 classifier = SVC(gamma=0.005)
 score = cross_val_score(classifier, X, y).mean()
 print('Score with the original data set: {0:.2f}'.format(score))

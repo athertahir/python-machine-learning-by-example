@@ -10,7 +10,8 @@ import pandas as pd
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.preprocessing import StandardScaler
-
+import warnings
+warnings.simplefilter("ignore")
 
 def generate_features(df):
     """

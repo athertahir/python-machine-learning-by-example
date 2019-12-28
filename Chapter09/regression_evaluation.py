@@ -7,6 +7,9 @@ Author: Yuxi (Hayden) Liu
 
 # %%
 from sklearn import datasets
+import warnings
+warnings.simplefilter("ignore")
+
 diabetes = datasets.load_diabetes()
 num_test = 30    # the last 30 samples as testing set
 X_train = diabetes.data[:-num_test, :]
@@ -16,8 +19,7 @@ y_test = diabetes.target[-num_test:]
 param_grid = {
     "alpha": [1e-07, 1e-06, 1e-05],
     "penalty": [None, "l2"],
-    "eta0": [0.001, 0.005, 0.01],
-    "n_iter": [300, 1000, 3000]
+    "eta0": [0.001, 0.005, 0.01]
 }
 
 from sklearn.linear_model import SGDRegressor

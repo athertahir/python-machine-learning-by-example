@@ -7,6 +7,8 @@ Author: Yuxi (Hayden) Liu
 
 # %%
 import gensim.downloader as api
+import warnings
+warnings.simplefilter("ignore")
 
 model = api.load("glove-twitter-25")
 
@@ -24,3 +26,4 @@ doc_sample = ['i', 'love', 'reading', 'python', 'machine', 'learning', 'by', 'ex
 import numpy as np
 doc_vector = np.mean([model.wv[word] for word in doc_sample], axis=0)
 print('The document sample is embedded into:\n', doc_vector)
+

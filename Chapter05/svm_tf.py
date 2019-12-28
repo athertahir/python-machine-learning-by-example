@@ -8,6 +8,10 @@ Author: Yuxi (Hayden) Liu
 # %%
 import tensorflow as tf
 import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import warnings
+warnings.simplefilter("ignore")
 
 from sklearn import datasets
 cancer_data = datasets.load_breast_cancer()

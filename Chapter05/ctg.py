@@ -7,6 +7,9 @@ Author: Yuxi (Hayden) Liu
 
 # %%
 import pandas as pd
+import warnings
+warnings.simplefilter("ignore")
+
 df = pd.read_excel('CTG.xls', "Raw Data")
 
 X = df.ix[1:2126, 3:-2].values

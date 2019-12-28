@@ -8,7 +8,10 @@ Author: Yuxi (Hayden) Liu
 # %%
 import numpy as np
 from sklearn.preprocessing import Imputer
-
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import warnings
+warnings.simplefilter("ignore")
 
 data_origin = [[30, 100],
                [20, 50],
