@@ -90,11 +90,7 @@ So P(U |H) becomes the following:
 
 - **Example 2:** Suppose a physician reported the following cancer screening test scenario among 10,000 people:
 
-| Cancer | No cancer | Total
---- | --- | --- | ---
-`Text positive` |  80 | 900   | 980
-`Text negative` |  20 | 9,000 | 9,020
-`Total`         | 100 | 9,900 | 10,000
+![](./table.png)
 
 It indicates for example 80 out of 100 cancer patients are correctly diagnosed, while the other 20 are not; cancer is falsely detected in 900 out of 9,900 healthy people.
 
