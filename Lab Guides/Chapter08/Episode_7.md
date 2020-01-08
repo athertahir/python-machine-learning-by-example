@@ -105,11 +105,15 @@ RDD was the main data structure in Spark before version 2.0. After that, it is r
 
 Although the current version of Spark still supports RDD, programming with DataFrames is highly recommended. Hence, we won't spent too much time here on programming with RDD. Refer to https://spark.apache.org/docs/latest/rdd-programming-guide.html if you are interested. We will go through the basics of programming with a dataframe.
 
-**Important:** Start python cli by typing `python` in the terminal. To copy and paste: use **Control-C** and to paste inside of a terminal, use **Control-V**
+**Note:** Terminal is already running. You can also open new terminal by clicking:
+`File` > `New` > `Terminal`.
+
+Start python cli by typing `python` in the terminal. To copy and paste: use **Control-C** and to paste inside of a terminal, use **Control-V**
 
 Makr sure current directory is `~/work/python-machine-learning-by-example/Chapter08` in the terminal window.
 
 ![](./1.png)
+
 The entry point to a Spark program is creating a Spark session, which can be done by using the following lines:
 
 ```

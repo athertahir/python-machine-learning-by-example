@@ -220,10 +220,10 @@ Class imbalance is critical to classification performance. Imagine if most sampl
 Let's have a look at a legitimate and a spam email by running the following scripts from the same path where the unzipped folder is located:
 
 ```
->>> file_path = 'enron1/ham/0007.1999-12-14.farmer.ham.txt'
->>> with open(file_path, 'r') as infile:
-...     ham_sample = infile.read()
->>> print(ham_sample)
+file_path = 'enron1/ham/0007.1999-12-14.farmer.ham.txt'
+with open(file_path, 'r') as infile:
+    ham_sample = infile.read()
+print(ham_sample)
 Subject: mcmullen gas for 11 / 99
 jackie ,
 since the inlet to 3 river plant is shut in on 10 / 19 / 99 ( the 
@@ -242,10 +242,10 @@ thanks
 Similarly, the spam sample is as follows:
 
 ```
->>> file_path = 'enron1/spam/0058.2003-12-21.GP.spam.txt'
->>> with open(file_path, 'r') as infile:
-...    spam_sample = infile.read()
->>> print(spam_sample)
+file_path = 'enron1/spam/0058.2003-12-21.GP.spam.txt'
+with open(file_path, 'r') as infile:
+   spam_sample = infile.read()
+print(spam_sample)
 Subject: stacey automated system generating 8 k per week parallelogram
 people are
 getting rich using this system ! now it ' s your
@@ -270,30 +270,30 @@ Next, we read all of the email text files and keep the ham/spam class informatio
 First, import the necessary modules, glob and os, in order to find all the .txt email files, and initialize the variables, keeping the text data and labels:
 
 ```
->>> import glob
->>> import os
->>> emails, labels = [], []
+import glob
+import os
+emails, labels = [], []
 ```
 
 Then, to load the spam email files, run the following commands:
 
 ```
->>> file_path = 'enron1/spam/'
->>> for filename in glob.glob(os.path.join(file_path, '*.txt')):
-...     with open(filename, 'r', encoding="ISO-8859-1") as infile:
-...         emails.append(infile.read())
-...         labels.append(1)
+file_path = 'enron1/spam/'
+for filename in glob.glob(os.path.join(file_path, '*.txt')):
+    with open(filename, 'r', encoding="ISO-8859-1") as infile:
+        emails.append(infile.read())
+        labels.append(1)
 Load the legitimate email files by running the following commands:
 
 ```
->>> file_path = 'enron1/ham/'
->>> for filename in glob.glob(os.path.join(file_path, '*.txt')):
-...     with open(filename, 'r', encoding="ISO-8859-1") as infile:
-...         emails.append(infile.read())
-...         labels.append(0)
->>> len(emails)
+file_path = 'enron1/ham/'
+for filename in glob.glob(os.path.join(file_path, '*.txt')):
+    with open(filename, 'r', encoding="ISO-8859-1") as infile:
+        emails.append(infile.read())
+        labels.append(0)
+len(emails)
 5172
->>> len(labels)
+len(labels)
 5172
 ```
 
@@ -307,36 +307,36 @@ The next step is to preprocess and clean the raw text data. To briefly recap, th
 We herein reuse the code we developed in the previous two chapters:
 
 ```
->>> from nltk.corpus import names
->>> from nltk.stem import WordNetLemmatizer
->>> def is_letter_only(word):
-...     return word.isalpha()
->>> all_names = set(names.words())
->>> lemmatizer = WordNetLemmatizer()
+from nltk.corpus import names
+from nltk.stem import WordNetLemmatizer
+def is_letter_only(word):
+    return word.isalpha()
+all_names = set(names.words())
+lemmatizer = WordNetLemmatizer()
 ```
 
 Put together a function performing text cleaning as follows:
 
 ```
->>> def clean_text(docs):
-...     docs_cleaned = []
-...     for doc in docs:
-...         doc = doc.lower()
-...         doc_cleaned = ' '.join(lemmatizer.lemmatize(word)
+def clean_text(docs):
+    docs_cleaned = []
+    for doc in docs:
+        doc = doc.lower()
+        doc_cleaned = ' '.join(lemmatizer.lemmatize(word)
                     for word in doc.split() if is_letter_only(word)
                     and word not in all_names)
-...         docs_cleaned.append(doc_cleaned)
-...     return docs_cleaned
->>> emails_cleaned = clean_text(emails)
+        docs_cleaned.append(doc_cleaned)
+    return docs_cleaned
+emails_cleaned = clean_text(emails)
 ```
 
 This leads to stop-word removal and term feature extraction, as follows:
 
 ```
->>> from sklearn.feature_extraction.text import CountVectorizer
->>> cv = CountVectorizer(stop_words="english", max_features=1000,
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer(stop_words="english", max_features=1000,
                                              max_df=0.5, min_df=2)
->>> docs_cv = cv.fit_transform(emails_cleaned)
+docs_cv = cv.fit_transform(emails_cleaned)
 ```
 
 The max_features parameter is set to 1000, so it only considers the 1,000 most frequent terms, excluding those that are too common (50% max_df) and too rare (2 min_df). We can definitely tweak this parameter later on in order to achieve higher classification accuracy.
@@ -344,7 +344,7 @@ The max_features parameter is set to 1000, so it only considers the 1,000 most f
 In case you forget what the resulting term vectors look like, let's take a peek:
 
 ```
->>> print(docs_cv[0])
+print(docs_cv[0])
  (0, 932) 1
  (0, 968) 1
  (0, 715) 1
@@ -375,12 +375,12 @@ The sparse vector is in the form of the following:
 We can also see what the corresponding terms are, as follows:
 
 ```
->>> terms = cv.get_feature_names()
->>> print(terms[932])
+terms = cv.get_feature_names()
+print(terms[932])
 unsubscribe
->>> print(terms[968])
+print(terms[968])
 website
->>> print(terms[715])
+print(terms[715])
 read
 ```
 
@@ -389,80 +389,80 @@ With the docs_cv feature matrix just generated, we can now develop and train our
 Starting with the prior, we first group the data by label and record the index of samples:
 
 ```
->>> def get_label_index(labels):
-...     from collections import defaultdict
-...     label_index = defaultdict(list)
-...     for index, label in enumerate(labels):
-...         label_index[label].append(index)
-...     return label_index
->>> label_index = get_label_index(labels)
+def get_label_index(labels):
+    from collections import defaultdict
+    label_index = defaultdict(list)
+    for index, label in enumerate(labels):
+        label_index[label].append(index)
+    return label_index
+label_index = get_label_index(labels)
 ```
 
 The resulting label_index looks like {0: [3000, 3001, 3002, 3003, …… 6670, 6671], 1: [0, 1, 2, 3, …., 2998, 2999]}, where training sample indices are grouped by class. With this, we calculate prior:
 
 ```
->>> def get_prior(label_index):
-...     """
-...     Compute prior based on training samples
-...     @param label_index: grouped sample indices by class
-...     @return: dictionary, with class label as key, corresponding
+def get_prior(label_index):
+    """
+    Compute prior based on training samples
+    @param label_index: grouped sample indices by class
+    @return: dictionary, with class label as key, corresponding
                                                   prior as the value
-...     """
-...     prior = {label: len(index) for label, index in
+    """
+    prior = {label: len(index) for label, index in
                                        label_index.items()}
-...     total_count = sum(prior.values())
-...     for label in prior:
-...         prior[label] /= float(total_count)
-...     return prior
->>> prior = get_prior(label_index)
->>> print('Prior:', prior)
+    total_count = sum(prior.values())
+    for label in prior:
+        prior[label] /= float(total_count)
+    return prior
+prior = get_prior(label_index)
+print('Prior:', prior)
 Prior: {1: 0.2900232018561485, 0: 0.7099767981438515}
 ```
 
 With prior calculated, we continue with likelihood:
 
 ```
->>> import numpy as np
->>> def get_likelihood(term_matrix, label_index, smoothing=0):
-...     """
-...     Compute likelihood based on training samples
-...     @param term_matrix: sparse matrix of the term frequency features
-...     @param label_index: grouped sample indices by class
-...     @param smoothing: integer, additive Laplace smoothing parameter
-...     @return: dictionary, with class as key, corresponding conditional      
+import numpy as np
+def get_likelihood(term_matrix, label_index, smoothing=0):
+    """
+    Compute likelihood based on training samples
+    @param term_matrix: sparse matrix of the term frequency features
+    @param label_index: grouped sample indices by class
+    @param smoothing: integer, additive Laplace smoothing parameter
+    @return: dictionary, with class as key, corresponding conditional      
                  probability P(feature|class) vector as value
-...     """
-...     likelihood = {}
-...     for label, index in label_index.items():
-...         likelihood[label] = term_matrix[index, :].sum(axis=0) +
+    """
+    likelihood = {}
+    for label, index in label_index.items():
+        likelihood[label] = term_matrix[index, :].sum(axis=0) +
                                                            smoothing
-...         likelihood[label] = np.asarray(likelihood[label])[0]
-...         total_count = likelihood[label].sum()
-...         likelihood[label] = likelihood[label] /
+        likelihood[label] = np.asarray(likelihood[label])[0]
+        total_count = likelihood[label].sum()
+        likelihood[label] = likelihood[label] /
                                             float(total_count)
-...     return likelihood
+    return likelihood
 ```
 
 We set the smoothing value to 1 here, which can also be 0 for no smoothing, and any other positive value, as long as high classification performance is achieved:
 
 ```
->>> smoothing = 1
->>> likelihood = get_likelihood(docs_cv, label_index, smoothing)
->>> len(likelihood[0])
+smoothing = 1
+likelihood = get_likelihood(docs_cv, label_index, smoothing)
+len(likelihood[0])
 1000
 ```
 
 The likelihood[0] parameter is the conditional probability P(feature | legitimate) vector of length 1,000 (1,000 features) for the legitimate class. Probabilities P(feature | legitimate) for the first five features are as follows:
 
 ```
->>> likelihood[0][:5]
+likelihood[0][:5]
 [0.00024653 0.00090705 0.00080007 0.00032096 0.00073495]
 ```
 
 And you can probably guess that likelihood[1] would be for the spam class. Similarly, the first five conditional probabilities P(feature | spam)are:
 
 ```
->>> likelihood[1][:5]
+likelihood[1][:5]
 [0.00063304 0.00078026 0.00101581 0.00022083 0.00326826]
 ```
 
@@ -473,88 +473,88 @@ If you ever find any of these confusing, feel free to check the following toy ex
 With prior and likelihood ready, we can now compute the posterior for the testing/new samples. There is a trick we use: instead of calculating the multiplication of hundreds of thousands of small value conditional probabilities of P(feature | class) (for example, 0.00024653, as we just saw), which may cause overflow error, we instead calculate the summation of their natural logarithms, then convert it back to its natural exponential value:
 
 ```
->>> def get_posterior(term_matrix, prior, likelihood):
-...     """
-...     Compute posterior of testing samples, based on prior and likelihood
-...     @param term_matrix: sparse matrix of the term frequency features
-...     @param prior: dictionary, with class label as key,
+def get_posterior(term_matrix, prior, likelihood):
+    """
+    Compute posterior of testing samples, based on prior and likelihood
+    @param term_matrix: sparse matrix of the term frequency features
+    @param prior: dictionary, with class label as key,
                                   corresponding prior as the value
-...     @param likelihood: dictionary, with class label as key,
+    @param likelihood: dictionary, with class label as key,
                      corresponding conditional probability vector as value
-...     @return: dictionary, with class label as key, corresponding
+    @return: dictionary, with class label as key, corresponding
                                                   posterior as value
-...     """
-...     num_docs = term_matrix.shape[0]
-...     posteriors = []
-...     for i in range(num_docs):
-...         # posterior is proportional to prior * likelihood
-...         # = exp(log(prior * likelihood))
-...         # = exp(log(prior) + log(likelihood))
-...         posterior = {key: np.log(prior_label) for key,
+    """
+    num_docs = term_matrix.shape[0]
+    posteriors = []
+    for i in range(num_docs):
+        # posterior is proportional to prior * likelihood
+        # = exp(log(prior * likelihood))
+        # = exp(log(prior) + log(likelihood))
+        posterior = {key: np.log(prior_label) for key,
                                       prior_label in prior.items()}
-...         for label, likelihood_label in likelihood.items():
-...             term_document_vector = term_matrix.getrow(i)
-...             counts = term_document_vector.data
-...             indices = term_document_vector.indices
-...             for count, index in zip(counts, indices):
-...                 posterior[label] +=
+        for label, likelihood_label in likelihood.items():
+            term_document_vector = term_matrix.getrow(i)
+            counts = term_document_vector.data
+            indices = term_document_vector.indices
+            for count, index in zip(counts, indices):
+                posterior[label] +=
                          np.log(likelihood_label[index]) * count
-...         # exp(-1000):exp(-999) will cause zero division error,
-...         # however it equates to exp(0):exp(1)
-...         min_log_posterior = min(posterior.values())
-...         for label in posterior:
-...             try:
-...                 posterior[label] = np.exp(
+        # exp(-1000):exp(-999) will cause zero division error,
+        # however it equates to exp(0):exp(1)
+        min_log_posterior = min(posterior.values())
+        for label in posterior:
+            try:
+                posterior[label] = np.exp(
                                posterior[label] - min_log_posterior)
-...             except:
-...                 posterior[label] = float('inf')
-...         # normalize so that all sums up to 1
-...         sum_posterior = sum(posterior.values())
-...         for label in posterior:
-...             if posterior[label] == float('inf'):
-...                 posterior[label] = 1.0
-...             else:
-...                 posterior[label] /= sum_posterior
-...         posteriors.append(posterior.copy())
-...     return posteriors
+            except:
+                posterior[label] = float('inf')
+        # normalize so that all sums up to 1
+        sum_posterior = sum(posterior.values())
+        for label in posterior:
+            if posterior[label] == float('inf'):
+                posterior[label] = 1.0
+            else:
+                posterior[label] /= sum_posterior
+        posteriors.append(posterior.copy())
+    return posteriors
 ```
 
 The prediction function is finished. Let's take one ham and one spam sample from another Enron email dataset to quickly verify our algorithm:
 
 ```
->>> emails_test = [
-...     '''Subject: flat screens
-...     hello ,
-...     please call or contact regarding the other flat screens
-...     requested .
-...     trisha tlapek - eb 3132 b
-...     michael sergeev - eb 3132 a
-...     also the sun blocker that was taken away from eb 3131 a .
-...     trisha should two monitors also michael .
-...     thanks
-...     kevin moore''',
-...     '''Subject: let ' s stop the mlm insanity !
-...     still believe you can earn $ 100 , 000 fast in mlm ? get real !
-...     get emm , a brand new system that replaces mlm with something that works !
-...     start earning 1 , 000 ' s now ! up to $ 10 , 000 per week doing simple 
-...     online tasks .
-...     free info - breakfree @ luxmail . com - type " send emm info " in the 
-...     subject box .
-...     this message is sent in compliance of the proposed bill section 301 . per 
-...     section 301 , paragraph ( a ) ( 2 ) ( c ) of s . 1618 . further transmission 
-...     to you by the sender of this e - mail may be stopped at no cost to you by        
-...     sending a reply to : " email address " with the word remove in the subject 
-...     line .''',
-... ]
+emails_test = [
+    '''Subject: flat screens
+    hello ,
+    please call or contact regarding the other flat screens
+    requested .
+    trisha tlapek - eb 3132 b
+    michael sergeev - eb 3132 a
+    also the sun blocker that was taken away from eb 3131 a .
+    trisha should two monitors also michael .
+    thanks
+    kevin moore''',
+    '''Subject: let ' s stop the mlm insanity !
+    still believe you can earn $ 100 , 000 fast in mlm ? get real !
+    get emm , a brand new system that replaces mlm with something that works !
+    start earning 1 , 000 ' s now ! up to $ 10 , 000 per week doing simple 
+    online tasks .
+    free info - breakfree @ luxmail . com - type " send emm info " in the 
+    subject box .
+    this message is sent in compliance of the proposed bill section 301 . per 
+    section 301 , paragraph ( a ) ( 2 ) ( c ) of s . 1618 . further transmission 
+    to you by the sender of this e - mail may be stopped at no cost to you by        
+    sending a reply to : " email address " with the word remove in the subject 
+    line .''',
+]
 ```
 
 Go through the same cleaning and preprocessing steps as in training stage:
 
 ```
->>> emails_cleaned_test = clean_text(emails_test)
->>> term_docs_test = cv.transform(emails_cleaned_test)
->>> posterior = get_posterior(term_docs_test, prior, likelihood)
->>> print(posterior)
+emails_cleaned_test = clean_text(emails_test)
+term_docs_test = cv.transform(emails_cleaned_test)
+posterior = get_posterior(term_docs_test, prior, likelihood)
+print(posterior)
 [{1: 5.958269329017321e-08, 0: 0.9999999404173067},
 {1: 0.9999999999999948, 0: 5.2138625988879895e-15}]
 ```
@@ -564,8 +564,8 @@ For the first email, 99.5% legitimate; the second email nearly 100% spam. Both a
 Further, to comprehensively evaluate our classifier's performance, we can randomly split the original dataset into two sets, the training and testing sets, which simulate learning data and prediction data respectively. Generally, the proportion of the original dataset to include in the testing split can be 25%, 33.3%, or 40%. We use the train_test_split function from scikit-learn to do the random splitting and to preserve the percentage of samples for each class:
 
 ```
->>> from sklearn.model_selection import train_test_split
->>> X_train, X_test, Y_train, Y_test =
+from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, Y_test =
               train_test_split(emails_cleaned, labels, test_size=0.33,
               random_state=42)
 ```
@@ -576,25 +576,25 @@ It is a good practice to assign a fixed random_state (for example, 42) during ex
 Check the training size and testing size as follows:
 
 ```
->>> len(X_train), len(Y_train)
+len(X_train), len(Y_train)
 (3465, 3465)
->>> len(X_test), len(Y_test)
+len(X_test), len(Y_test)
 (1707, 1707)
 ```
 
 Retrain the term frequency CountVectorizer based on the training set and recompute prior and likelihood accordingly:
 
 ```
->>> term_docs_train = cv.fit_transform(X_train)  
->>> label_index = get_label_index(Y_train)
->>> prior = get_prior(label_index)
->>> likelihood = get_likelihood(term_docs_train, label_index, smoothing)
+term_docs_train = cv.fit_transform(X_train)  
+label_index = get_label_index(Y_train)
+prior = get_prior(label_index)
+likelihood = get_likelihood(term_docs_train, label_index, smoothing)
 ```
 
 We then convert the testing documents into term matrix as follows:
 
 ```
->>> term_docs_test = cv.transform(X_test)
+term_docs_test = cv.transform(X_test)
 ```
 
 Note
@@ -603,20 +603,20 @@ It is noted that we can't train CountVectorizer using both the training and test
 Now, predict the posterior of the testing/new dataset as follows:
 
 ```
->>> posterior = get_posterior(term_docs_test, prior, likelihood)
+posterior = get_posterior(term_docs_test, prior, likelihood)
 ```
 
 Finally, we evaluate the model's performance with classification accuracy, which is the proportion of correct prediction:
 
 ```
->>> correct = 0.0
->>> for pred, actual in zip(posterior, Y_test):
-...     if actual == 1:
-...         if pred[1] >= 0.5:
-...             correct += 1
-...     elif pred[0] > 0.5:
-...         correct += 1
->>> print('The accuracy on {0} testing samples is:
+correct = 0.0
+for pred, actual in zip(posterior, Y_test):
+    if actual == 1:
+        if pred[1] >= 0.5:
+            correct += 1
+    elif pred[0] > 0.5:
+        correct += 1
+print('The accuracy on {0} testing samples is:
          {1:.1f}%'.format(len(Y_test), correct/len(Y_test)*100))
 ```
 
@@ -627,26 +627,26 @@ Implementing Naïve Bayes with scikit-learn
 Coding from scratch and implementing on your own solutions is the best way to learn about machine learning model. Of course, we can take a shortcut by directly using the MultinomialNB class from the scikit-learn API:
 
 ```
->>> from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import MultinomialNB
 ```
 
 Let's initialize a model with a smoothing factor (specified as alpha in scikit-learn) of 1.0, and prior learned from the training set (specified as fit_prior in scikit-learn):
 
 ```
->>> clf = MultinomialNB(alpha=1.0, fit_prior=True)
+clf = MultinomialNB(alpha=1.0, fit_prior=True)
 ```
 
 To train the Naïve Bayes classifier with the fit method, use the following command:
 
 ```
->>> clf.fit(term_docs_train, Y_train)
+clf.fit(term_docs_train, Y_train)
 ```
 
 And to obtain the prediction results with the predict_proba method, use the following commands:
 
 ```
->>> prediction_prob = clf.predict_proba(term_docs_test)
->>> prediction_prob[0:10]
+prediction_prob = clf.predict_proba(term_docs_test)
+prediction_prob[0:10]
 [[1.00000000e+00 3.96500362e-13]
 [1.00000000e+00 2.15303766e-81]
 [6.59774100e-01 3.40225900e-01]
@@ -662,16 +662,16 @@ And to obtain the prediction results with the predict_proba method, use the foll
 Do the following to directly acquire the predicted class values with the predict method (0.5 is the default threshold; if the predicted probability of class 1 is great than 0.5, class 1 is assigned, otherwise, 0 is used):
 
 ```
->>> prediction = clf.predict(term_docs_test)
->>> prediction[:10]
+prediction = clf.predict(term_docs_test)
+prediction[:10]
 [0 0 0 0 0 1 1 0 0 1]
 ```
 
 Finally, we measure the accuracy performance by calling the score method:
 
 ```
->>> accuracy = clf.score(term_docs_test, Y_test)
->>> print('The accuracy using MultinomialNB is:
+accuracy = clf.score(term_docs_test, Y_test)
+print('The accuracy using MultinomialNB is:
                                 {0:.1f}%'.format(accuracy*100))
 ```
 
@@ -693,8 +693,8 @@ A confusion matrix summarizes testing instances by their predicted values and tr
 To illustrate this, we compute the confusion matrix of our Naïve Bayes classifier. Herein, the confusion_matrix function of scikit-learn is used, but it is very easy to code it ourselves:
 
 ```
->>> from sklearn.metrics import confusion_matrix
->>> confusion_matrix(Y_test, prediction, labels=[0, 1])
+from sklearn.metrics import confusion_matrix
+confusion_matrix(Y_test, prediction, labels=[0, 1])
 [[1102   89]
 [  31 485]]
 ```
@@ -732,28 +732,28 @@ The f1 score comprehensively includes both the precision and the recall, and equ
 Let's compute these three measurements using corresponding functions from scikit-learn, as follows:
 
 ```
->>> from sklearn.metrics import precision_score, recall_score, f1_score
->>> precision_score(Y_test, prediction, pos_label=1)
+from sklearn.metrics import precision_score, recall_score, f1_score
+precision_score(Y_test, prediction, pos_label=1)
 0.8449477351916377
->>> recall_score(Y_test, prediction, pos_label=1)
+recall_score(Y_test, prediction, pos_label=1)
 0.939922480620155
->>> f1_score(Y_test, prediction, pos_label=1)
+f1_score(Y_test, prediction, pos_label=1)
 0.889908256880734
 ```
 
 0, the legitimate class, can also be viewed as positive, depending on the context. For example, assign the 0 class as pos_label:
 
 ```
->>> f1_score(Y_test, prediction, pos_label=0)
+f1_score(Y_test, prediction, pos_label=0)
 0.9483648881239244
 ```
 
 To obtain the precision, recall, and f1 score for each class, instead of exhausting all class labels in the three function calls above, a quicker way is to call the classification_report function:
 
 ```
->>> from sklearn.metrics import classification_report
->>> report = classification_report(Y_test, prediction)
->>> print(report)
+from sklearn.metrics import classification_report
+report = classification_report(Y_test, prediction)
+print(report)
           precision  recall f1-score support
 
       0       0.97    0.93     0.95    1191
@@ -775,44 +775,44 @@ During the process of tweaking a binary classifier (that is, trying out differen
 The ROC curve is a plot of the true positive rate versus the false positive rate at various probability thresholds, ranging from 0 to 1. For a testing sample, if the probability of a positive class is greater than the threshold, then a positive class is assigned; otherwise, we use negative. To recap, the true positive rate is equivalent to recall, and the false positive rate is the fraction of negatives that are incorrectly identified as positive. Let's code and exhibit the ROC curve (under thresholds of 0.0, 0.1, 0.2, …, 1.0) of our model:
 
 ```
->>> pos_prob = prediction_prob[:, 1]
->>> thresholds = np.arange(0.0, 1.2, 0.1)
->>> true_pos, false_pos = [0]*len(thresholds), [0]*len(thresholds)
->>> for pred, y in zip(pos_prob, Y_test):
-...     for i, threshold in enumerate(thresholds):
-...         if pred >= threshold:
+pos_prob = prediction_prob[:, 1]
+thresholds = np.arange(0.0, 1.2, 0.1)
+true_pos, false_pos = [0]*len(thresholds), [0]*len(thresholds)
+for pred, y in zip(pos_prob, Y_test):
+    for i, threshold in enumerate(thresholds):
+        if pred >= threshold:
                # if truth and prediction are both 1
-...             if y == 1:
-...                 true_pos[i] += 1
+            if y == 1:
+                true_pos[i] += 1
                # if truth is 0 while prediction is 1
-...             else:
-...                 false_pos[i] += 1
-...         else:
-...             break
+            else:
+                false_pos[i] += 1
+        else:
+            break
 ```
 
 Then calculate the true and false positive rates for all threshold settings (remember, there are 516.0 positive testing samples and 1191 negative ones):
 
 ```
->>> true_pos_rate = [tp / 516.0 for tp in true_pos]
->>> false_pos_rate = [fp / 1191.0 for fp in false_pos]
+true_pos_rate = [tp / 516.0 for tp in true_pos]
+false_pos_rate = [fp / 1191.0 for fp in false_pos]
 ```
 
 Now we can plot the ROC curve with matplotlib:
 
 ```
->>> import matplotlib.pyplot as plt
->>> plt.figure()
->>> lw = 2
->>> plt.plot(false_pos_rate, true_pos_rate, color='darkorange', lw=lw)
->>> plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
->>> plt.xlim([0.0, 1.0])
->>> plt.ylim([0.0, 1.05])
->>> plt.xlabel('False Positive Rate')
->>> plt.ylabel('True Positive Rate')
->>> plt.title('Receiver Operating Characteristic')
->>> plt.legend(loc="lower right")
->>> plt.show()
+import matplotlib.pyplot as plt
+plt.figure()
+lw = 2
+plt.plot(false_pos_rate, true_pos_rate, color='darkorange', lw=lw)
+plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic')
+plt.legend(loc="lower right")
+plt.show()
 ```
 
 Refer to the following screenshot for the resulting ROC curve:
@@ -823,8 +823,8 @@ In the graph, the dashed line is the baseline representing random guessing where
 
 ```
 ```
->>> from sklearn.metrics import roc_auc_score
->>> roc_auc_score(Y_test, pos_prob)
+from sklearn.metrics import roc_auc_score
+roc_auc_score(Y_test, pos_prob)
 0.965361984912685
 ```
 
@@ -843,11 +843,11 @@ In k-fold cross-validation, k is usually set 3, 5, or 10. If the training size i
 We herein use the split() method from the StratifiedKFold class of scikit-learn to divide the data into chunks with preserved class fractions:
 
 ```
->>> from sklearn.model_selection import StratifiedKFold
->>> k = 10
->>> k_fold = StratifiedKFold(n_splits=k, random_state=42)
->>> cleaned_emails_np = np.array(cleaned_emails)
->>> labels_np = np.array(labels)
+from sklearn.model_selection import StratifiedKFold
+k = 10
+k_fold = StratifiedKFold(n_splits=k, random_state=42)
+cleaned_emails_np = np.array(cleaned_emails)
+labels_np = np.array(labels)
 ```
 
 After initializing a 10-fold generator, we choose to explore the following values for the following parameters:
@@ -858,38 +858,38 @@ fit_prior: This represents whether or not to use prior tailored to the training 
 We start with the following options:
 
 ```
->>> max_features_option = [2000, 8000, None]
->>> smoothing_factor_option = [0.5, 1.0, 2.0, 4.0]
->>> fit_prior_option = [True, False]
->>> auc_record = {}
+max_features_option = [2000, 8000, None]
+smoothing_factor_option = [0.5, 1.0, 2.0, 4.0]
+fit_prior_option = [True, False]
+auc_record = {}
 ```
 
 Then, for each fold generated by the split() method of the k_fold object, repeat the process of term count feature extraction, classifier training, and prediction with one of the aforementioned combinations of parameters, and record the resulting AUCs:
 
 ```
->>> for train_indices, test_indices in k_fold.split(emails_cleaned,
+for train_indices, test_indices in k_fold.split(emails_cleaned,
                                                             labels):
-...     X_train, X_test = cleaned_emails_np[train_indices],
+    X_train, X_test = cleaned_emails_np[train_indices],
                                 cleaned_emails_np[test_indices]
-...     Y_train, Y_test = labels_np[train_indices],
+    Y_train, Y_test = labels_np[train_indices],
                                   labels_np[test_indices]
-...     for max_features in max_features_option:
-...         if max_features not in auc_record:
-...             auc_record[max_features] = {}
-...         cv = CountVectorizer(stop_words="english",
+    for max_features in max_features_option:
+        if max_features not in auc_record:
+            auc_record[max_features] = {}
+        cv = CountVectorizer(stop_words="english",
                     max_features=max_features, max_df=0.5, min_df=2)
-...         term_docs_train = cv.fit_transform(X_train)
-...         term_docs_test = cv.transform(X_test)
-...         for alpha in smoothing_factor_option:
-...             if alpha not in auc_record[max_features]:
-...                 auc_record[max_features][alpha] = {}
-...             for fit_prior in fit_prior_option:
-...                 clf = MultinomialNB(alpha=alpha, fit_prior=fit_prior)
-...                 clf.fit(term_docs_train, Y_train)
-...                 prediction_prob = clf.predict_proba(term_docs_test)
-...                 pos_prob = prediction_prob[:, 1]
-...                 auc = roc_auc_score(Y_test, pos_prob)
-...                 auc_record[max_features][alpha][fit_prior] = 
+        term_docs_train = cv.fit_transform(X_train)
+        term_docs_test = cv.transform(X_test)
+        for alpha in smoothing_factor_option:
+            if alpha not in auc_record[max_features]:
+                auc_record[max_features][alpha] = {}
+            for fit_prior in fit_prior_option:
+                clf = MultinomialNB(alpha=alpha, fit_prior=fit_prior)
+                clf.fit(term_docs_train, Y_train)
+                prediction_prob = clf.predict_proba(term_docs_test)
+                pos_prob = prediction_prob[:, 1]
+                auc = roc_auc_score(Y_test, pos_prob)
+                auc_record[max_features][alpha][fit_prior] = 
                                 auc+ auc_record[max_features][alpha].get(
                                 fit_prior, 0.0)
 ```
@@ -897,11 +897,11 @@ Then, for each fold generated by the split() method of the k_fold object, repeat
 Finally, we present the results as follows:
 
 ```
->>> print('max features  smoothing fit prior auc')
->>> for max_features, max_feature_record in auc_record.items():
-...     for smoothing, smoothing_record in max_feature_record.items():
-...         for fit_prior, auc in smoothing_record.items():
-...             print(' {0}      {1}   {2}
+print('max features  smoothing fit prior auc')
+for max_features, max_feature_record in auc_record.items():
+    for smoothing, smoothing_record in max_feature_record.items():
+        for fit_prior, auc in smoothing_record.items():
+            print(' {0}      {1}   {2}
                    {3:.5f}'.format(
                    max_features, smoothing, fit_prior, auc/k))
 max features  smoothing   fit prior   auc
@@ -933,9 +933,9 @@ max features  smoothing   fit prior   auc
 The (None, 4.0, False) set enables the best AUC, at 0.98969. In fact, not limiting the maximal number of features outperforms doing so, as 4.0, the highest smoothing factor, always beats other values. Hence, we conduct a second tweak, with the following options for greater values of smoothing factor:
 
 ```
->>> max_features_option = [None]
->>> smoothing_factor_option = [4.0, 10, 16, 20, 32]
->>> fit_prior_option = [True, False]
+max_features_option = [None]
+smoothing_factor_option = [4.0, 10, 16, 20, 32]
+fit_prior_option = [True, False]
 ```
 
 Repeat the cross-validation process and we get the following results:
