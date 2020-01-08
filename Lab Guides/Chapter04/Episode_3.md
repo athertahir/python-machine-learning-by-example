@@ -283,6 +283,9 @@ for filename in glob.glob(os.path.join(file_path, '*.txt')):
     with open(filename, 'r', encoding="ISO-8859-1") as infile:
         emails.append(infile.read())
         labels.append(1)
+        
+```
+
 Load the legitimate email files by running the following commands:
 
 ```
