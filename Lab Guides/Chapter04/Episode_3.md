@@ -821,7 +821,6 @@ Refer to the following screenshot for the resulting ROC curve:
 In the graph, the dashed line is the baseline representing random guessing where the true positive rate increases linearly with the false positive rate. Its AUC is 0.5; the orange line is the ROC plot of our model, and its AUC is somewhat less than 1. In a perfect case, the true positive samples have a probability of 1, so that the ROC starts at the point with 100% true positive and 0 false positive. The AUC of such a perfect curve is 1. To compute the exact AUC of our model, we can resort to the roc_auc_score function of scikit-learn:
 
 ```
-```
 from sklearn.metrics import roc_auc_score
 roc_auc_score(Y_test, pos_prob)
 0.965361984912685

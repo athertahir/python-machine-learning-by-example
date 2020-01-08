@@ -775,7 +775,6 @@ Open and run Jupyter Notebook `ctr_hashing.ipynb`
 ```
 
 ```
-```
 
 2.  Use the defined hasher to convert the input DataFrame:
 
