@@ -188,8 +188,8 @@ following small example:
 
 
 ```
->>> import numpy as np
->>> from sklearn.preprocessing import Imputer
+import numpy as np
+from sklearn.preprocessing import Imputer
 ```
 
 Represent the unknown value by `np.nan` in `numpy`,
@@ -197,12 +197,12 @@ as detailed in the following:
 
 
 ```
->>> data_origin = [[30, 100],
-...                [20, 50],
-...                [35, np.nan],
-...                [25, 80],
-...                [30, 70],
-...                [40, 60]]
+data_origin = [[30, 100],
+               [20, 50],
+               [35, np.nan],
+               [25, 80],
+               [30, 70],
+               [40, 60]]
 ```
 
  
@@ -214,16 +214,16 @@ such information from the original data:
 
 
 ```
->>> imp_mean = Imputer(missing_values='NaN', strategy='mean')
->>> imp_mean.fit(data_origin)
+imp_mean = Imputer(missing_values='NaN', strategy='mean')
+imp_mean.fit(data_origin)
 ```
 
 Complete the missing value as follows:
 
 
 ```
->>> data_mean_imp = imp_mean.transform(data_origin)
->>> print(data_mean_imp)
+data_mean_imp = imp_mean.transform(data_origin)
+print(data_mean_imp)
 [[ 30. 100.]
  [ 20. 50.]
  [ 35. 72.]
@@ -237,10 +237,10 @@ as detailed in the following:
 
 
 ```
->>> imp_median = Imputer(missing_values='NaN', strategy='median')
->>> imp_median.fit(data_origin)
->>> data_median_imp = imp_median.transform(data_origin)
->>> print(data_median_imp)
+imp_median = Imputer(missing_values='NaN', strategy='median')
+imp_median.fit(data_origin)
+data_median_imp = imp_median.transform(data_origin)
+print(data_median_imp)
 [[ 30. 100.]
  [ 20. 50.]
  [ 35. 70.]
@@ -255,12 +255,12 @@ as shown here:
 
 
 ```
->>> new = [[20, np.nan],
-...        [30, np.nan],
-...        [np.nan, 70],
-...        [np.nan, np.nan]]
->>> new_mean_imp = imp_mean.transform(new)
->>> print(new_mean_imp)
+new = [[20, np.nan],
+       [30, np.nan],
+       [np.nan, 70],
+       [np.nan, np.nan]]
+new_mean_imp = imp_mean.transform(new)
+print(new_mean_imp)
 [[ 20. 72.]
  [ 30. 72.]
  [ 30. 70.]
@@ -284,18 +284,18 @@ through the following example:
 
 
 ```
->>> from sklearn import datasets
->>> dataset = datasets.load_diabetes()
->>> X_full, y = dataset.data, dataset.target
+from sklearn import datasets
+dataset = datasets.load_diabetes()
+X_full, y = dataset.data, dataset.target
 ```
 
 2.  Simulate a corrupted dataset by adding 25% missing values:
 
 
 ```
->>> m, n = X_full.shape
->>> m_missing = int(m * 0.25)
->>> print(m, m_missing)
+m, n = X_full.shape
+m_missing = int(m * 0.25)
+print(m, m_missing)
 442 110
 ```
 
@@ -303,10 +303,10 @@ through the following example:
 
 
 ```
->>> np.random.seed(42)
->>> missing_samples = np.array([True] * m_missing + 
+np.random.seed(42)
+missing_samples = np.array([True] * m_missing + 
                                [False] * (m - m_missing))
->>> np.random.shuffle(missing_samples)
+np.random.shuffle(missing_samples)
 ```
 
 4.  For each missing sample, randomly select 1 out of `n`
@@ -314,7 +314,7 @@ through the following example:
 
 
 ```
->>> missing_features = np.random.randint(low=0, high=n, 
+missing_features = np.random.randint(low=0, high=n, 
                                          size=m_missing)
 ```
 
@@ -322,8 +322,8 @@ through the following example:
 
 
 ```
->>> X_missing = X_full.copy()
->>> X_missing[np.where(missing_samples)[0], missing_features] = 
+X_missing = X_full.copy()
+X_missing[np.where(missing_samples)[0], missing_features] = 
                                                           np.nan
 ```
 
@@ -332,8 +332,8 @@ through the following example:
 
 
 ```
->>> X_rm_missing = X_missing[~missing_samples, :]
->>> y_rm_missing = y[~missing_samples]
+X_rm_missing = X_missing[~missing_samples, :]
+y_rm_missing = y[~missing_samples]
 ```
 
  
@@ -347,13 +347,13 @@ through the following example:
 
 
 ```
->>> from sklearn.ensemble import RandomForestRegressor
->>> from sklearn.model_selection import cross_val_score
->>> regressor = RandomForestRegressor(random_state=42, 
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import cross_val_score
+regressor = RandomForestRegressor(random_state=42, 
                                   max_depth=10, n_estimators=100)
->>> score_rm_missing = cross_val_score(regressor, X_rm_missing, 
+score_rm_missing = cross_val_score(regressor, X_rm_missing, 
                                              y_rm_missing).mean()
->>> print('Score with the data set with missing samples removed: 
+print('Score with the data set with missing samples removed: 
                                  {0:.2f}'.format(score_rm_missing))
 Score with the data set with missing samples removed: 0.39
 ```
@@ -363,8 +363,8 @@ Score with the data set with missing samples removed: 0.39
 
 
 ```
->>> imp_mean = Imputer(missing_values='NaN', strategy='mean')
->>> X_mean_imp = imp_mean.fit_transform(X_missing)
+imp_mean = Imputer(missing_values='NaN', strategy='mean')
+X_mean_imp = imp_mean.fit_transform(X_missing)
 ```
 
 9.  Similarly, measure the effects of using this strategy by estimating
@@ -372,11 +372,11 @@ Score with the data set with missing samples removed: 0.39
 
 
 ```
->>> regressor = RandomForestRegressor(random_state=42, 
+regressor = RandomForestRegressor(random_state=42, 
                                  max_depth=10, n_estimators=100)
->>> score_mean_imp = cross_val_score(regressor, X_mean_imp, 
+score_mean_imp = cross_val_score(regressor, X_mean_imp, 
                                                    y).mean()
->>> print('Score with the data set with missing values replaced by 
+print('Score with the data set with missing values replaced by 
                              mean: {0:.2f}'.format(score_mean_imp))
 Score with the data set with missing values replaced by mean: 0.42
 ```
@@ -388,10 +388,10 @@ Score with the data set with missing values replaced by mean: 0.42
 
 
 ```
->>> regressor = RandomForestRegressor(random_state=42, 
+regressor = RandomForestRegressor(random_state=42, 
                                   max_depth=10, n_estimators=500)
->>> score_full = cross_val_score(regressor, X_full, y).mean()
->>> print 'Score with the full data set: 
+score_full = cross_val_score(regressor, X_full, y).mean()
+print 'Score with the full data set: 
                              {0:.2f}'.format(score_full)
 Score with the full data set: 0.44
 ```
@@ -498,10 +498,10 @@ selection by estimating the averaged classification accuracy with an
 
 
 ```
->>> from sklearn.datasets import load_digits
->>> dataset = load_digits()
->>> X, y = dataset.data, dataset.target
->>> print(X.shape)
+from sklearn.datasets import load_digits
+dataset = load_digits()
+X, y = dataset.data, dataset.target
+print(X.shape)
 (1797, 64)
 ```
 
@@ -510,11 +510,11 @@ selection by estimating the averaged classification accuracy with an
 
 
 ```
->>> from sklearn.svm import SVC
->>> from sklearn.model_selection import cross_val_score
->>> classifier = SVC(gamma=0.005)
->>> score = cross_val_score(classifier, X, y).mean()
->>> print('Score with the original data set: 
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score
+classifier = SVC(gamma=0.005)
+score = cross_val_score(classifier, X, y).mean()
+print('Score with the original data set: 
                                 {0:.2f}'.format(score))
 Score with the original data set: 0.88
 ```
@@ -524,11 +524,11 @@ Score with the original data set: 0.88
 
 
 ```
->>> from sklearn.ensemble import RandomForestClassifier
->>> random_forest = RandomForestClassifier(n_estimators=100, 
+from sklearn.ensemble import RandomForestClassifier
+random_forest = RandomForestClassifier(n_estimators=100, 
                                       criterion='gini', n_jobs=-1)
->>> random_forest.fit(X, y)
->>> feature_sorted = 
+random_forest.fit(X, y)
+feature_sorted = 
                np.argsort(random_forest.feature_importances_)
 ```
 
@@ -537,16 +537,16 @@ Score with the original data set: 0.88
 
 
 ```
->>> K = [10, 15, 25, 35, 45]
->>> for k in K:
-...     top_K_features = feature_sorted[-k:]
-...     X_k_selected = X[:, top_K_features]
-...     # Estimate accuracy on the data set with k 
+K = [10, 15, 25, 35, 45]
+for k in K:
+    top_K_features = feature_sorted[-k:]
+    X_k_selected = X[:, top_K_features]
+    # Estimate accuracy on the data set with k 
           selected features
-...     classifier = SVC(gamma=0.005)
-...     score_k_features = 
+    classifier = SVC(gamma=0.005)
+    score_k_features = 
                cross_val_score(classifier, X_k_selected, y).mean()
-...     print('Score with the data set of top {0} features: 
+    print('Score with the data set of top {0} features: 
                             {1:.2f}'.format(k, score_k_features))
 ...
 Score with the data set of top 10 features: 0.88
@@ -581,17 +581,17 @@ dataset:
 
 
 ```
->>> from sklearn.decomposition import PCA
->>> # Keep different number of top components
->>> N = [10, 15, 25, 35, 45]
->>> for n in N:
-...     pca = PCA(n_components=n)
-...     X_n_kept = pca.fit_transform(X)
-...     # Estimate accuracy on the data set with top n components
-...     classifier = SVC(gamma=0.005)
-...     score_n_components = 
+from sklearn.decomposition import PCA
+# Keep different number of top components
+N = [10, 15, 25, 35, 45]
+for n in N:
+    pca = PCA(n_components=n)
+    X_n_kept = pca.fit_transform(X)
+    # Estimate accuracy on the data set with top n components
+    classifier = SVC(gamma=0.005)
+    score_n_components = 
                    cross_val_score(classifier, X_n_kept, y).mean()
-...     print('Score with the data set of top {0} components: 
+    print('Score with the data set of top {0} components: 
                          {1:.2f}'.format(n, score_n_components))
 Score with the data set of top 10 components: 0.95
 Score with the data set of top 15 components: 0.95
@@ -666,11 +666,11 @@ that you can follow:
 
 
 ```
->>> from sklearn.preprocessing import Binarizer
->>> X = [[4], [1], [3], [0]]
->>> binarizer = Binarizer(threshold=2.9)
->>> X_new = binarizer.fit_transform(X)
->>> print(X_new)
+from sklearn.preprocessing import Binarizer
+X = [[4], [1], [3], [0]]
+binarizer = Binarizer(threshold=2.9)
+X_new = binarizer.fit_transform(X)
+print(X_new)
 [[1]
  [0]
  [1]
@@ -700,14 +700,14 @@ that you can follow:
 
 
 ```
->>> from sklearn.preprocessing import PolynomialFeatures
->>> X = [[2, 4],
-...      [1, 3],
-...      [3, 2],
-...      [0, 3]]
->>> poly = PolynomialFeatures(degree=2)
->>> X_new = poly.fit_transform(X)
->>> print(X_new)
+from sklearn.preprocessing import PolynomialFeatures
+X = [[2, 4],
+     [1, 3],
+     [3, 2],
+     [0, 3]]
+poly = PolynomialFeatures(degree=2)
+X_new = poly.fit_transform(X)
+print(X_new)
 [[ 1. 2. 4. 4. 8. 16.]
  [ 1. 1. 3. 1. 3. 9.]
  [ 1. 3. 2. 9. 6. 4.]
@@ -831,8 +831,8 @@ model, `glove-twitter-25`, as follows:
 
 
 ```
->>> import gensim.downloader as api
->>> model = api.load("glove-twitter-25")
+import gensim.downloader as api
+model = api.load("glove-twitter-25")
 [==================================================] 100.0% 
 104.8/104.8MB downloaded
 ```
@@ -846,8 +846,8 @@ example), as follows:
 
 
 ```
->>> vector = model.wv['computer']
->>> print('Word computer is embedded into:\n', vector)
+vector = model.wv['computer']
+print('Word computer is embedded into:\n', vector)
 Word computer is embedded into:
 [ 0.64005 -0.019514 0.70148 -0.66123 1.1723 -0.58859 0.25917
 -0.81541 1.1708 1.1413 -0.15405 -0.11369 -3.8414 -0.87233
@@ -862,8 +862,8 @@ We can also get the top 10 words that are most contextually relevant to
 
 
 ```
->>> similar_words = model.most_similar("computer")
->>> print('Top ten words most contextually relevant to computer:\n', 
+similar_words = model.most_similar("computer")
+print('Top ten words most contextually relevant to computer:\n', 
            similar_words)
 Top ten words most contextually relevant to computer:
  [('camera', 0.907833456993103), ('cell', 0.891890287399292), ('server', 0.8744666576385498), ('device', 0.869352400302887), ('wifi', 0.8631256818771362), ('screen', 0.8621907234191895), ('app', 0.8615544438362122), ('case', 0.8587921857833862), ('remote', 0.8583616018295288), ('file', 0.8575270771980286)]
@@ -876,12 +876,12 @@ document with a simple example, as follows:
 
 
 ```
->>> doc_sample = ['i', 'love', 'reading', 'python', 'machine', 
+doc_sample = ['i', 'love', 'reading', 'python', 'machine', 
                  'learning', 'by', 'example']
->>> import numpy as np
->>> doc_vector = np.mean([model.wv[word] for word in doc_sample], 
+import numpy as np
+doc_vector = np.mean([model.wv[word] for word in doc_sample], 
                                                            axis=0)
->>> print('The document sample is embedded into:\n', doc_vector)
+print('The document sample is embedded into:\n', doc_vector)
 The document sample is embedded into:
  [-0.17100249 0.1388764 0.10616798 0.200275 0.1159925 -0.1515975
   1.1621187 -0.4241785 0.2912 -0.28199488 -0.31453252 0.43692702
@@ -1110,13 +1110,13 @@ and employ an `SVR` model, as follows:
 
 
 ```
->>> dataset = datasets.load_diabetes()
->>> X, y = dataset.data, dataset.target
->>> num_new = 30 # the last 30 samples as new data set
->>> X_train = X[:-num_new, :]
->>> y_train = y[:-num_new]
->>> X_new = X[-num_new:, :]
->>> y_new = y[-num_new:]
+dataset = datasets.load_diabetes()
+X, y = dataset.data, dataset.target
+num_new = 30 # the last 30 samples as new data set
+X_train = X[:-num_new, :]
+y_train = y[:-num_new]
+X_new = X[-num_new:, :]
+y_new = y[-num_new:]
 ```
 
  
@@ -1128,9 +1128,9 @@ commands:
 
 
 ```
->>> from sklearn.preprocessing import StandardScaler
->>> scaler = StandardScaler()
->>> scaler.fit(X_train)
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaler.fit(X_train)
 ```
 
 Now save the established standardizer, the `scaler` object
@@ -1138,8 +1138,8 @@ with `pickle`, as follows:
 
 
 ```
->>> import pickle
->>> pickle.dump(scaler, open("scaler.p", "wb" ))
+import pickle
+pickle.dump(scaler, open("scaler.p", "wb" ))
 ```
 
 This generates the `scaler.p` file.
@@ -1149,10 +1149,10 @@ follows:
 
 
 ```
->>> X_scaled_train = scaler.transform(X_train)
->>> from sklearn.svm import SVR
->>> regressor = SVR(C=20)
->>> regressor.fit(X_scaled_train, y_train)
+X_scaled_train = scaler.transform(X_train)
+from sklearn.svm import SVR
+regressor = SVR(C=20)
+regressor.fit(X_scaled_train, y_train)
 ```
 
 Save the trained `regressor` object with `pickle`,
@@ -1160,7 +1160,7 @@ as follows:
 
 
 ```
->>> pickle.dump(regressor, open("regressor.p", "wb"))
+pickle.dump(regressor, open("regressor.p", "wb"))
 ```
 
 This generates the `regressor.p` file.
@@ -1170,8 +1170,8 @@ In the deployment stage, we first load the saved standardizer and
 
 
 ```
->>> my_scaler = pickle.load(open("scaler.p", "rb" ))
->>> my_regressor = pickle.load(open("regressor.p", "rb"))
+my_scaler = pickle.load(open("scaler.p", "rb" ))
+my_regressor = pickle.load(open("regressor.p", "rb"))
 ```
 
 Then preprocess the new data using the standardizer and make prediction
@@ -1179,8 +1179,8 @@ with the `regressor` object just loaded, as follows:
 
 
 ```
->>> X_scaled_new = my_scaler.transform(X_new)
->>> predictions = my_regressor.predict(X_scaled_new)
+X_scaled_new = my_scaler.transform(X_new)
+predictions = my_regressor.predict(X_scaled_new)
 ```
 
 We also demonstrate how to save and restore models in TensorFlow as a
@@ -1189,28 +1189,28 @@ model on the cancer dataset, as follows:
 
 
 ```
->>> import tensorflow as tf
->>> from sklearn import datasets
->>> cancer_data = datasets.load_breast_cancer()
->>> X = cancer_data.data
->>> Y = cancer_data.target
->>> n_features = int(X.shape[1])
->>> learning_rate = 0.005
->>> n_iter = 200
->>> x = tf.placeholder(tf.float32, shape=[None, n_features])
->>> y = tf.placeholder(tf.float32, shape=[None])
->>> W = tf.Variable(tf.zeros([n_features, 1]), name='W')
->>> b = tf.Variable(tf.zeros([1]), name='b')
->>> logits = tf.add(tf.matmul(x, W), b)[:, 0]
->>> cost = tf.reduce_mean(
+import tensorflow as tf
+from sklearn import datasets
+cancer_data = datasets.load_breast_cancer()
+X = cancer_data.data
+Y = cancer_data.target
+n_features = int(X.shape[1])
+learning_rate = 0.005
+n_iter = 200
+x = tf.placeholder(tf.float32, shape=[None, n_features])
+y = tf.placeholder(tf.float32, shape=[None])
+W = tf.Variable(tf.zeros([n_features, 1]), name='W')
+b = tf.Variable(tf.zeros([1]), name='b')
+logits = tf.add(tf.matmul(x, W), b)[:, 0]
+cost = tf.reduce_mean(
          tf.nn.sigmoid_cross_entropy_with_logits(labels=y, logits=logits))
->>> optimizer = tf.train.AdamOptimizer(learning_rate).minimize(cost)
->>> sess = tf.Session()
->>> sess.run(tf.global_variables_initializer())
->>> for i in range(1, n_iter+1):
-...     _, c = sess.run([optimizer, cost], feed_dict={x: X, y: Y})
-...     if i % 10 == 0:
-...         print('Iteration %i, training loss: %f' % (i, c))
+optimizer = tf.train.AdamOptimizer(learning_rate).minimize(cost)
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+for i in range(1, n_iter+1):
+    _, c = sess.run([optimizer, cost], feed_dict={x: X, y: Y})
+    if i % 10 == 0:
+        print('Iteration %i, training loss: %f' % (i, c))
 Iteration 10, training loss: 0.744104
 Iteration 20, training loss: 0.299996
 Iteration 30, training loss: 0.278439
@@ -1233,7 +1233,7 @@ following steps:
 
 
 ```
->>> saver = tf.train.Saver()
+saver = tf.train.Saver()
 ```
 
 2.  Save the model (or more specifically, the weight and bias variables)
@@ -1241,9 +1241,9 @@ following steps:
 
 
 ```
->>> file_path = './model_tf'
->>> saved_path = saver.save(sess, file_path)
->>> print('model saved in path: {}'.format(saved_path))
+file_path = './model_tf'
+saved_path = saver.save(sess, file_path)
+print('model saved in path: {}'.format(saved_path))
 model saved in path: ./model_tf
 ```
 
@@ -1253,7 +1253,7 @@ model saved in path: ./model_tf
 
 
 ```
->>> tf.reset_default_graph()
+tf.reset_default_graph()
 ```
 
 4.  Now we import the graph and see all tensors in the graph, as
@@ -1261,18 +1261,18 @@ model saved in path: ./model_tf
 
 
 ```
->>> imported_graph = tf.train.import_meta_graph(file_path+'.meta')
+imported_graph = tf.train.import_meta_graph(file_path+'.meta')
 ```
 
 5.  Finally, run a session and restore the model, as follows:
 
 
 ```
->>> with tf.Session() as sess:
-...     imported_graph.restore(sess, file_path)
-...     W_loaded, b_loaded = sess.run(['W:0','b:0'])
-...     print('Saved W = ', W_loaded)
-...     print('Saved b = ', b_loaded)
+with tf.Session() as sess:
+    imported_graph.restore(sess, file_path)
+    W_loaded, b_loaded = sess.run(['W:0','b:0'])
+    print('Saved W = ', W_loaded)
+    print('Saved b = ', b_loaded)
 Saved W = [[ 7.76923299e-02]
  [ 1.78780090e-02]
  [ 6.56032786e-02]
@@ -1300,8 +1300,8 @@ follows:
 
 
 ```
->>> from sklearn.metrics import r2_score
->>> print('Health check on the model, R^2: 
+from sklearn.metrics import r2_score
+print('Health check on the model, R^2: 
                  {0:.3f}'.format(r2_score(y_new, predictions)))
 Health check on the model, R^2: 0.613
 ```

@@ -305,8 +305,8 @@ button to download the data and name the file
 We can load the data we just downloaded as follows:
 
 ```
->>> mydata = pd.read_csv('20051201_20051210.csv', index_col='Date')
->>> mydata
+mydata = pd.read_csv('20051201_20051210.csv', index_col='Date')
+mydata
                Open         High         Low          Close 
 Date
 2005-12-01 10806.030273 10934.900391 10806.030273 10912.570312
@@ -346,28 +346,28 @@ that directly creates features from the original six features, as
 follows:
 
 ```
->>> def add_original_feature(df, df_new):
-...     df_new['open'] = df['Open']
-...     df_new['open_1'] = df['Open'].shift(1)
-...     df_new['close_1'] = df['Close'].shift(1)
-...     df_new['high_1'] = df['High'].shift(1)
-...     df_new['low_1'] = df['Low'].shift(1)
-...     df_new['volume_1'] = df['Volume'].shift(1)
+def add_original_feature(df, df_new):
+    df_new['open'] = df['Open']
+    df_new['open_1'] = df['Open'].shift(1)
+    df_new['close_1'] = df['Close'].shift(1)
+    df_new['high_1'] = df['High'].shift(1)
+    df_new['low_1'] = df['Low'].shift(1)
+    df_new['volume_1'] = df['Volume'].shift(1)
 ```
 
 Then we develop a sub-function that generates six features related to
 average close prices:
 
 ```
->>> def add_avg_price(df, df_new):
-...     df_new['avg_price_5'] = df['Close'].rolling(5).mean().shift(1)
-...     df_new['avg_price_30'] = df['Close'].rolling(21).mean().shift(1)
-...     df_new['avg_price_365'] = df['Close'].rolling(252).mean().shift(1)
-...     df_new['ratio_avg_price_5_30'] = 
+def add_avg_price(df, df_new):
+    df_new['avg_price_5'] = df['Close'].rolling(5).mean().shift(1)
+    df_new['avg_price_30'] = df['Close'].rolling(21).mean().shift(1)
+    df_new['avg_price_365'] = df['Close'].rolling(252).mean().shift(1)
+    df_new['ratio_avg_price_5_30'] = 
                           df_new['avg_price_5'] / df_new['avg_price_30']
-...     df_new['ratio_avg_price_5_365'] = 
+    df_new['ratio_avg_price_5_365'] = 
                           df_new['avg_price_5'] / df_new['avg_price_365']
-...     df_new['ratio_avg_price_30_365'] = 
+    df_new['ratio_avg_price_30_365'] = 
                           df_new['avg_price_30'] / df_new['avg_price_365']
 ```
 
@@ -375,16 +375,16 @@ Similarly, a sub-function that generates six features related to average
 volumes is as follows:
 
 ```
->>> def add_avg_volume(df, df_new):
-...     df_new['avg_volume_5'] = df['Volume'].rolling(5).mean().shift(1)
-...     df_new['avg_volume_30'] = df['Volume'].rolling(21).mean().shift(1)
-...     df_new['avg_volume_365'] = 
+def add_avg_volume(df, df_new):
+    df_new['avg_volume_5'] = df['Volume'].rolling(5).mean().shift(1)
+    df_new['avg_volume_30'] = df['Volume'].rolling(21).mean().shift(1)
+    df_new['avg_volume_365'] = 
                         df['Volume'].rolling(252).mean().shift(1)
-...     df_new['ratio_avg_volume_5_30'] = 
+    df_new['ratio_avg_volume_5_30'] = 
                         df_new['avg_volume_5'] / df_new['avg_volume_30']
-...     df_new['ratio_avg_volume_5_365'] = 
+    df_new['ratio_avg_volume_5_365'] = 
                         df_new['avg_volume_5'] / df_new['avg_volume_365']
-...     df_new['ratio_avg_volume_30_365'] = 
+    df_new['ratio_avg_volume_30_365'] = 
                         df_new['avg_volume_30'] / df_new['avg_volume_365']
 ```
 
@@ -392,15 +392,15 @@ As for the standard deviation, we develop the following sub-function for
 the price-related features:
 
 ```
->>> def add_std_price(df, df_new):
-...     df_new['std_price_5'] = df['Close'].rolling(5).std().shift(1)
-...     df_new['std_price_30'] = df['Close'].rolling(21).std().shift(1)
-...     df_new['std_price_365'] = df['Close'].rolling(252).std().shift(1)
-...     df_new['ratio_std_price_5_30'] = 
+def add_std_price(df, df_new):
+    df_new['std_price_5'] = df['Close'].rolling(5).std().shift(1)
+    df_new['std_price_30'] = df['Close'].rolling(21).std().shift(1)
+    df_new['std_price_365'] = df['Close'].rolling(252).std().shift(1)
+    df_new['ratio_std_price_5_30'] = 
                           df_new['std_price_5'] / df_new['std_price_30']
-...     df_new['ratio_std_price_5_365'] = 
+    df_new['ratio_std_price_5_365'] = 
                           df_new['std_price_5'] / df_new['std_price_365']
-...     df_new['ratio_std_price_30_365'] = 
+    df_new['ratio_std_price_30_365'] = 
                           df_new['std_price_30'] / df_new['std_price_365']
 ```
 
@@ -408,15 +408,15 @@ Similarly, a sub-function that generates six volume-based standard
 deviation features is as follows:
 
 ```
->>> def add_std_volume(df, df_new):
-...     df_new['std_volume_5'] = df['Volume'].rolling(5).std().shift(1)
-...     df_new['std_volume_30'] = df['Volume'].rolling(21).std().shift(1)
-...     df_new['std_volume_365'] = df['Volume'].rolling(252).std().shift(1)
-...     df_new['ratio_std_volume_5_30'] = 
+def add_std_volume(df, df_new):
+    df_new['std_volume_5'] = df['Volume'].rolling(5).std().shift(1)
+    df_new['std_volume_30'] = df['Volume'].rolling(21).std().shift(1)
+    df_new['std_volume_365'] = df['Volume'].rolling(252).std().shift(1)
+    df_new['ratio_std_volume_5_30'] = 
                         df_new['std_volume_5'] / df_new['std_volume_30']
-...     df_new['ratio_std_volume_5_365'] = 
+    df_new['ratio_std_volume_5_365'] = 
                         df_new['std_volume_5'] / df_new['std_volume_365']
-...     df_new['ratio_std_volume_30_365'] = 
+    df_new['ratio_std_volume_30_365'] = 
                         df_new['std_volume_30'] / df_new['std_volume_365']
 ```
 
@@ -424,20 +424,20 @@ And seven return-based features are generated using the following
 sub-function:
 
 ```
->>> def add_return_feature(df, df_new):
-...     df_new['return_1'] = ((df['Close'] - df['Close'].shift(1)) /         
+def add_return_feature(df, df_new):
+    df_new['return_1'] = ((df['Close'] - df['Close'].shift(1)) /         
                                     df['Close'].shift(1)).shift(1)
-...     df_new['return_5'] = ((df['Close'] - df['Close'].shift(5)) /     
+    df_new['return_5'] = ((df['Close'] - df['Close'].shift(5)) /     
                                     df['Close'].shift(5)).shift(1)
-...     df_new['return_30'] = ((df['Close'] - df['Close'].shift(21)) / 
+    df_new['return_30'] = ((df['Close'] - df['Close'].shift(21)) / 
                                     df['Close'].shift(21)).shift(1)
-...     df_new['return_365'] = ((df['Close'] - df['Close'].shift(252)) / 
+    df_new['return_365'] = ((df['Close'] - df['Close'].shift(252)) / 
                                     df['Close'].shift(252)).shift(1)
-...     df_new['moving_avg_5'] = 
+    df_new['moving_avg_5'] = 
                         df_new['return_1'].rolling(5).mean().shift(1)
-...     df_new['moving_avg_30'] = 
+    df_new['moving_avg_30'] = 
                         df_new['return_1'].rolling(21).mean().shift(1)
-...     df_new['moving_avg_365'] = 
+    df_new['moving_avg_365'] = 
                         df_new['return_1'].rolling(252).mean().shift(1)
 ```
 
@@ -445,27 +445,27 @@ Finally, we put together the main feature generation function that calls
 all preceding sub-functions: 
 
 ```
->>> def generate_features(df):
-...     """
-...     Generate features for a stock/index based on historical price 
+def generate_features(df):
+    """
+    Generate features for a stock/index based on historical price 
            and performance
-...     @param df: dataframe with columns "Open", "Close", "High", 
+    @param df: dataframe with columns "Open", "Close", "High", 
                    "Low", "Volume", "Adjusted Close"
-...     @return: dataframe, data set with new features
-...     """
-...     df_new = pd.DataFrame()
-...     # 6 original features
-...     add_original_feature(df, df_new)
-...     # 31 generated features
-...     add_avg_price(df, df_new)
-...     add_avg_volume(df, df_new)
-...     add_std_price(df, df_new)
-...     add_std_volume(df, df_new)
-...     add_return_feature(df, df_new)
-...     # the target
-...     df_new['close'] = df['Close']
-...     df_new = df_new.dropna(axis=0)
-...     return df_new
+    @return: dataframe, data set with new features
+    """
+    df_new = pd.DataFrame()
+    # 6 original features
+    add_original_feature(df, df_new)
+    # 31 generated features
+    add_avg_price(df, df_new)
+    add_avg_volume(df, df_new)
+    add_std_price(df, df_new)
+    add_std_volume(df, df_new)
+    add_return_feature(df, df_new)
+    # the target
+    df_new['close'] = df['Close']
+    df_new = df_new.dropna(axis=0)
+    return df_new
 ```
 
 It is noted that the window sizes here are 5, 21, and 252, instead of 7,
@@ -477,14 +477,14 @@ We can apply this feature engineering strategy on the DJIA data queried
 from 1988 to 2016 as follows:
 
 ```
->>> data_raw = pd.read_csv('19880101_20161231.csv', index_col='Date')
->>> data = generate_features(data_raw)
+data_raw = pd.read_csv('19880101_20161231.csv', index_col='Date')
+data = generate_features(data_raw)
 ```
 
 Take a look at what the data with the new features looks like:
 
 ```
->>> print(data.round(decimals=3).head(5))
+print(data.round(decimals=3).head(5))
 ```
 
 The preceding command line generates the following output:
@@ -574,16 +574,16 @@ We start with defining the function computing the prediction ~~
 with the current weights:
 
 ```
->>> def compute_prediction(X, weights):
-...     """ Compute the prediction y_hat based on current weights
-...     Args:
-...         X (numpy.ndarray)
-...         weights (numpy.ndarray)
-...     Returns:
-...         numpy.ndarray, y_hat of X under weights
-...     """
-...     predictions = np.dot(X, weights)
-...     return predictions
+def compute_prediction(X, weights):
+    """ Compute the prediction y_hat based on current weights
+    Args:
+        X (numpy.ndarray)
+        weights (numpy.ndarray)
+    Returns:
+        numpy.ndarray, y_hat of X under weights
+    """
+    predictions = np.dot(X, weights)
+    return predictions
 ```
 
  
@@ -594,36 +594,36 @@ Then, we can continue with the function updating the weight ***w*** by
 one step in a gradient descent manner, as follows:
 
 ```
->>> def update_weights_gd(X_train, y_train, weights, learning_rate):
-...     """ Update weights by one step
-...     Args:
-...         X_train, y_train (numpy.ndarray, training data set)
-...         weights (numpy.ndarray)
-...         learning_rate (float)
-...     Returns:
-...         numpy.ndarray, updated weights
-...     """
-...     predictions = compute_prediction(X_train, weights)
-...     weights_delta = np.dot(X_train.T, y_train - predictions)
-...     m = y_train.shape[0]
-...     weights += learning_rate / float(m) * weights_delta
-...     return weights
+def update_weights_gd(X_train, y_train, weights, learning_rate):
+    """ Update weights by one step
+    Args:
+        X_train, y_train (numpy.ndarray, training data set)
+        weights (numpy.ndarray)
+        learning_rate (float)
+    Returns:
+        numpy.ndarray, updated weights
+    """
+    predictions = compute_prediction(X_train, weights)
+    weights_delta = np.dot(X_train.T, y_train - predictions)
+    m = y_train.shape[0]
+    weights += learning_rate / float(m) * weights_delta
+    return weights
 ```
 
 Then we add the function that calculates the cost *J(**w**)* as well:
 
 ```
->>> def compute_cost(X, y, weights):
-...     """ Compute the cost J(w)
-...     Args:
-...         X, y (numpy.ndarray, data set)
-...         weights (numpy.ndarray)
-...     Returns:
-...         float
-...     """
-...     predictions = compute_prediction(X, weights)
-...     cost = np.mean((predictions - y) ** 2 / 2.0)
-...     return cost
+def compute_cost(X, y, weights):
+    """ Compute the cost J(w)
+    Args:
+        X, y (numpy.ndarray, data set)
+        weights (numpy.ndarray)
+    Returns:
+        float
+    """
+    predictions = compute_prediction(X, weights)
+    cost = np.mean((predictions - y) ** 2 / 2.0)
+    return cost
 ```
 
 Now, put all functions together with a model training function by
@@ -640,48 +640,48 @@ performing the following tasks:
 Let's see how it's done by executing the following commands:
 
 ```
->>> def train_linear_regression(X_train, y_train, max_iter, 
+def train_linear_regression(X_train, y_train, max_iter, 
                              learning_rate, fit_intercept=False):
-...     """ Train a linear regression model with gradient descent
-...     Args:
-...         X_train, y_train (numpy.ndarray, training data set)
-...         max_iter (int, number of iterations)
-...         learning_rate (float)
-...         fit_intercept (bool, with an intercept w0 or not)
-...     Returns:
-...         numpy.ndarray, learned weights
-...     """
-...     if fit_intercept:
-...         intercept = np.ones((X_train.shape[0], 1))
-...         X_train = np.hstack((intercept, X_train))
-...     weights = np.zeros(X_train.shape[1])
-...     for iteration in range(max_iter):
-...         weights = update_weights_gd(
+    """ Train a linear regression model with gradient descent
+    Args:
+        X_train, y_train (numpy.ndarray, training data set)
+        max_iter (int, number of iterations)
+        learning_rate (float)
+        fit_intercept (bool, with an intercept w0 or not)
+    Returns:
+        numpy.ndarray, learned weights
+    """
+    if fit_intercept:
+        intercept = np.ones((X_train.shape[0], 1))
+        X_train = np.hstack((intercept, X_train))
+    weights = np.zeros(X_train.shape[1])
+    for iteration in range(max_iter):
+        weights = update_weights_gd(
                          X_train, y_train, weights, learning_rate)
-...         # Check the cost for every 100 (for example) iterations
-...         if iteration % 100 == 0:
-...             print(compute_cost(X_train, y_train, weights))
-...     return weights
+        # Check the cost for every 100 (for example) iterations
+        if iteration % 100 == 0:
+            print(compute_cost(X_train, y_train, weights))
+    return weights
 ```
 
 Finally, predict the results of new input values using the trained model
 as follows:
 
 ```
->>> def predict(X, weights):
-...     if X.shape[1] == weights.shape[0] - 1:
-...         intercept = np.ones((X.shape[0], 1))
-...         X = np.hstack((intercept, X))
-...     return compute_prediction(X, weights)
+def predict(X, weights):
+    if X.shape[1] == weights.shape[0] - 1:
+        intercept = np.ones((X.shape[0], 1))
+        X = np.hstack((intercept, X))
+    return compute_prediction(X, weights)
 ```
 
 Implementing linear regression is very similar to logistic regression as
 we just saw. Let's examine it with a small example:
 
 ```
->>> X_train = np.array([[6], [2], [3], [4], [1], 
+X_train = np.array([[6], [2], [3], [4], [1], 
                         [5], [2], [6], [4], [7]])
->>> y_train = np.array([5.5, 1.6, 2.2, 3.7, 0.8, 
+y_train = np.array([5.5, 1.6, 2.2, 3.7, 0.8, 
                         5.2, 1.5, 5.3, 4.4, 6.8])
 ```
 
@@ -689,21 +689,21 @@ Train a linear regression model by `100` iterations, at a
 learning rate of `0.01` based on intercept-included weights:
 
 ```
->>> weights = train_linear_regression(X_train, y_train,
+weights = train_linear_regression(X_train, y_train,
             max_iter=100, learning_rate=0.01, fit_intercept=True)
 ```
 
 Check the model's performance on new samples as follows:
 
 ```
->>> X_test = np.array([[1.3], [3.5], [5.2], [2.8]])
->>> predictions = predict(X_test, weights)
->>> import matplotlib.pyplot as plt
->>> plt.scatter(X_train[:, 0], y_train, marker='o', c='b')
->>> plt.scatter(X_test[:, 0], predictions, marker='*', c='k')
->>> plt.xlabel('x')
->>> plt.ylabel('y')
->>> plt.show()
+X_test = np.array([[1.3], [3.5], [5.2], [2.8]])
+predictions = predict(X_test, weights)
+import matplotlib.pyplot as plt
+plt.scatter(X_train[:, 0], y_train, marker='o', c='b')
+plt.scatter(X_test[:, 0], predictions, marker='*', c='k')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
 ```
 
 Refer to the following screenshot for the end result:
@@ -716,13 +716,13 @@ stars).
 Let's try it on another dataset, the diabetes dataset from scikit-learn:
 
 ```
->>> from sklearn import datasets
->>> diabetes = datasets.load_diabetes()
->>> print(diabetes.data.shape)
+from sklearn import datasets
+diabetes = datasets.load_diabetes()
+print(diabetes.data.shape)
 (442, 10)
->>> num_test = 30 
->>> X_train = diabetes.data[:-num_test, :]
->>> y_train = diabetes.target[:-num_test]
+num_test = 30 
+X_train = diabetes.data[:-num_test, :]
+y_train = diabetes.target[:-num_test]
 ```
 
 Train a linear regression model by `5000` iterations, at a
@@ -730,7 +730,7 @@ learning rate of `1` based on intercept-included weights (the
 cost is displayed every 500 iterations):
 
 ```
->>> weights = train_linear_regression(X_train, y_train, 
+weights = train_linear_regression(X_train, y_train, 
               max_iter=5000, learning_rate=1, fit_intercept=True)
 2960.1229915
 1539.55080927
@@ -742,10 +742,10 @@ cost is displayed every 500 iterations):
 1478.06282572
 1477.84756968
 1477.64304737
->>> X_test = diabetes.data[-num_test:, :]
->>> y_test = diabetes.target[-num_test:]
->>> predictions = predict(X_test, weights)
->>> print(predictions)
+X_test = diabetes.data[-num_test:, :]
+y_test = diabetes.target[-num_test:]
+predictions = predict(X_test, weights)
+print(predictions)
 [ 232.22305668 123.87481969 166.12805033 170.23901231 
   228.12868839 154.95746522 101.09058779 87.33631249 
   143.68332296 190.29353122 198.00676871 149.63039042 
@@ -754,7 +754,7 @@ cost is displayed every 500 iterations):
    219.62602446 62.21227353 136.29989073 122.27908721 
    55.14492975 191.50339388 105.685612 126.25915035 
    208.99755875 47.66517424]
->>> print(y_test)
+print(y_test)
 [ 261. 113. 131. 174. 257. 55. 84. 42. 146. 212. 233. 
   91. 111. 152. 120. 67. 310. 94. 183. 66. 173. 72. 
   49. 64. 48. 178. 104. 132. 220. 57.]
@@ -771,8 +771,8 @@ We can also directly use the SGD-based regression
 algorithm, `SGDRegressor`, from scikit-learn:
 
 ```
->>> from sklearn.linear_model import SGDRegressor
->>> regressor = SGDRegressor(loss='squared_loss', penalty='l2',
+from sklearn.linear_model import SGDRegressor
+regressor = SGDRegressor(loss='squared_loss', penalty='l2',
   alpha=0.0001, learning_rate='constant', eta0=0.01, n_iter=1000)
 ```
 
@@ -790,9 +790,9 @@ unchanged during the course of training. Train the model and output
 prediction on the testing set as follows:
 
 ```
->>> regressor.fit(X_train, y_train)
->>> predictions = regressor.predict(X_test)
->>> print(predictions)
+regressor.fit(X_train, y_train)
+predictions = regressor.predict(X_test)
+print(predictions)
 [ 231.03333725 124.94418254 168.20510142 170.7056729 
   226.52019503 154.85011364 103.82492496 89.376184 
   145.69862538 190.89270871 197.0996725 151.46200981 
@@ -809,26 +809,26 @@ import TensorFlow and specify the parameters of the model, including
 a `0.5` learning rate:
 
 ```
->>> import tensorflow as tf
->>> n_features = int(X_train.shape[1])
->>> learning_rate = 0.5
->>> n_iter = 1000
+import tensorflow as tf
+n_features = int(X_train.shape[1])
+learning_rate = 0.5
+n_iter = 1000
 ```
 
 Then, we define `placeholder` and `Variable`,
 including the weights and bias of the model as follows:
 
 ```
->>> x = tf.placeholder(tf.float32, shape=[None, n_features])
->>> y = tf.placeholder(tf.float32, shape=[None])
->>> W = tf.Variable(tf.ones([n_features, 1]))
->>> b = tf.Variable(tf.zeros([1]))
+x = tf.placeholder(tf.float32, shape=[None, n_features])
+y = tf.placeholder(tf.float32, shape=[None])
+W = tf.Variable(tf.ones([n_features, 1]))
+b = tf.Variable(tf.zeros([1]))
 ```
 
 Construct the model by computing the prediction as follows:
 
 ```
->>> pred = tf.add(tf.matmul(x, W), b)[:, 0]
+pred = tf.add(tf.matmul(x, W), b)[:, 0]
 ```
 
 After assembling the graph for the model, we define the loss function,
@@ -836,28 +836,28 @@ the MSE, and a gradient descent optimizer that searches for the best
 coefficients by minimizing the loss:
 
 ```
->>> cost = tf.losses.mean_squared_error(labels=y, predictions=pred)
->>> optimizer =
+cost = tf.losses.mean_squared_error(labels=y, predictions=pred)
+optimizer =
     tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 ```
 
 Now we can initialize the variables and start a TensorFlow session:
 
 ```
->>> init_vars = tf.initialize_all_variables()
->>> sess = tf.Session()
->>> sess.run(init_vars)
+init_vars = tf.initialize_all_variables()
+sess = tf.Session()
+sess.run(init_vars)
 ```
 
 Finally, we start the training process and print out loss after every
 100 iterations as follows:
 
 ```
->>> for i in range(1, n_iter+1):
-...     _, c = sess.run([optimizer, cost], 
+for i in range(1, n_iter+1):
+    _, c = sess.run([optimizer, cost], 
                        feed_dict={x: X_train, y: y_train})
-...     if i % 100 == 0:
-...         print('Iteration %i, training loss: %f' % (i, c))
+    if i % 100 == 0:
+        print('Iteration %i, training loss: %f' % (i, c))
 Iteration 100, training loss: 3984.505859
 Iteration 200, training loss: 3465.406494
 Iteration 300, training loss: 3258.358398
@@ -869,8 +869,8 @@ Iteration 800, training loss: 2993.270752
 Iteration 900, training loss: 2981.771240
 Iteration 1000, training loss: 2974.175049
 Apply the trained model on the testing set:
->>> predictions = sess.run(pred, feed_dict={x: X_test})
->>> print(predictions)
+predictions = sess.run(pred, feed_dict={x: X_test})
+print(predictions)
 [230.2237 124.89581 170.9626 170.43433 224.11993 153.07018
  105.98048 90.66377 149.22597 191.74197 194.04721 153.0992
  170.85931 104.24113 169.2757 135.45589 260.55713 102.38674
@@ -920,32 +920,32 @@ We first define the MSE and weighted MSE computation functions as
 they'll be used in our calculation:
 
 ```
->>> def mse(targets):
-...     # When the set is empty
-...     if targets.size == 0:
-...         return 0
-...     return np.var(targets)
->>> def weighted_mse(groups):
-...     """ Calculate weighted MSE of children after a split
-...     Args:
-...         groups (list of children, and a child consists a list 
+def mse(targets):
+    # When the set is empty
+    if targets.size == 0:
+        return 0
+    return np.var(targets)
+def weighted_mse(groups):
+    """ Calculate weighted MSE of children after a split
+    Args:
+        groups (list of children, and a child consists a list 
                     of targets)
-...     Returns:
-...         float, weighted impurity
-...     """
-...     total = sum(len(group) for group in groups)
-...     weighted_sum = 0.0
-...     for group in groups:
-...         weighted_sum += len(group) / float(total) * mse(group)
-...     return weighted_sum
+    Returns:
+        float, weighted impurity
+    """
+    total = sum(len(group) for group in groups)
+    weighted_sum = 0.0
+    for group in groups:
+        weighted_sum += len(group) / float(total) * mse(group)
+    return weighted_sum
 ```
 
 Test things out by executing the following commands:
 
 ```
->>> print('{0:.4f}'.format(mse(np.array([1, 2, 3]))))
+print('{0:.4f}'.format(mse(np.array([1, 2, 3]))))
 0.6667
->>> print('{0:.4f}'.format(weighted_mse([np.array([1, 2, 3]), 
+print('{0:.4f}'.format(weighted_mse([np.array([1, 2, 3]), 
                                          np.array([1, 2])])))
 0.5000
 ```
@@ -995,54 +995,54 @@ separates samples in a node into left and right branches based on a pair
 of feature and value:
 
 ```
->>> def split_node(X, y, index, value):
-...     """ Split data set X, y based on a feature and a value
-...     Args:
-...         X, y (numpy.ndarray, data set)
-...         index (int, index of the feature used for splitting)
-...         value (value of the feature used for splitting)
-...     Returns:
-...         list, list: left and right child, a child is in the 
+def split_node(X, y, index, value):
+    """ Split data set X, y based on a feature and a value
+    Args:
+        X, y (numpy.ndarray, data set)
+        index (int, index of the feature used for splitting)
+        value (value of the feature used for splitting)
+    Returns:
+        list, list: left and right child, a child is in the 
                         format of [X, y]
-...     """
-...     x_index = X[:, index]
-...     # if this feature is numerical
-...     if type(X[0, index]) in [int, float]:
-...         mask = x_index >= value
-...     # if this feature is categorical
-...     else:
-...     mask = x_index == value
-...     # split into left and right child
-...     left = [X[~mask, :], y[~mask]]
-...     right = [X[mask, :], y[mask]]
-...     return left, right
+    """
+    x_index = X[:, index]
+    # if this feature is numerical
+    if type(X[0, index]) in [int, float]:
+        mask = x_index >= value
+    # if this feature is categorical
+    else:
+    mask = x_index == value
+    # split into left and right child
+    left = [X[~mask, :], y[~mask]]
+    right = [X[mask, :], y[mask]]
+    return left, right
 ```
 
 Next, we define the greedy search function trying out all possible
 splits and returning the one with the least weighted MSE:
 
 ```
->>> def get_best_split(X, y):
-...     """ Obtain the best splitting point and resulting children 
+def get_best_split(X, y):
+    """ Obtain the best splitting point and resulting children 
             for the data set X, y
-...     Args:
-...         X, y (numpy.ndarray, data set)
-...         criterion (gini or entropy)
-...     Returns:
-...         dict {index: index of the feature, value: feature 
+    Args:
+        X, y (numpy.ndarray, data set)
+        criterion (gini or entropy)
+    Returns:
+        dict {index: index of the feature, value: feature 
                   value, children: left and right children}
-...     """
-...     best_index, best_value, best_score, children = 
+    """
+    best_index, best_value, best_score, children = 
                                        None, None, 1e10, None
-...     for index in range(len(X[0])):
-...         for value in np.sort(np.unique(X[:, index])):
-...             groups = split_node(X, y, index, value)
-...             impurity = weighted_mse([groups[0][1], 
+    for index in range(len(X[0])):
+        for value in np.sort(np.unique(X[:, index])):
+            groups = split_node(X, y, index, value)
+            impurity = weighted_mse([groups[0][1], 
                                          groups[1][1]])
-...             if impurity < best_score:
-...                 best_index, best_value, best_score, children = 
+            if impurity < best_score:
+                best_index, best_value, best_score, children = 
                                     index, value, impurity, groups
-...     return {'index': best_index, 'value': best_value, 
+    return {'index': best_index, 'value': best_value, 
                                            'children': children}
 ```
 
@@ -1056,9 +1056,9 @@ the process at a node stops, and the mean value of the
 sample `targets` will be assigned to this terminal node:
 
 ```
->>> def get_leaf(targets):
-...     # Obtain the leaf as the mean of the targets
-...     return np.mean(targets)
+def get_leaf(targets):
+    # Obtain the leaf as the mean of the targets
+    return np.mean(targets)
 ```
 
 And finally, the recursive function split that links all of these
@@ -1067,58 +1067,58 @@ and assigning the leaf node if so or proceeding with further separation
 otherwise:
 
 ```
->>> def split(node, max_depth, min_size, depth):
-...     """ Split children of a node to construct new nodes or 
+def split(node, max_depth, min_size, depth):
+    """ Split children of a node to construct new nodes or 
             assign them terminals
-...     Args:
-...         node (dict, with children info)
-...         max_depth (int, maximal depth of the tree)
-...         min_size (int, minimal samples required to further 
+    Args:
+        node (dict, with children info)
+        max_depth (int, maximal depth of the tree)
+        min_size (int, minimal samples required to further 
                       split a child)
-...         depth (int, current depth of the node)
-...     """
-...     left, right = node['children']
-...     del (node['children'])
-...     if left[1].size == 0:
-...         node['right'] = get_leaf(right[1])
-...         return
-...     if right[1].size == 0:
-...         node['left'] = get_leaf(left[1])
-...         return
-...     # Check if the current depth exceeds the maximal depth
-...     if depth >= max_depth:
-...         node['left'], node['right'] = 
+        depth (int, current depth of the node)
+    """
+    left, right = node['children']
+    del (node['children'])
+    if left[1].size == 0:
+        node['right'] = get_leaf(right[1])
+        return
+    if right[1].size == 0:
+        node['left'] = get_leaf(left[1])
+        return
+    # Check if the current depth exceeds the maximal depth
+    if depth >= max_depth:
+        node['left'], node['right'] = 
                           get_leaf(left[1]), get_leaf(right[1])
-...         return
-...     # Check if the left child has enough samples
-...     if left[1].size <= min_size:
-...         node['left'] = get_leaf(left[1])
-...     else:
-...         # It has enough samples, we further split it
-...         result = get_best_split(left[0], left[1])
-...         result_left, result_right = result['children']
-...         if result_left[1].size == 0:
-...             node['left'] = get_leaf(result_right[1])
-...         elif result_right[1].size == 0:
-...             node['left'] = get_leaf(result_left[1])
-...         else:
-...             node['left'] = result
-...             split(node['left'], max_depth, min_size, 
+        return
+    # Check if the left child has enough samples
+    if left[1].size <= min_size:
+        node['left'] = get_leaf(left[1])
+    else:
+        # It has enough samples, we further split it
+        result = get_best_split(left[0], left[1])
+        result_left, result_right = result['children']
+        if result_left[1].size == 0:
+            node['left'] = get_leaf(result_right[1])
+        elif result_right[1].size == 0:
+            node['left'] = get_leaf(result_left[1])
+        else:
+            node['left'] = result
+            split(node['left'], max_depth, min_size, 
                                                   depth + 1)
-...     # Check if the right child has enough samples
-...     if right[1].size <= min_size:
-...         node['right'] = get_leaf(right[1])
-...     else:
-...         # It has enough samples, we further split it
-...         result = get_best_split(right[0], right[1])
-...         result_left, result_right = result['children']
-...         if result_left[1].size == 0:
-...             node['right'] = get_leaf(result_right[1])
-...         elif result_right[1].size == 0:
-...             node['right'] = get_leaf(result_left[1])
-...         else:
-...             node['right'] = result
-...             split(node['right'], max_depth, min_size, 
+    # Check if the right child has enough samples
+    if right[1].size <= min_size:
+        node['right'] = get_leaf(right[1])
+    else:
+        # It has enough samples, we further split it
+        result = get_best_split(right[0], right[1])
+        result_left, result_right = result['children']
+        if result_left[1].size == 0:
+            node['right'] = get_leaf(result_right[1])
+        elif result_right[1].size == 0:
+            node['right'] = get_leaf(result_left[1])
+        else:
+            node['right'] = result
+            split(node['right'], max_depth, min_size, 
                                                    depth + 1)
 ```
 
@@ -1126,55 +1126,55 @@ Finally, the entry point of the regression tree construction is as
 follows:
 
 ```
->>> def train_tree(X_train, y_train, max_depth, min_size):
-...     """ Construction of a tree starts here
-...     Args:
-...         X_train, y_train (list, list, training data)
-...         max_depth (int, maximal depth of the tree)
-...         min_size (int, minimal samples required to further 
+def train_tree(X_train, y_train, max_depth, min_size):
+    """ Construction of a tree starts here
+    Args:
+        X_train, y_train (list, list, training data)
+        max_depth (int, maximal depth of the tree)
+        min_size (int, minimal samples required to further 
                       split a child)
-...     """
-...     root = get_best_split(X_train, y_train)
-...     split(root, max_depth, min_size, 1)
-...     return root
+    """
+    root = get_best_split(X_train, y_train)
+    split(root, max_depth, min_size, 1)
+    return root
 ```
 
 Now, let's test it with the preceding hand-calculated example:
 
 ```
->>> X_train = np.array([['semi', 3],
-...                     ['detached', 2],
-...                     ['detached', 3],
-...                     ['semi', 2],
-...                     ['semi', 4]], dtype=object)
->>> y_train = np.array([600, 700, 800, 400, 700])
->>> tree = train_tree(X_train, y_train, 2, 2)
+X_train = np.array([['semi', 3],
+                    ['detached', 2],
+                    ['detached', 3],
+                    ['semi', 2],
+                    ['semi', 4]], dtype=object)
+y_train = np.array([600, 700, 800, 400, 700])
+tree = train_tree(X_train, y_train, 2, 2)
 ```
 
 To verify the trained tree is identical to what we constructed by hand,
 we write a function displaying the tree:
 
 ```
->>> CONDITION = {'numerical': {'yes': '>=', 'no': '<'},
-...              'categorical': {'yes': 'is', 'no': 'is not'}}
->>> def visualize_tree(node, depth=0):
-...     if isinstance(node, dict):
-...         if type(node['value']) in [int, float]:
-...             condition = CONDITION['numerical']
-...         else:
-...             condition = CONDITION['categorical']
-...         print('{}|- X{} {} {}'.format(depth * ' ', 
+CONDITION = {'numerical': {'yes': '>=', 'no': '<'},
+             'categorical': {'yes': 'is', 'no': 'is not'}}
+def visualize_tree(node, depth=0):
+    if isinstance(node, dict):
+        if type(node['value']) in [int, float]:
+            condition = CONDITION['numerical']
+        else:
+            condition = CONDITION['categorical']
+        print('{}|- X{} {} {}'.format(depth * ' ', 
                   node['index'] + 1, condition['no'], node['value']))
-...         if 'left' in node:
-...             visualize_tree(node['left'], depth + 1)
-...         print('{}|- X{} {} {}'.format(depth * ' ', 
+        if 'left' in node:
+            visualize_tree(node['left'], depth + 1)
+        print('{}|- X{} {} {}'.format(depth * ' ', 
                  node['index'] + 1, condition['yes'], node['value']))
-...         if 'right' in node:
-...             visualize_tree(node['right'], depth + 1)
-...     else:
-...         print('{}[{}]'.format(depth * ' ', node))
+        if 'right' in node:
+            visualize_tree(node['right'], depth + 1)
+    else:
+        print('{}[{}]'.format(depth * ' ', node))
 
->>> visualize_tree(tree)
+visualize_tree(tree)
 |- X1 is not detached
   |- X2 < 3
     [400.0]
@@ -1190,18 +1190,18 @@ it from scratch, we can directly use the
 Apply it on an example of predicting Boston house prices as follows:
 
 ```
->>> boston = datasets.load_boston()
->>> num_test = 10 # the last 10 samples as testing set
->>> X_train = boston.data[:-num_test, :]
->>> y_train = boston.target[:-num_test]
->>> X_test = boston.data[-num_test:, :]
->>> y_test = boston.target[-num_test:]
->>> from sklearn.tree import DecisionTreeRegressor
->>> regressor = DecisionTreeRegressor(max_depth=10, 
+boston = datasets.load_boston()
+num_test = 10 # the last 10 samples as testing set
+X_train = boston.data[:-num_test, :]
+y_train = boston.target[:-num_test]
+X_test = boston.data[-num_test:, :]
+y_test = boston.target[-num_test:]
+from sklearn.tree import DecisionTreeRegressor
+regressor = DecisionTreeRegressor(max_depth=10, 
                                       min_samples_split=3)
->>> regressor.fit(X_train, y_train)
->>> predictions = regressor.predict(X_test)
->>> print(predictions)
+regressor.fit(X_train, y_train)
+predictions = regressor.predict(X_test)
+print(predictions)
 [12.7 20.9 20.9 20.2 20.9 30.8
  20.73076923 24.3 28.2 20.73076923]
 ```
@@ -1217,7 +1217,7 @@ Apply it on an example of predicting Boston house prices as follows:
 Compare predictions with the ground truth as follows:
 
 ```
->>> print(y_test)
+print(y_test)
 [ 19.7  18.3 21.2  17.5 16.8 22.4  20.6 23.9 22. 11.9]
 ```
 
@@ -1237,12 +1237,12 @@ package, `RandomForestRegressor`, from scikit-learn and deploy
 it to our Boston house price prediction example:
 
 ```
->>> from sklearn.ensemble import RandomForestRegressor
->>> regressor = RandomForestRegressor(n_estimators=100, 
+from sklearn.ensemble import RandomForestRegressor
+regressor = RandomForestRegressor(n_estimators=100, 
                            max_depth=10, min_samples_split=3)
->>> regressor.fit(X_train, y_train)
->>> predictions = regressor.predict(X_test)
->>> print(predictions)
+regressor.fit(X_train, y_train)
+predictions = regressor.predict(X_test)
+print(predictions)
 [ 19.34404351 20.93928947 21.66535354 19.99581433 20.873871
   25.52030056 21.33196685 28.34961905 27.54088571 21.32508585]
 ```
@@ -1253,9 +1253,9 @@ Online Ads Click-through with Tree-Based Algorithms*. First, we import
 the necessary modules as follows:
 
 ```
->>> import tensorflow as tf
->>> from tensorflow.contrib.tensor_forest.python import tensor_forest
->>> from tensorflow.python.ops import resources
+import tensorflow as tf
+from tensorflow.contrib.tensor_forest.python import tensor_forest
+from tensorflow.python.ops import resources
 ```
 
 And we specify the parameters of the model, including `20`
@@ -1263,10 +1263,10 @@ iterations during training process, `10` trees in total, and
 `30000` maximal splitting nodes:
 
 ```
->>> n_iter = 20
->>> n_features = int(X_train.shape[1])
->>> n_trees = 10
->>> max_nodes = 30000
+n_iter = 20
+n_features = int(X_train.shape[1])
+n_trees = 10
+max_nodes = 30000
 ```
 
  
@@ -1276,13 +1276,13 @@ iterations during training process, `10` trees in total, and
 Next, we create placeholders and build the TensorFlow graph:
 
 ```
->>> x = tf.placeholder(tf.float32, shape=[None, n_features])
->>> y = tf.placeholder(tf.float32, shape=[None])
->>> hparams = tensor_forest.ForestHParams(num_classes=1,
+x = tf.placeholder(tf.float32, shape=[None, n_features])
+y = tf.placeholder(tf.float32, shape=[None])
+hparams = tensor_forest.ForestHParams(num_classes=1,
                      regression=True, num_features=n_features, 
                      num_trees=n_trees, max_nodes=max_nodes, 
                      split_after_samples=30).fill()
->>> forest_graph = tensor_forest.RandomForestGraphs(hparams)
+forest_graph = tensor_forest.RandomForestGraphs(hparams)
 ```
 
 Note we need to set `num_classes` to `1` and
@@ -1293,29 +1293,29 @@ After defining the graph for the regression forest model, we specify the
 training graph and loss and the MSE:
 
 ```
->>> train_op = forest_graph.training_graph(x, y)
->>> loss_op = forest_graph.training_loss(x, y)
->>> infer_op, _, _ = forest_graph.inference_graph(x)
->>> cost = tf.losses.mean_squared_error(labels=y, predictions=infer_op[:, 0])
+train_op = forest_graph.training_graph(x, y)
+loss_op = forest_graph.training_loss(x, y)
+infer_op, _, _ = forest_graph.inference_graph(x)
+cost = tf.losses.mean_squared_error(labels=y, predictions=infer_op[:, 0])
 ```
 
 We then initialize the variables and start a TensorFlow session:
 
 ```
->>> init_vars = tf.group(tf.global_variables_initializer(), 
+init_vars = tf.group(tf.global_variables_initializer(), 
            tf.local_variables_initializer(), 
         resources.initialize_resources(resources.shared_resources())) 
->>> sess = tf.Session()
->>> sess.run(init_vars)
+sess = tf.Session()
+sess.run(init_vars)
 ```
 
 Finally, we start the training process and conduct a performance
 check-up for each iteration:
 
 ```
->>> for i in range(1, n_iter + 1):
-...     _, c = sess.run([train_op, cost], feed_dict={x: X_train, y: y_train})
-...     print('Iteration %i, training loss: %f' % (i, c))
+for i in range(1, n_iter + 1):
+    _, c = sess.run([train_op, cost], feed_dict={x: X_train, y: y_train})
+    print('Iteration %i, training loss: %f' % (i, c))
 Iteration 1, training loss: 596.255005
 Iteration 2, training loss: 51.917843
 Iteration 3, training loss: 35.395966
@@ -1342,8 +1342,8 @@ After 20 iterations, we apply the trained model on the testing set as
 follows:
 
 ```
->>> pred = sess.run(infer_op, feed_dict={x: X_test})[:, 0]
->>> print(pred)
+pred = sess.run(infer_op, feed_dict={x: X_test})[:, 0]
+print(pred)
 [15.446515 20.10433 21.38516 19.37373 19.593092 21.932205 22.259298 24.194878 24.095112 22.541391]
 ```
 
@@ -1411,11 +1411,11 @@ Let's solve the previous house price prediction problem with
 `SVR` this time:
 
 ```
->>> from sklearn.svm import SVR
->>> regressor = SVR(C=0.1, epsilon=0.02, kernel='linear')
->>> regressor.fit(X_train, y_train)
->>> predictions = regressor.predict(X_test)
->>> print(predictions)
+from sklearn.svm import SVR
+regressor = SVR(C=0.1, epsilon=0.02, kernel='linear')
+regressor.fit(X_train, y_train)
+predictions = regressor.predict(X_test)
+print(predictions)
 [ 14.59908201 19.32323741 21.16739294 18.53822876 20.1960847
   23.74076575 22.65713954 26.98366295 25.75795682 22.69805145]
 ```
@@ -1560,10 +1560,10 @@ need to define the `sigmoid` function and its derivative
 function:
 
 ```
->>> def sigmoid(z):
-...     return 1.0 / (1 + np.exp(-z))
->>> def sigmoid_derivative(z):
-...     return sigmoid(z) * (1.0 - sigmoid(z))
+def sigmoid(z):
+    return 1.0 / (1 + np.exp(-z))
+def sigmoid_derivative(z):
+    return sigmoid(z) * (1.0 - sigmoid(z))
 ```
 
 You can derive the derivative yourselves if you want to verify it.
@@ -1573,32 +1573,32 @@ dataset, the number of units in the hidden layer (we only use one hidden
 layer as an example), and the number of iterations:
 
 ```
->>> def train(X, y, n_hidden, learning_rate, n_iter):
-...     m, n_input = X.shape
-...     W1 = np.random.randn(n_input, n_hidden)
-...     b1 = np.zeros((1, n_hidden))
-...     W2 = np.random.randn(n_hidden, 1)
-...     b2 = np.zeros((1, 1))
-...     for i in range(1, n_iter+1):
-...         Z2 = np.matmul(X, W1) + b1
-...         A2 = sigmoid(Z2)
-...         Z3 = np.matmul(A2, W2) + b2
-...         A3 = Z3
-...         dZ3 = A3 - y
-...         dW2 = np.matmul(A2.T, dZ3)
-...         db2 = np.sum(dZ3, axis=0, keepdims=True)
-...         dZ2 = np.matmul(dZ3, W2.T) * sigmoid_derivative(Z2)
-...         dW1 = np.matmul(X.T, dZ2)
-...         db1 = np.sum(dZ2, axis=0)
-...         W2 = W2 - learning_rate * dW2 / m
-...         b2 = b2 - learning_rate * db2 / m
-...         W1 = W1 - learning_rate * dW1 / m
-...         b1 = b1 - learning_rate * db1 / m
-...         if i % 100 == 0:
-...             cost = np.mean((y - A3) ** 2)
-...             print('Iteration %i, training loss: %f' % (i, cost))
-...     model = {'W1': W1, 'b1': b1, 'W2': W2, 'b2': b2}
-...     return model
+def train(X, y, n_hidden, learning_rate, n_iter):
+    m, n_input = X.shape
+    W1 = np.random.randn(n_input, n_hidden)
+    b1 = np.zeros((1, n_hidden))
+    W2 = np.random.randn(n_hidden, 1)
+    b2 = np.zeros((1, 1))
+    for i in range(1, n_iter+1):
+        Z2 = np.matmul(X, W1) + b1
+        A2 = sigmoid(Z2)
+        Z3 = np.matmul(A2, W2) + b2
+        A3 = Z3
+        dZ3 = A3 - y
+        dW2 = np.matmul(A2.T, dZ3)
+        db2 = np.sum(dZ3, axis=0, keepdims=True)
+        dZ2 = np.matmul(dZ3, W2.T) * sigmoid_derivative(Z2)
+        dW1 = np.matmul(X.T, dZ2)
+        db1 = np.sum(dZ2, axis=0)
+        W2 = W2 - learning_rate * dW2 / m
+        b2 = b2 - learning_rate * db2 / m
+        W1 = W1 - learning_rate * dW1 / m
+        b1 = b1 - learning_rate * db1 / m
+        if i % 100 == 0:
+            cost = np.mean((y - A3) ** 2)
+            print('Iteration %i, training loss: %f' % (i, cost))
+    model = {'W1': W1, 'b1': b1, 'W2': W2, 'b2': b2}
+    return model
 ```
 
 Note besides weights **`W`**, we also employ bias
@@ -1615,16 +1615,16 @@ used. Hence, we standardize the input data by removing the mean and
 scaling to unit variance:
 
 ```
->>> boston = datasets.load_boston()
->>> num_test = 10 # the last 10 samples as testing set
->>> from sklearn import preprocessing
->>> scaler = preprocessing.StandardScaler()
->>> X_train = boston.data[:-num_test, :]
->>> X_train = scaler.fit_transform(X_train)
->>> y_train = boston.target[:-num_test].reshape(-1, 1)
->>> X_test = boston.data[-num_test:, :]
->>> X_test = scaler.transform(X_test)
->>> y_test = boston.target[-num_test:]
+boston = datasets.load_boston()
+num_test = 10 # the last 10 samples as testing set
+from sklearn import preprocessing
+scaler = preprocessing.StandardScaler()
+X_train = boston.data[:-num_test, :]
+X_train = scaler.fit_transform(X_train)
+y_train = boston.target[:-num_test].reshape(-1, 1)
+X_test = boston.data[-num_test:, :]
+X_test = scaler.transform(X_test)
+y_test = boston.target[-num_test:]
 ```
 
 With the scaled dataset, we can now train a one-layer neural network
@@ -1632,10 +1632,10 @@ with `20` hidden units, a `0.1` learning rate, and
 `2000` iterations:
 
 ```
->>> n_hidden = 20
->>> learning_rate = 0.1
->>> n_iter = 2000
->>> model = train(X_train, y_train, n_hidden, learning_rate, n_iter)
+n_hidden = 20
+learning_rate = 0.1
+n_iter = 2000
+model = train(X_train, y_train, n_hidden, learning_rate, n_iter)
 Iteration 100, training loss: 13.500649
 Iteration 200, training loss: 9.721267
 Iteration 300, training loss: 8.309366
@@ -1662,21 +1662,21 @@ Then, we define a `prediction` function, which takes in a
 model and produces regression results:
 
 ```
->>> def predict(x, model):
-...     W1 = model['W1']
-...     b1 = model['b1']
-...     W2 = model['W2']
-...     b2 = model['b2']
-...     A2 = sigmoid(np.matmul(x, W1) + b1)
-...     A3 = np.matmul(A2, W2) + b2
-...     return A3
+def predict(x, model):
+    W1 = model['W1']
+    b1 = model['b1']
+    W2 = model['W2']
+    b2 = model['b2']
+    A2 = sigmoid(np.matmul(x, W1) + b1)
+    A3 = np.matmul(A2, W2) + b2
+    return A3
 ```
 
 Finally, we apply the trained model on the testing set:
 
 ```
->>> predictions = predict(X_test, model)
->>> print(predictions)
+predictions = predict(X_test, model)
+print(predictions)
 [[16.28103034]
  [19.98591039]
  [22.17811179]
@@ -1687,7 +1687,7 @@ Finally, we apply the trained model on the testing set:
  [26.03651277]
  [25.35493394]
  [23.38112184]]
->>> print(y_test)
+print(y_test)
 [19.7 18.3 21.2 17.5 16.8 22.4 20.6 23.9 22. 11.9]
 ```
 
@@ -1709,11 +1709,11 @@ the `MLPRegressor` class (**MLP** stands for **multi-layer
 perceptron**, a nickname of neural networks):
 
 ```
->>> from sklearn.neural_network import MLPRegressor
->>> nn_scikit = MLPRegressor(hidden_layer_sizes=(20, 8), 
-...                         activation='logistic', solver='lbfgs',
-...                         learning_rate_init=0.1, random_state=42, 
-...                         max_iter=2000)
+from sklearn.neural_network import MLPRegressor
+nn_scikit = MLPRegressor(hidden_layer_sizes=(20, 8), 
+                        activation='logistic', solver='lbfgs',
+                        learning_rate_init=0.1, random_state=42, 
+                        max_iter=2000)
 ```
 
 The `hidden_layer_sizes`hyperparameter represents the
@@ -1725,9 +1725,9 @@ We fit the neural network model on the training set and predict on the
 testing data:
 
 ```
->>> nn_scikit.fit(X_train, y_train)
->>> predictions = nn_scikit.predict(X_test)
->>> print(predictions)
+nn_scikit.fit(X_train, y_train)
+predictions = nn_scikit.predict(X_test)
+print(predictions)
 [14.73064216 19.77077071 19.77422245 18.95256283 19.73320899 24.15010593 19.78909311 28.36477319 24.17612634 19.80954273]
 ```
 
@@ -1739,22 +1739,22 @@ with `20` and `8` nodes respectively,
 `2000` iterations, and a `0.1` learning rate:
 
 ```
->>> n_features = int(X_train.shape[1])
->>> n_hidden_1 = 20
->>> n_hidden_2 = 8
->>> learning_rate = 0.1
->>> n_iter = 2000
+n_features = int(X_train.shape[1])
+n_hidden_1 = 20
+n_hidden_2 = 8
+learning_rate = 0.1
+n_iter = 2000
 ```
 
 Then, we define placeholders and construct the network from input to
 hidden layers to output:
 
 ```
->>> x = tf.placeholder(tf.float32, shape=[None, n_features])
->>> y = tf.placeholder(tf.float32, shape=[None, 1])
->>> layer_1 = tf.nn.sigmoid(tf.layers.dense(x, n_hidden_1))
->>> layer_2 = tf.nn.sigmoid(tf.layers.dense(layer_1, n_hidden_2))
->>> pred = tf.layers.dense(layer_2, 1)
+x = tf.placeholder(tf.float32, shape=[None, n_features])
+y = tf.placeholder(tf.float32, shape=[None, 1])
+layer_1 = tf.nn.sigmoid(tf.layers.dense(x, n_hidden_1))
+layer_2 = tf.nn.sigmoid(tf.layers.dense(layer_1, n_hidden_2))
+pred = tf.layers.dense(layer_2, 1)
 ```
 
  
@@ -1774,28 +1774,28 @@ function, the MSE, and a gradient descent optimizer that searches for
 the best coefficients by minimizing the loss:
 
 ```
->>> cost = tf.losses.mean_squared_error(labels=y, predictions=pred)
->>> optimizer = 
+cost = tf.losses.mean_squared_error(labels=y, predictions=pred)
+optimizer = 
  tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 ```
 
 Now we can initialize the variables and start a TensorFlow session:
 
 ```
->>> init_vars = tf.initialize_all_variables()
->>> sess = tf.Session()
->>> sess.run(init_vars)
+init_vars = tf.initialize_all_variables()
+sess = tf.Session()
+sess.run(init_vars)
 ```
 
 Finally, we start the training process and print out the loss after
 every 100 iterations:
 
 ```
->>> for i in range(1, n_iter+1):
-...     _, c = sess.run([optimizer, cost], 
+for i in range(1, n_iter+1):
+    _, c = sess.run([optimizer, cost], 
                        feed_dict={x: X_train, y: y_train})
-...     if i % 100 == 0:
-...         print('Iteration %i, training loss: %f' % (i, c))
+    if i % 100 == 0:
+        print('Iteration %i, training loss: %f' % (i, c))
 Iteration 100, training loss: 12.995015
 Iteration 200, training loss: 8.587905
 Iteration 300, training loss: 6.319847
@@ -1821,8 +1821,8 @@ Iteration 2000, training loss: 1.971042
 We apply the trained model on the testing set:
 
 ```
->>> predictions = sess.run(pred, feed_dict={x: X_test})
->>> print(predictions)
+predictions = sess.run(pred, feed_dict={x: X_test})
+print(predictions)
 [[16.431433]
  [17.861343]
  [20.286907]
@@ -1849,50 +1849,50 @@ pip install keras
 We import the necessary modules after installation as follows:
 
 ```
->>> from keras import models
->>> from keras import layers
+from keras import models
+from keras import layers
 ```
 
 Then, we initialize a `Sequential` model of Keras:
 
 ```
->>> model = models.Sequential()
+model = models.Sequential()
 ```
 
 We add layer by layer, from the first hidden layer (20 units), to the
 second hidden layer (8 units), then the output layer:
 
 ```
->>> model.add(layers.Dense(n_hidden_1, activation="sigmoid", 
+model.add(layers.Dense(n_hidden_1, activation="sigmoid", 
                           input_shape=(n_features, )))
->>> model.add(layers.Dense(n_hidden_2, activation="sigmoid"))
->>> model.add(layers.Dense(1))
+model.add(layers.Dense(n_hidden_2, activation="sigmoid"))
+model.add(layers.Dense(1))
 ```
 
 It's quite similar to building **LEGO**. We also need an optimizer,
 which we define as follows with a `0.01` learning rate:
 
 ```
->>> from keras import optimizers
->>> sgd = optimizers.SGD(lr=0.01)
+from keras import optimizers
+sgd = optimizers.SGD(lr=0.01)
 ```
 
 Now we can compile the model by specifying the loss function and
 optimizer:
 
 ```
->>> model.compile(loss='mean_squared_error', optimizer=sgd)
+model.compile(loss='mean_squared_error', optimizer=sgd)
 ```
 
 Finally, we fit the model on the training set, with `100`
 iterations, and validate the performance on the testing set:
 
 ```
->>> model.fit(
-...     X_train, y_train,
-...     epochs=100,
-...     validation_data=(X_test, y_test)
-... )
+model.fit(
+    X_train, y_train,
+    epochs=100,
+    validation_data=(X_test, y_test)
+)
 Train on 496 samples, validate on 10 samples
 Epoch 1/100
 496/496 [==============================] - 0s 356us/step - loss: 255.7313 - val_loss: 10.7765
@@ -1924,8 +1924,8 @@ As usually, we obtain the prediction of the testing set using the
 trained model:
 
 ```
->>> predictions = model.predict(X_test)
->>> print(predictions)
+predictions = model.predict(X_test)
+print(predictions)
 [[16.521835]
  [18.425688]
  [19.65961 ]
@@ -1974,50 +1974,50 @@ using corresponding functions from scikit-learn:
     linear regression model using the grid search technique:
 
 ```
->>> diabetes = datasets.load_diabetes()
->>> num_test = 30 # the last 30 samples as testing set
->>> X_train = diabetes.data[:-num_test, :]
->>> y_train = diabetes.target[:-num_test]
->>> X_test = diabetes.data[-num_test:, :]
->>> y_test = diabetes.target[-num_test:]
->>> param_grid = {
-...     "alpha": [1e-07, 1e-06, 1e-05],
-...     "penalty": [None, "l2"],
-...     "eta0": [0.001, 0.005, 0.01],
-...     "n_iter": [300, 1000, 3000]
-... }
->>> from sklearn.model_selection import GridSearchCV
->>> regressor = SGDRegressor(loss='squared_loss', 
+diabetes = datasets.load_diabetes()
+num_test = 30 # the last 30 samples as testing set
+X_train = diabetes.data[:-num_test, :]
+y_train = diabetes.target[:-num_test]
+X_test = diabetes.data[-num_test:, :]
+y_test = diabetes.target[-num_test:]
+param_grid = {
+    "alpha": [1e-07, 1e-06, 1e-05],
+    "penalty": [None, "l2"],
+    "eta0": [0.001, 0.005, 0.01],
+    "n_iter": [300, 1000, 3000]
+}
+from sklearn.model_selection import GridSearchCV
+regressor = SGDRegressor(loss='squared_loss', 
                              learning_rate='constant')
->>> grid_search = GridSearchCV(regressor, param_grid, cv=3)
+grid_search = GridSearchCV(regressor, param_grid, cv=3)
 ```
 
 2.  We obtain the optimal set of parameters:
 
 ```
->>> grid_search.fit(X_train, y_train)
->>> print(grid_search.best_params_)
+grid_search.fit(X_train, y_train)
+print(grid_search.best_params_)
 {'penalty': None, 'alpha': 1e-05, 'eta0': 0.01, 'n_iter': 300}
->>> regressor_best = grid_search.best_estimator_
+regressor_best = grid_search.best_estimator_
 ```
 
 3.  We predict the testing set with the optimal model:
 
 ```
->>> predictions = regressor_best.predict(X_test)
+predictions = regressor_best.predict(X_test)
 ```
 
 4.  We evaluate the performance on testing sets based on the MSE, MAE,
     and R^2^metrics:
 
 ```
->>> from sklearn.metrics import mean_squared_error, 
+from sklearn.metrics import mean_squared_error, 
     mean_absolute_error, r2_score
->>> mean_squared_error(y_test, predictions)
+mean_squared_error(y_test, predictions)
 1862.0518552093429
->>> mean_absolute_error(y_test, predictions)
+mean_absolute_error(y_test, predictions)
 34.605923224169558
->>> r2_score(y_test, predictions)
+r2_score(y_test, predictions)
 0.63859162277753756
 ```
 
@@ -2035,18 +2035,18 @@ now continue with constructing the training set with data from 1988 to
 2015 and the testing set with data from 2016:
 
 ```
->>> data_raw = pd.read_csv('19880101_20161231.csv', index_col='Date')
->>> data = generate_features(data_raw)
->>> start_train = '1988-01-01'
->>> end_train = '2015-12-31'
->>> start_test = '2016-01-01'
->>> end_test = '2016-12-31'
->>> data_train = data.ix[start_train:end_train]
->>> X_train = data_train.drop('close', axis=1).values
->>> y_train = data_train['close'].values
->>> print(X_train.shape)
+data_raw = pd.read_csv('19880101_20161231.csv', index_col='Date')
+data = generate_features(data_raw)
+start_train = '1988-01-01'
+end_train = '2015-12-31'
+start_test = '2016-01-01'
+end_test = '2016-12-31'
+data_train = data.ix[start_train:end_train]
+X_train = data_train.drop('close', axis=1).values
+y_train = data_train['close'].values
+print(X_train.shape)
 (6804, 37)
->>> print(y_train.shape)
+print(y_train.shape)
 (6804,)
 ```
 
@@ -2056,7 +2056,7 @@ have 6,553 training samples and each sample is 37-dimensional. And we
 have `252` testing samples:
 
 ```
->>> print(X_test.shape)
+print(X_test.shape)
 (252, 37)
 ```
 
@@ -2069,15 +2069,15 @@ Hence, we need to normalize features into the same or a comparable
 scale. We do so by removing the mean and rescaling to unit variance:
 
 ```
->>> from sklearn.preprocessing import StandardScaler
->>> scaler = StandardScaler()
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
 ```
 
 We rescale both sets with `scaler` taught by the training set:
 
 ```
->>> X_scaled_train = scaler.fit_transform(X_train)
->>> X_scaled_test = scaler.transform(X_test)
+X_scaled_train = scaler.fit_transform(X_train)
+X_scaled_test = scaler.transform(X_test)
 ```
 
 Now we can search for the SGD-based linear regression with the optimal
@@ -2087,13 +2087,13 @@ multiplier, `alpha`, and initial learning
 rate, `eta0`:
 
 ```
->>> param_grid = {
-...     "alpha": [1e-5, 3e-5, 1e-4],
-...     "eta0": [0.01, 0.03, 0.1],
-... }
->>> lr = SGDRegressor(penalty='l2', n_iter=1000)
->>> grid_search = GridSearchCV(lr, param_grid, cv=5, scoring='r2')
->>> grid_search.fit(X_scaled_train, y_train)
+param_grid = {
+    "alpha": [1e-5, 3e-5, 1e-4],
+    "eta0": [0.01, 0.03, 0.1],
+}
+lr = SGDRegressor(penalty='l2', n_iter=1000)
+grid_search = GridSearchCV(lr, param_grid, cv=5, scoring='r2')
+grid_search.fit(X_scaled_train, y_train)
 ```
 
  
@@ -2104,22 +2104,22 @@ Select the best linear regression model and make predictions of the
 testing samples:
 
 ```
->>> print(grid_search.best_params_)
+print(grid_search.best_params_)
 {'alpha': 3e-05, 'eta0': 0.03}
->>> lr_best = grid_search.best_estimator_
->>> predictions_lr = lr_best.predict(X_scaled_test)
+lr_best = grid_search.best_estimator_
+predictions_lr = lr_best.predict(X_scaled_test)
 ```
 
 Measure the prediction performance via the MSE, MAE, and R^2^:
 
 ```
->>> print('MSE: {0:.3f}'.format(
+print('MSE: {0:.3f}'.format(
              mean_squared_error(y_test, predictions_lr)))
 MSE: 18934.971
->>> print('MAE: {0:.3f}'.format(
+print('MAE: {0:.3f}'.format(
              mean_absolute_error(y_test, predictions_lr))
 MAE: 100.244
->>> print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_lr)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_lr)))
 R^2: 0.979
 ```
 
@@ -2133,16 +2133,16 @@ further split a node, `min_samples_split`; and the number of
 features used for each tree, as well as the following:
 
 ```
->>> param_grid = {
-...     'max_depth': [50, 70, 80],
-...     'min_samples_split': [5, 10],
-...     'max_features': ['auto', 'sqrt'],
-...     'min_samples_leaf': [3, 5]
-... }
->>> rf = RandomForestRegressor(n_estimators=500, n_jobs=-1)
->>> grid_search = GridSearchCV(rf, param_grid, cv=5, scoring='r2', 
+param_grid = {
+    'max_depth': [50, 70, 80],
+    'min_samples_split': [5, 10],
+    'max_features': ['auto', 'sqrt'],
+    'min_samples_leaf': [3, 5]
+}
+rf = RandomForestRegressor(n_estimators=500, n_jobs=-1)
+grid_search = GridSearchCV(rf, param_grid, cv=5, scoring='r2', 
                                                          n_jobs=-1)
->>> grid_search.fit(X_train, y_train)
+grid_search.fit(X_train, y_train)
 ```
 
 Note this may take a while, hence we use all available CPU cores for
@@ -2152,10 +2152,10 @@ Select the best regression forest model and make predictions of the
 testing samples:
 
 ```
->>> print(grid_search.best_params_)
+print(grid_search.best_params_)
 {'max_depth': 70, 'max_features': 'auto', 'min_samples_leaf': 3, 'min_samples_split': 5}
->>> rf_best = grid_search.best_estimator_
->>> predictions_rf = rf_best.predict(X_test)
+rf_best = grid_search.best_estimator_
+predictions_rf = rf_best.predict(X_test)
 ```
 
  
@@ -2181,13 +2181,13 @@ testing samples:
 Measure the prediction performance as follows:
 
 ```
->>> print('MSE: {0:.3f}'.format(mean_squared_error(y_test, 
+print('MSE: {0:.3f}'.format(mean_squared_error(y_test, 
           predictions_rf)))
 MSE: 260349.365
->>> print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, 
+print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, 
            predictions_rf)))
 MAE: 299.344
->>> print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_rf)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_rf)))
 R^2: 0.706
 ```
 
@@ -2200,36 +2200,36 @@ for fine tuning. Similar to SGD-based algorithms, SVR doesn't work well
 on data with feature scale disparity:
 
 ```
->>> param_grid = [
-...     {'kernel': ['linear'], 'C': [100, 300, 500], 
+param_grid = [
+    {'kernel': ['linear'], 'C': [100, 300, 500], 
             'epsilon': [0.00003, 0.0001]},
-...     {'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
+    {'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
              'C': [10, 100, 1000], 'epsilon': [0.00003, 0.0001]}
-... ]
+]
 ```
 
 Again, to work around this, we use the rescaled data to train the
 `SVR` model:
 
 ```
->>> svr = SVR()
->>> grid_search = GridSearchCV(svr, param_grid, cv=5, scoring='r2')
->>> grid_search.fit(X_scaled_train, y_train)
+svr = SVR()
+grid_search = GridSearchCV(svr, param_grid, cv=5, scoring='r2')
+grid_search.fit(X_scaled_train, y_train)
 ```
 
 Select the best `SVR` model and make predictions of the
 testing samples:
 
 ```
->>> print(grid_search.best_params_)
+print(grid_search.best_params_)
 {'C': 500, 'epsilon': 3e-05, 'kernel': 'linear'}
->>> svr_best = grid_search.best_estimator_ 
->>> predictions_svr = svr_best.predict(X_scaled_test)
->>> print('MSE: {0:.3f}'.format(mean_squared_error(y_test, predictions_svr)))
+svr_best = grid_search.best_estimator_ 
+predictions_svr = svr_best.predict(X_scaled_test)
+print('MSE: {0:.3f}'.format(mean_squared_error(y_test, predictions_svr)))
 MSE: 17466.596
->>> print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, predictions_svr)))
+print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, predictions_svr)))
 MAE: 95.070
->>> print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_svr)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_svr)))
 R^2: 0.980
 ```
 
@@ -2246,35 +2246,35 @@ layer sizes, activation function, optimizer, learning rate, penalty
 factor, and mini-batch size:
 
 ```
->>> param_grid = {
-...     'hidden_layer_sizes': [(50, 10), (30, 30)],
-...     'activation': ['logistic', 'tanh', 'relu'],
-...     'solver': ['sgd', 'adam'],
-...     'learning_rate_init': [0.0001, 0.0003, 0.001, 0.01],
-...     'alpha': [0.00003, 0.0001, 0.0003],
-...     'batch_size': [30, 50]
-... }
->>> nn = MLPRegressor(random_state=42, max_iter=2000)
->>> grid_search = GridSearchCV(nn, param_grid, cv=5, scoring='r2', 
+param_grid = {
+    'hidden_layer_sizes': [(50, 10), (30, 30)],
+    'activation': ['logistic', 'tanh', 'relu'],
+    'solver': ['sgd', 'adam'],
+    'learning_rate_init': [0.0001, 0.0003, 0.001, 0.01],
+    'alpha': [0.00003, 0.0001, 0.0003],
+    'batch_size': [30, 50]
+}
+nn = MLPRegressor(random_state=42, max_iter=2000)
+grid_search = GridSearchCV(nn, param_grid, cv=5, scoring='r2', 
                                n_jobs=-1)
->>> grid_search.fit(X_scaled_train, y_train)
+grid_search.fit(X_scaled_train, y_train)
 ```
 
 Select the best neural network model and make predictions of the testing
 samples:
 
 ```
->>> print(grid_search.best_params_)
+print(grid_search.best_params_)
 {'activation': 'relu', 'alpha': 0.0003, 'hidden_layer_sizes': (50, 10), 'learning_rate_init': 0.001, 'solver': 'adam'}
->>> nn_best = grid_search.best_estimator_
->>> predictions_nn = nn_best.predict(X_scaled_test)
->>> print('MSE: {0:.3f}'.format(mean_squared_error(y_test, 
+nn_best = grid_search.best_estimator_
+predictions_nn = nn_best.predict(X_scaled_test)
+print('MSE: {0:.3f}'.format(mean_squared_error(y_test, 
           predictions_nn)))
 MSE: 19619.618
->>> print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, 
+print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, 
           predictions_nn)))
 MAE: 100.956
->>> print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_nn)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_nn)))
 R^2: 0.978
 ```
 
