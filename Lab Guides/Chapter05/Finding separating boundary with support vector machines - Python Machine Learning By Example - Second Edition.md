@@ -1,3 +1,6 @@
+<img align="right" src="../logo-small.png">
+
+
 Finding separating boundary with support vector machines
 --------------------------------------------------------
 

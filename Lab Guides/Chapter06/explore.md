@@ -1,3 +1,6 @@
+<img align="right" src="../logo-small.png">
+
+
 Exploring decision tree from root to leaves
 -------------------------------------------
 

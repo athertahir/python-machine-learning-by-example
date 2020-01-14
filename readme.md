@@ -1,3 +1,6 @@
+<img align="right" src="./logo-small.png">
+
+
 # Python Machine Learning By Example
 
 ### Overview

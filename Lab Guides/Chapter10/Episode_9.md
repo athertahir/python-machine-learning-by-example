@@ -1,3 +1,6 @@
+<img align="right" src="../logo-small.png">
+
+
 Lab : Machine Learning Best Practices
 -------------------------------------------
 
